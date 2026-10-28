@@ -1,0 +1,179 @@
+/*
+  Версия для слабовидящих для демо-лендингов.
+
+  Включается атрибутом data-a11y="on" на <html>. Его ставит
+  script/demo-theme.js: демо читает общий с сайтом выбор из
+  localStorage, получает состояние от родительской страницы через
+  postMessage и дополнительно — прямым доступом к iframe
+  (см. IframeSync и postDemoTheme в script.js). Поэтому режим
+  включается и выключается только кнопкой-глазиком в шапке сайта:
+  если он включён на сайте, он действует и в модалке, и в превью
+  витрины. Отдельной кнопки внутри демо или демо-модалки нет.
+
+  Задача режима — не перерисовать демо, а сделать его читаемым:
+  крупнее текст, выше контраст, меньше декора и движения.
+*/
+
+html[data-a11y="on"] {
+  /* Ровно тот же базовый кегль, что и на главной. Демо построены на
+     rem, поэтому вместе с текстом подрастают отступы и блоки. */
+  font-size: 20px;
+  --dim: var(--text);
+  --faint: var(--text);
+  --text-dim: var(--text);
+  --muted: var(--text);
+  --line: color-mix(in srgb, var(--text) 42%, transparent);
+  --line-soft: color-mix(in srgb, var(--text) 28%, transparent);
+  --line-strong: var(--text);
+  --grain-op: 0;
+  --deco: transparent;
+  --deco-2: transparent;
+  --deco-3: transparent;
+  --grid-line: transparent;
+  --glow-1: transparent;
+  --glow-2: transparent;
+  --spot: transparent;
+  scroll-behavior: auto;
+}
+
+html[data-a11y="on"] body {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* Увеличенный кегль не должен рвать слова по буквам. overflow-wrap:
+   break-word на body ломал крупные заголовки (в марафоне «КОТОРЫЕ»
+   превращалось в «КОТОР / ЫЕ»), поэтому перенос по буквам оставляем
+   только для обычного текста, а заголовкам разрешаем переноситься
+   по словам. */
+html[data-a11y="on"] p,
+html[data-a11y="on"] li,
+html[data-a11y="on"] dd,
+html[data-a11y="on"] blockquote {
+  overflow-wrap: break-word;
+}
+html[data-a11y="on"] h1,
+html[data-a11y="on"] h2,
+html[data-a11y="on"] h3 {
+  overflow-wrap: normal;
+}
+
+/* Заголовок-афиша ограничен 15ch под исходный кегль. При +25% слово
+   перестаёт влезать в эту меру и наезжает на билетную колонку —
+   снимаем ограничение и придерживаем кегль заголовка: тело текста
+   остаётся увеличенным, а декоративная афиша не ломает сетку. */
+html[data-a11y="on"] .poster__title {
+  max-width: none;
+  font-size: clamp(2.3rem, 9.4vw, 5.5rem);
+}
+@media (max-width: 520px) {
+  html[data-a11y="on"] .poster__title {
+    font-size: clamp(2.1rem, 11vw, 4rem);
+  }
+}
+
+html[data-a11y="on"] p,
+html[data-a11y="on"] li,
+html[data-a11y="on"] dd,
+html[data-a11y="on"] blockquote {
+  line-height: 1.7 !important;
+}
+
+html[data-a11y="on"] a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+html[data-a11y="on"] :focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+html[data-a11y="on"] button {
+  min-height: 44px;
+}
+
+/* Квадратные кнопки-иконки тянем до 44×44 целиком, а не только по
+   высоте. Иначе «крестик» в кассе становился вытянутым овалом
+   (34×44 / 38×44) — заметный визуальный дефект ровно в модалке. */
+html[data-a11y="on"] .theme-toggle,
+html[data-a11y="on"] .checkout__close,
+html[data-a11y="on"] .burger {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+}
+
+/* Прилипшие шапки на увеличенном кегле просвечивают контентом:
+   убираем блюр и делаем фон непрозрачным, иначе строки навигации
+   читаются поверх карточек при скролле. */
+html[data-a11y="on"] .topline,
+html[data-a11y="on"] .masthead {
+  background: var(--bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html[data-a11y="on"] .checkout__backdrop {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Движение выключаем: анимации и переходы не нужны. */
+html[data-a11y="on"] *,
+html[data-a11y="on"] *::before,
+html[data-a11y="on"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* Если reveal-анимация не успела сработать, контент всё равно виден.
+   clip-path здесь обязателен: у маскированных заголовков (.reveal--mask)
+   стартовое состояние — clip-path: inset(0 0 100% 0), то есть элемент
+   полностью обрезан. Без сброса такой заголовок остаётся невидимым:
+   IntersectionObserver не видит нулевую площадь и никогда не добавит
+   .is-in. Именно из-за этого в демо-марафоне пропадал H1. */
+html[data-a11y="on"] [data-reveal],
+html[data-a11y="on"] .reveal,
+html[data-a11y="on"] .reveal--mask {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+/* Декоративные слои: фон, зерно, геометрия, прогресс, гигантские
+   «водяные» цифры. .cursor здесь СПЕЦИАЛЬНО нет: в режиме для
+   слабовидящих указатель должен работать так же, как в обычном.
+   Демо-страницы прячут нативный курсор (html.has-cursor) и рисуют свой
+   .cursor — если скрыть его здесь, курсор исчезает совсем. */
+html[data-a11y="on"] .site-bg,
+html[data-a11y="on"] .bg,
+html[data-a11y="on"] .grain,
+html[data-a11y="on"] .geo,
+html[data-a11y="on"] .tex,
+html[data-a11y="on"] .progress,
+html[data-a11y="on"] .poster__bg,
+html[data-a11y="on"] .poster__marks,
+html[data-a11y="on"] .hero__ghost,
+html[data-a11y="on"] .tcard__geo,
+html[data-a11y="on"] .plan__geo,
+html[data-a11y="on"] .enroll__geo,
+html[data-a11y="on"] .enroll__ghost,
+html[data-a11y="on"] .aud__mark,
+html[data-a11y="on"] .footer__big {
+  display: none !important;
+}
+
+/* Встроенное демо — витрина или модалка. Полосу прокрутки внутри
+   iframe прячем: контент по-прежнему скроллится колесом, тачем и
+   клавиатурой, но справа нет системного трека, который в модалке
+   перекрывал содержимое и выглядел как второй скролл страницы. */
+html.is-embedded {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html.is-embedded::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

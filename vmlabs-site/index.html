@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#10161d" />
+
+  <title>VM Labs — студия лендингов для продюсеров и экспертов</title>
+  <meta name="description" content="Студия лендингов и сайтов для экспертов, продюсеров и бизнеса: структура, дизайн, вёрстка, боты, оплата и аналитика. 10–14 дней, фикс-цена в договоре, 30 дней поддержки." />
+
+  <link rel="canonical" href="https://vmlabs.ru/" />
+  <link rel="alternate" hreflang="ru" href="https://vmlabs.ru/" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23c4fad2'/%3E%3Cstop offset='0.45' stop-color='%236bee9b'/%3E%3Cstop offset='1' stop-color='%231fb85a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='6' y='6' width='108' height='108' rx='34' fill='url(%23g)'/%3E%3Cpath d='M46 35 L73 60 L46 85' fill='none' stroke='%2310161d' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="VM Labs" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://vmlabs.ru/" />
+  <meta property="og:title" content="VM Labs — лендинги и сайты для экспертов и бизнеса" />
+  <meta property="og:description" content="Лендинги и сайты под запуск, услугу или продукт: 10–14 дней, фикс-цена, тесты под нагрузку. Для экспертов, продюсеров и бизнеса." />
+  <meta property="og:image" content="https://vmlabs.ru/og-image-1200x630.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="VM Labs — лендинги и сайты" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VM Labs — лендинги и сайты для экспертов и бизнеса" />
+  <meta name="twitter:description" content="Лендинги и сайты под запуск, услугу или продукт: 10–14 дней, фикс-цена в договоре, тесты под нагрузку." />
+  <meta name="twitter:image" content="https://vmlabs.ru/og-image-1200x630.png" />
+
+  <script>
+    (() => {
+      'use strict';
+      try {
+        const root = document.documentElement;
+
+        /* --- Автоопределение региона ---
+           Определяем страну пользователя без внешних запросов и без
+           отправки IP третьим лицам. Источник — BCP-47-локаль вида
+           "ru-RU": вторая часть тега — код страны ISO 3166-1 alpha-2.
+           Если у локали нет региона (например, "ru"), пробуем через
+           Intl.Locale. Результат пишется в data-region на <html>,
+           откуда его может использовать любой код (аналитика, UI,
+           форма). Если определить не удалось — data-region="unknown". */
+        const detectRegion = () => {
+          const langs = (Array.isArray(navigator.languages) && navigator.languages.length)
+            ? navigator.languages
+            : [navigator.language || ''];
+          for (const tag of langs) {
+            if (!tag) continue;
+            const parts = String(tag).split('-');
+            const region = parts.length > 1 ? parts[parts.length - 1].toUpperCase() : '';
+            if (/^[A-Z]{2}$/.test(region)) return region;
+            try {
+              const fromIntl = new Intl.Locale(tag).region;
+              if (fromIntl) return String(fromIntl).toUpperCase();
+            } catch { /* Intl.Locale может отсутствовать в старых браузерах */ }
+          }
+          return null;
+        };
+
+        const region = detectRegion();
+        if (region) root.setAttribute('data-region', region);
+        else root.setAttribute('data-region', 'unknown');
+
+        const storedTheme = window.localStorage.getItem('vmlabs:theme');
+        const theme = (storedTheme === 'light' || storedTheme === 'dark') ? storedTheme : 'dark';
+        root.setAttribute('data-theme', theme);
+        root.style.colorScheme = theme;
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'light' ? '#F7F4EF' : '#10161d');
+        const storedA11y = window.localStorage.getItem('vmlabs:a11y');
+        const a11y = (storedA11y === 'on' || storedA11y === 'off')
+          ? storedA11y
+          : (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'on' : 'off');
+        if (a11y === 'on') root.setAttribute('data-a11y', 'on');
+        /*
+          Cookie-баннер теперь показан по умолчанию — так он виден и без
+          скрипта. Если согласие уже сохранено, помечаем это здесь, до
+          первой отрисовки <body>: иначе баннер мигнул бы у вернувшихся.
+          Версию записи проверять тут не нужно — устаревшую отменит
+          Consent.init() в script.js и вернёт баннер на экран.
+        */
+        if (window.localStorage.getItem('vmlabs:consent')) {
+          root.setAttribute('data-consent', 'given');
+        }
+if (window.sessionStorage.getItem('vmlabs:preload-shown') === '1'
+    || a11y === 'on'
+    || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          root.setAttribute('data-preload', 'skip');
+        }
+      } catch { /* приватный режим / localStorage недоступен */ }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/style.css?v=20261025g" />
+  <script src="script/script.js?v=20261025i" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://vmlabs.ru/#org",
+        "name": "VM Labs",
+        "description": "Студия лендингов и сайтов: посадочные страницы, Telegram-боты, приём оплат и аналитика для экспертов, продюсеров и бизнеса.",
+        "url": "https://vmlabs.ru/",
+        "logo": "https://vmlabs.ru/apple-touch-icon.png",
+        "email": "hello@vmlabs.ru",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "hello@vmlabs.ru",
+          "availableLanguage": ["ru"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://vmlabs.ru/#website",
+        "url": "https://vmlabs.ru/",
+        "name": "VM Labs",
+        "inLanguage": "ru-RU",
+        "publisher": { "@id": "https://vmlabs.ru/#org" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://vmlabs.ru/#service",
+        "name": "Лендинги и сайты для экспертов и бизнеса",
+        "serviceType": "Landing page and website development",
+        "provider": { "@id": "https://vmlabs.ru/#org" },
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "audience": { "@type": "BusinessAudience", "name": "Эксперты, продюсеры и бизнес" },
+        "description": "Лендинги, страницы регистрации и продажи, Telegram-бот, приём оплат и аналитика под ключ. 10–14 дней, фикс-цена, тесты под нагрузку."
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://vmlabs.ru/#faq",
+                                "mainEntity": [
+          { "@type": "Question", "name": "Сколько стоит запуск и от чего зависит цена?", "acceptedAnswer": { "@type": "Answer", "text": "Лендинг под запуск — от 90 000 ₽, запуск под ключ — от 180 000 ₽, запуск под контролем — от 300 000 ₽, абонемент — от 60 000 ₽ в месяц. Цена зависит от количества страниц, интеграций (бот, оплата, CRM, аналитика) и сроков. После брифа даём фиксированную смету за 24 часа — дальше она не меняется, если не меняется объём." } },
+          { "@type": "Question", "name": "Чем отличаются «Лендинг», «Запуск под ключ» и «Запуск под контролем»?", "acceptedAnswer": { "@type": "Answer", "text": "«Лендинг» — одна страница под заявку: структура, тексты, дизайн, вёрстка, форма, аналитика. 7–10 дней, от 90 000 ₽. «Под ключ» — страницы регистрации и продажи, Telegram-бот, приём оплат, письма, аналитика и тесты под нагрузку. 10–14 дней, от 180 000 ₽. «Под контролем» — то же плюс A/B первого экрана, аналитика после старта и две недели сопровождения; два слота в месяц, 14–18 дней, от 300 000 ₽." } },
+          { "@type": "Question", "name": "Что входит в стоимость, а что оплачивается отдельно?", "acceptedAnswer": { "@type": "Answer", "text": "В стоимость входят структура, тексты, дизайн, вёрстка, форма, интеграции по пакету, аналитика, тесты и 30 дней правок. Отдельно — рекламный бюджет, домен и хостинг, платёжные комиссии, подрядчики сверх скоупа (например, видеосъёмка) и доработки вне согласованного объёма." } },
+          { "@type": "Question", "name": "Можно ли оплатить частями или в рассрочку?", "acceptedAnswer": { "@type": "Answer", "text": "Обычно 50% предоплата и 50% перед запуском; для крупных проектов делим оплату на этапы. Рассрочку от банка не оформляем, но график платежей фиксируем в договоре." } },
+          { "@type": "Question", "name": "Работаете с юрлицами и по счёту?", "acceptedAnswer": { "@type": "Answer", "text": "Да. Работаем по договору с ИП и ООО, выставляем счёт на безнал и передаём закрывающие документы. Для физлиц тоже можно — по счёту или ссылке на оплату." } },
+          { "@type": "Question", "name": "Почему у вас дороже, чем у фрилансера?", "acceptedAnswer": { "@type": "Answer", "text": "За 15–30 тыс. обычно продают страницу без структуры, техчасти и тестов. В запуск входят тексты, дизайн, вёрстка, бот, оплата, аналитика, тесты под нагрузку и 30 дней правок. Ошибка на старте стоит дороже разницы в цене: теряются заявки и рекламный бюджет. Если нужна только страница — есть формат за 90 000 ₽." } },
+          { "@type": "Question", "name": "Есть ли скидки?", "acceptedAnswer": { "@type": "Answer", "text": "Скидок нет: цена фиксируется после брифа и не растёт. Есть пилотные условия для первых трёх проектов — 120 000 ₽ вместо 180 000 ₽ в обмен на публичный кейс. Это разовое предложение, а не постоянная акция." } },
+          { "@type": "Question", "name": "А если у нас несколько запусков в год?", "acceptedAnswer": { "@type": "Answer", "text": "Тогда выгоднее абонемент — от 60 000 ₽ в месяц: две страницы в месяц, правки, аналитика и приоритет в очереди. Он рассчитан на экспертов и компании с двумя и более проектами в квартал; разовые проекты тоже берём." } },
+          { "@type": "Question", "name": "Что нужно от нас, чтобы начать?", "acceptedAnswer": { "@type": "Answer", "text": "Дата и цель запуска, продукт и аудитория, ссылки на референсы, доступы к домену, хостингу и платёжке. Структуру, тексты, дизайн и интеграции берём на себя. С вашей стороны — 1–2 часа на бриф и согласования." } },
+          { "@type": "Question", "name": "Как быстро вы стартуете после оплаты?", "acceptedAnswer": { "@type": "Answer", "text": "Стартуем в течение 1–2 рабочих дней после предоплаты и получения материалов. Если слот занят — предложим ближайшую дату; в месяц берём три проекта." } },
+          { "@type": "Question", "name": "Из каких этапов состоит работа и сколько они занимают?", "acceptedAnswer": { "@type": "Answer", "text": "Бриф и смета — 24 часа; прототип и тексты — 2–4 дня; дизайн и вёрстка — 3–5 дней; интеграции и тесты — 2–3 дня; запуск и 30 дней поддержки. Итого 7–14 дней в зависимости от пакета." } },
+          { "@type": "Question", "name": "Что мы будем видеть в процессе?", "acceptedAnswer": { "@type": "Answer", "text": "Прототип до дизайна, демо каждый день после старта вёрстки, доступ к доске с задачами и статусами. Созвоны — по этапам, без ежедневных созвонов ради созвонов." } },
+          { "@type": "Question", "name": "Можно ли сократить сроки?", "acceptedAnswer": { "@type": "Answer", "text": "Иногда да — зависит от готовности материалов и свободного слота. Срочный запуск обсуждаем отдельно: сокращаем согласования, но не тесты под нагрузку. Точный срок скажем после брифа." } },
+          { "@type": "Question", "name": "Успеете к запуску, если старт через две недели?", "acceptedAnswer": { "@type": "Answer", "text": "Стандартный срок — 7–14 дней с момента предоплаты и получения материалов. В месяц берём три проекта. Если дата близко — напишите: посмотрим свободный слот и честно скажем, влезаем или нет." } },
+          { "@type": "Question", "name": "Что если дата запуска сдвинется?", "acceptedAnswer": { "@type": "Answer", "text": "Предупредите заранее — согласуем новый календарь и сохраним слот. Если сдвиг происходит по нашей вине, ответственность за срок прописана в договоре." } },
+          { "@type": "Question", "name": "Сколько правок входит и что считается допработой?", "acceptedAnswer": { "@type": "Answer", "text": "Два круга правок на каждом этапе — структура, дизайн, вёрстка — в рамках согласованного объёма. Новые страницы, сценарии и интеграции сверх скоупа — отдельной сметой. Так сроки и бюджет не расползаются." } },
+          { "@type": "Question", "name": "Кто отвечает за трафик и рекламу?", "acceptedAnswer": { "@type": "Answer", "text": "Мы — за посадочную систему: страницы, бот, оплату, аналитику и тесты. Трафик и рекламный бюджет — на вашей стороне или у партнёрского агентства; проверенных подрядчиков порекомендуем. Это разделение фиксируем в договоре." } },
+          { "@type": "Question", "name": "Что если в день старта будет наплыв заявок или оплат?", "acceptedAnswer": { "@type": "Answer", "text": "До старта прогоняем крайние сценарии: до 1000 заявок в час, обрыв оплаты, ошибки формы и писем. После релиза 30 дней правим баги и мелочи вне очереди." } },
+          { "@type": "Question", "name": "Что если конверсия или выручка не устроит?", "acceptedAnswer": { "@type": "Answer", "text": "Выручку и конверсию не гарантируем — на них влияют продукт, цена, прогрев и трафик. Гарантируем срок, качество, тесты и 30 дней правок. В формате «под контролем» дополнительно делаем A/B первого экрана и аналитику после старта." } },
+          { "@type": "Question", "name": "С какими сервисами интегрируетесь?", "acceptedAnswer": { "@type": "Answer", "text": "Платёжные провайдеры (ЮKassa, Tinkoff, Prodamus и др.), Telegram-боты, почтовые сервисы, GetCourse и другие платформы, Яндекс.Метрика и пиксели соцсетей. Нестандартные сценарии обсуждаем отдельной сметой." } },
+          { "@type": "Question", "name": "Кто настраивает аналитику и цели?", "acceptedAnswer": { "@type": "Answer", "text": "Мы: Яндекс.Метрика, цели на заявки и оплаты, UTM-метки, пиксели соцсетей. Передаём доступы и короткую инструкцию, как смотреть цифры. Если у вас своя аналитика — подключаем её." } },
+          { "@type": "Question", "name": "Делаете ли мобильную версию и быструю загрузку?", "acceptedAnswer": { "@type": "Answer", "text": "Да, мобильная версия и скорость входят в каждый пакет. Проверяем на реальных телефонах и в мобильной сети, оптимизируем картинки и шрифты. Цель — открытие страницы до 2,5 секунды." } },
+          { "@type": "Question", "name": "Что если нужен только редизайн существующего лендинга?", "acceptedAnswer": { "@type": "Answer", "text": "Берём: аудит, переупаковка структуры и текстов, новый дизайн или только техническая часть. Начинаем с разбора, что уже работает и где теряются заявки; дальше — смета на нужный объём." } },
+          { "@type": "Question", "name": "Что нужно для подключения оплаты и бота?", "acceptedAnswer": { "@type": "Answer", "text": "Доступы к платёжному провайдеру и домену, реквизиты для приёма оплат, токен бота. Если бота ещё нет — поможем создать и настроить сценарий. Все доступы остаются у вас." } },
+          { "@type": "Question", "name": "Кто пишет тексты и делает дизайн? У нас есть брендбук.", "acceptedAnswer": { "@type": "Answer", "text": "Структуру, тексты и дизайн делаем сами. Если есть брендбук или готовый копирайт — встраиваемся в них. Тексты и структуру согласуем до дизайна, чтобы не переделывать готовую страницу." } },
+          { "@type": "Question", "name": "Можно посмотреть кейсы?", "acceptedAnswer": { "@type": "Answer", "text": "Публичных кейсов пока нет — мы новая студия и рисовать отзывы не будем. Сейчас берём три пилотных проекта по 120 000 ₽ вместо 180 000 ₽ в обмен на публичный кейс с цифрами. Пока показываем демо-макеты и разборы лендингов — по ним видно подход." } },
+          { "@type": "Question", "name": "Почему вы, а не агентство?", "acceptedAnswer": { "@type": "Answer", "text": "В агентстве проект ведут менеджер и джуны, а вы платите за прослойку. У нас двое senior-исполнителей: тот, кто проектирует, и тот, кто делает техчасть. Быстрее, без потери контекста и с прямым контактом." } },
+          { "@type": "Question", "name": "Какие гарантии вы даёте?", "acceptedAnswer": { "@type": "Answer", "text": "Фиксируем цену, объём и срок в договоре, делаем тесты под нагрузку и 30 дней правок после релиза. Выручку и конверсию не гарантируем — это зависит от продукта и трафика. Гарантируем процесс, сроки и качество." } },
+          { "@type": "Question", "name": "Работаете по договору? Кому принадлежат доступы и права?", "acceptedAnswer": { "@type": "Answer", "text": "Да. Договор с фиксированным объёмом, сроками и ценой, NDA по умолчанию. Обычно 50% предоплата, 50% перед запуском; для крупных проектов разбиваем на этапы. После полной оплаты передаём исходники, доступы и документацию; права на макеты и код переходят вам." } },
+          { "@type": "Question", "name": "Вас двое — что если кто-то заболеет?", "acceptedAnswer": { "@type": "Answer", "text": "Каждый проект в контексте у обоих: работаем парой и подменяем друг друга. Документация и доступы хранятся у вас, поэтому проект не «повисает» на одном человеке." } },
+          { "@type": "Question", "name": "Что происходит после запуска?", "acceptedAnswer": { "@type": "Answer", "text": "30 дней поддержки включены: правим баги и мелочи вне очереди, смотрим на живую конверсию. Дальше — абонемент, если планируются новые запуски, или разовая доработка." } },
+          { "@type": "Question", "name": "Как проходит первый созвон?", "acceptedAnswer": { "@type": "Answer", "text": "20–30 минут в Telegram, Zoom или по телефону: разбираем запуск, аудиторию и дату, предлагаем формат и вилку цены. После созвона присылаем смету за 24 часа. Без презентаций и давления." } },
+          { "@type": "Question", "name": "Что с юридическими документами: оферта, согласия, cookie?", "acceptedAnswer": { "@type": "Answer", "text": "Подключаем ваши документы к формам и согласиям; если их нет — подскажем, что подготовить. Юридическую проверку текстов лучше доверить вашему юристу. На нашем сайте всё устроено по 152-ФЗ — покажем, как это работает." } },
+          { "@type": "Question", "name": "Кому вы не подходите?", "acceptedAnswer": { "@type": "Answer", "text": "Проектам с бюджетом ниже 90 000 ₽, без понятной задачи и сроков и задаче «просто красивая страница». Не делаем интернет-магазины, мобильные приложения и брендинг с нуля." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <noscript>
+    <style>
+      .preloader { display: none; }
+      .logo__word span { opacity: 1; }
+      .logo__box-fill { opacity: 1; }
+      .logo__box-stroke { display: none; }
+      .logo__chev { stroke-dashoffset: 0; }
+      .mock > * { opacity: 1; transform: none; }
+      .duo__track-fill { transform: scaleY(1); }
+      .cursor, .ambient-rain, .fx-canvas,
+      .process-rain { display: none; }
+      body { overflow: auto; }
+      body.is-locked { overflow: auto; }
+      .process-track { height: auto; }
+      .process-stage { position: static; height: auto; pointer-events: auto; }
+      .process-bar { display: none; }
+      .process-cards { display: grid; grid-template-columns: 1fr; gap: 24px; }
+      .process-card { opacity: 1; visibility: visible; animation: none; }
+      /* Без JS главы FAQ нечем раскрыть — показываем вопросы сразу,
+         чтобы контент не исчез вместе с аккордеоном. */
+      .faq-group__panel { grid-template-rows: 1fr; }
+    </style>
+  </noscript>
+</head>
+
+<body class="is-locked">
+
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-live="polite" aria-labelledby="cookie-banner-title">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__content">
+        <div class="cookie-banner__head">
+          <span class="cookie-banner__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+              <path d="M8.5 8.5v.01" />
+              <path d="M16 15.5v.01" />
+              <path d="M12 12v.01" />
+              <path d="M11 17v.01" />
+              <path d="M7 14v.01" />
+            </svg>
+          </span>
+          <h2 class="cookie-banner__title" id="cookie-banner-title">Cookie и веб-аналитика</h2>
+        </div>
+        <p class="cookie-banner__text">
+          Мы используем cookie и Яндекс.Метрику с записью действий (Вебвизор включён, поля формы маскируются),
+          чтобы понимать, как Вы пользуетесь сайтом. Это помогает делать его удобнее. Подробнее —
+          <span class="cookie-banner__white">в</span> <a href="#modal-cookie" data-modal-open="cookie">согласии на cookie</a>
+        </p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn--primary btn--sm" type="button" id="cookie-accept">Принять все</button>
+        <button class="btn btn--ghost btn--sm" type="button" id="cookie-decline">Только необходимые</button>
+        <button class="cookie-banner__reject" type="button" id="cookie-reject">Отклонить</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas class="ambient-rain" id="ambient-rain" aria-hidden="true"></canvas>
+
+  <button class="coin" id="coin" type="button" aria-label="Наверх страницы">
+    <svg class="coin__svg" viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+      <circle class="coin__arc" id="coin-arc" cx="18" cy="18" r="15.5" />
+    </svg>
+    <svg class="coin__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6 14.5l6-6 6 6" />
+    </svg>
+  </button>
+
+  <div class="preloader" id="preloader" role="status" aria-label="Загрузка VM Labs">
+    <div class="preloader__backdrop"></div>
+    <canvas class="preloader__rain" id="preloader-rain" aria-hidden="true"></canvas>
+
+    <div class="preloader__core">
+      <div class="logo logo--pre" data-logo data-animate>
+        <span class="logo__icon">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <linearGradient id="vmg-pre" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#b9f8c8" />
+                <stop offset="0.5" stop-color="#5ee98d" />
+                <stop offset="1" stop-color="#1fb85a" />
+              </linearGradient>
+            </defs>
+            <rect class="logo__box-fill" x="6" y="6" width="108" height="108" rx="34" fill="url(#vmg-pre)" />
+            <rect class="logo__box-stroke" x="6" y="6" width="108" height="108" rx="34" pathLength="1" fill="none" stroke="currentColor" stroke-width="2.5" />
+            <path class="logo__chev" d="M46 35 L73 60 L46 85" pathLength="1" fill="none" stroke="#10161d" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="logo__word">vm labs</span>
+      </div>
+
+      <div class="preloader__bar-row">
+        <div class="preloader__bar"><span class="preloader__bar-fill" id="preloader-fill"></span></div>
+        <span class="preloader__percent mono" id="preloader-percent">0%</span>
+      </div>
+      <p class="preloader__status mono" id="preloader-status">Загрузка…</p>
+    </div>
+
+    <span class="preloader__stamp mono" aria-hidden="true">vm_labs // handcrafted</span>
+  </div>
+
+  <canvas class="fx-canvas" id="fx-canvas" aria-hidden="true"></canvas>
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor__inner">
+      <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
+        <rect x="1" y="1" width="18" height="26" rx="9" stroke="currentColor" stroke-width="1.6" fill="rgba(16,22,29,0.6)" />
+        <line x1="10" y1="6" x2="10" y2="11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="header" id="header">
+    <div class="header__shell">
+      <div class="header__inner">
+
+        <a class="logo logo--static logo--header" href="#hero" data-logo aria-label="VM Labs — на главную">
+          <span class="logo__icon">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="vmg-header" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#b9f8c8" />
+                  <stop offset="0.5" stop-color="#5ee98d" />
+                  <stop offset="1" stop-color="#1fb85a" />
+                </linearGradient>
+              </defs>
+              <rect class="logo__box-fill" x="6" y="6" width="108" height="108" rx="34" fill="url(#vmg-header)" />
+              <rect class="logo__box-stroke" x="6" y="6" width="108" height="108" rx="34" pathLength="1" fill="none" stroke="currentColor" stroke-width="2.5" />
+              <path class="logo__chev" d="M46 35 L73 60 L46 85" pathLength="1" fill="none" stroke="#10161d" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="logo__word">vm labs</span>
+        </a>
+
+        <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+          <a class="header__link" href="#products">Что делаем</a>
+          <a class="header__link" href="#team">Команда</a>
+          <a class="header__link" href="#process">Процесс</a>
+          <a class="header__link" href="#portfolio">Вдохновние</a>
+          <a class="header__link" href="#reviews">Отзывы</a>
+          <a class="header__link" href="#pricing">Форматы</a>
+          <a class="header__link" href="#faq">FAQ</a>
+          <a class="btn btn--primary btn--sm header__cta" href="#contact">Получить смету за 24 ч</a>
+        </nav>
+
+        <div class="header__tools">
+
+          <div class="tool-wrap tool-wrap--start tool-wrap--sound">
+            <button class="icon-btn" id="sound-toggle" type="button"
+                    aria-pressed="false" aria-label="Звук" data-muted="true"
+                    aria-describedby="hint-sound">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z" />
+                <path class="icon-sound-on" d="M15.5 9.5a4 4 0 0 1 0 5" />
+                <path class="icon-sound-on" d="M18 7a7.5 7.5 0 0 1 0 10" />
+                <line class="icon-sound-off" x1="16" y1="9" x2="21" y2="15" />
+                <line class="icon-sound-off" x1="21" y1="9" x2="16" y2="15" />
+              </svg>
+            </button>
+            <span class="tool-tip mono" id="hint-sound" role="tooltip" data-tool-hint>Звук кликов: вкл / выкл</span>
+          </div>
+
+          <div class="tool-wrap">
+            <button class="icon-btn" id="a11y-toggle" type="button"
+                    data-a11y-toggle data-a11y-icon="off"
+                    aria-pressed="false" aria-label="Включить версию для слабовидящих"
+                    aria-describedby="hint-a11y">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <g class="icon-a11y-off">
+                  <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </g>
+                <g class="icon-a11y-on">
+                  <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M4 21h16" />
+                </g>
+              </svg>
+            </button>
+            <span class="tool-tip mono" id="hint-a11y" role="tooltip" data-tool-hint>Версия для слабовидящих</span>
+          </div>
+
+          <div class="tool-wrap">
+            <button class="icon-btn" id="theme-toggle" type="button"
+                    data-theme-toggle data-theme-icon="dark"
+                    aria-pressed="false" aria-label="Включить светлую тему"
+                    aria-describedby="hint-theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <g class="icon-moon">
+                  <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" />
+                </g>
+                <g class="icon-sun">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                </g>
+              </svg>
+            </button>
+            <span class="tool-tip mono" id="hint-theme" role="tooltip" data-tool-hint>Светлая / тёмная тема</span>
+          </div>
+
+          <div class="tool-wrap tool-wrap--toggle">
+            <button class="icon-btn header-toggle" id="header-toggle" type="button"
+                    aria-expanded="true" aria-controls="header"
+                    aria-label="Свернуть шапку"
+                    aria-describedby="hint-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 15l6-6 6 6" />
+              </svg>
+            </button>
+            <span class="tool-tip mono" id="hint-header" role="tooltip" data-tool-hint>Свернуть шапку — освободить экран</span>
+            <!--
+              Блок «Скрыть подсказки?» — единственная интерактивная
+              часть каскада тултипов. Лежит в DOM под своей подсказкой,
+              но с точки зрения CSS это отдельный слой: обычные тултипы
+              не ловят указатель (pointer-events: none), а здесь нужны
+              рабочие кнопки «Да» / «Нет». Показывается и скрывается
+              вместе со всем каскадом — см. initFirstVisitHints в JS.
+            -->
+            <div class="hint-actions" id="hint-actions" role="group" aria-label="Скрыть подсказки">
+              <p class="hint-actions__question mono">Скрыть подсказки?</p>
+              <div class="hint-actions__buttons">
+                <button class="hint-actions__btn mono" type="button" data-hints-hide>Да</button>
+                <button class="hint-actions__btn mono" type="button" data-hints-keep>Нет</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню">
+            <span></span><span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero" id="hero">
+      <div class="hero__inner container">
+        <div class="hero__logo-wrap">
+          <div class="logo logo--hero" data-logo data-animate>
+            <span class="logo__icon">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <linearGradient id="vmg-hero" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#c4fad2" />
+                    <stop offset="0.45" stop-color="#6bee9b" />
+                    <stop offset="1" stop-color="#1fb85a" />
+                  </linearGradient>
+                </defs>
+                <rect class="logo__box-fill" x="6" y="6" width="108" height="108" rx="34" fill="url(#vmg-hero)" />
+                <rect class="logo__box-stroke" x="6" y="6" width="108" height="108" rx="34" pathLength="1" fill="none" stroke="currentColor" stroke-width="2" />
+                <path class="logo__chev" d="M46 35 L73 60 L46 85" pathLength="1" fill="none" stroke="#10161d" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="logo__word">vm labs</span>
+          </div>
+        </div>
+
+        <p class="hero__overline mono fx-item">// студия лендингов для продюсеров и экспертов</p>
+        <h1 class="hero__title fx-item">Лендинги, которые продают Ваши запуски</h1>
+        <p class="hero__sub fx-item">Проектируем и собираем продающие лендинги под вебинары, курсы, марафоны, консультации и услуги, а также сайты для бизнеса. Два специалиста, фиксированные сроки, смета и договор — без менеджеров-прослоек и пропадающих дизайнеров.</p>
+
+        <div class="hero__actions fx-item">
+          <a class="btn btn--primary" href="#contact">Обсудить мой запуск</a>
+          <a class="btn btn--ghost" href="#portfolio">Работы для вдохновения</a>
+        </div>
+
+        <ul class="hero__meta mono fx-item">
+          <li>прототип уже на 2-й день</li>
+          <li class="hero__meta-sep" aria-hidden="true">·</li>
+          <li>смета зафиксирована в договоре</li>
+          <li class="hero__meta-sep" aria-hidden="true">·</li>
+          <li>на связи напрямую команда</li>
+        </ul>
+      </div>
+    </section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="ticker-track">
+    <span class="ticker__item">вебинарный лендинг</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">TG-бот для вебинара</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">продающая страница курса</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">телеграм-бот курса</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">бот-напоминалка марафона</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">сайт записи на консультацию</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">чат-бот консультации</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">промо-страница запуска</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">бот запуска в Telegram</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">A/B-варианты сайта</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">A/B-ветки в TG-боте</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">статистика Telegram-бота</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">квиз-страница</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">квиз-бот в Telegram</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">форма заявки на сайте</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">бот сбора заявок</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">автовебинар на лендинге</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">автовебинар-бот</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">UTM-метки для сайта</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">deep-link в TG-бота</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">мобильная версия сайта</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">скорость загрузки страниц</span><span class="ticker__sep">//</span>
+    <span class="ticker__item">связка сайта и Telegram-бота</span>
+  </div>
+</div>
+
+    <section class="section" id="products">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <span class="sec-index mono">// 01</span>
+          <h2 class="sec-title">Какие лендинги мы разрабатываем?</h2>
+          <p class="sec-lead"> Лендинги под конкретные бизнес-задачи: от привлечения клиентов до закрытия сделок. Именно поэтому мы не используем шаблоны. Каждую страницу мы проектируем с нуля под вашу аудиторию и цели. В итоге вы получаете не просто красивый сайт, а работающий инструмент для роста прибыли.</p>
+        </header>
+
+        <div class="bento">
+
+          <article class="bento-card" data-reveal data-hover>
+            <span class="bento-card__index mono">01</span>
+            <h3 class="bento-card__title">Лидогенерирующие лендинги</h3>
+            <p class="bento-card__text">Лендинги, которые влюбляют в ваш оффер с первого взгляда. Задача одна — чтобы клиент не устоял и нажал «Отправить».</p>
+            <ul class="landing-list">
+              <li><strong>Лендинг под вебинар</strong> — оффер, спикер, программа, дедлайн регистрации</li>
+              <li><strong>Лендинг под марафон</strong> — расписание, правила, форма набора</li>
+              <li><strong>Лендинг под интенсив</strong> — короткий формат, чёткий дедлайн старта</li>
+            </ul>
+            <div class="mock mock--inbox" aria-hidden="true">
+              <div class="mock-msg">
+                <span class="mock-msg__icon">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M13.2 2 4.5 13.4h6.2L9.9 22l8.7-11.5h-6.2L13.2 2Z" /></svg>
+                </span>
+                <span class="mock-msg__body">
+                  <span class="mock-msg__title">Новая заявка</span>
+                  <span class="mock-msg__meta">Анна · вебинар «Прогрев без шаблонов»</span>
+                </span>
+                <span class="mock-msg__time">12:04</span>
+              </div>
+              <div class="mock-msg">
+                <span class="mock-msg__icon">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M13.2 2 4.5 13.4h6.2L9.9 22l8.7-11.5h-6.2L13.2 2Z" /></svg>
+                </span>
+                <span class="mock-msg__body">
+                  <span class="mock-msg__title">Новая заявка</span>
+                  <span class="mock-msg__meta">Максим · марафон «Первый запуск»</span>
+                </span>
+                <span class="mock-msg__time">12:07</span>
+              </div>
+              <span class="mock-pill">+37 заявок за сегодня</span>
+            </div>
+          </article>
+
+          <article class="bento-card bento-card--wide" data-reveal data-reveal-delay="1" data-hover>
+            <span class="bento-card__index mono">02</span>
+            <h3 class="bento-card__title">Имиджевые и презентационные лендинги</h3>
+            <p class="bento-card__text">Страницы, где главное действие — не форма, а впечатление. Задача — за минуту собрать понимание, кто вы, почему важны и что делать дальше.</p>
+            <ul class="landing-list">
+              <li><strong>Промо-страница продукта или технологии</strong> — флагманские возможности, видео и сценарии использования вместо формы заявки</li>
+              <li><strong>Презентация компании для партнёров и инвесторов</strong> — цифры, команда, факты и документы одним экраном</li>
+              <li><strong>Страница бренда для PR и медиа</strong> — пресс-кит, кейсы, контакты для редакций</li>
+            </ul>
+            <div class="mock mock--poster" aria-hidden="true">
+              <div class="mock-poster">
+                <p class="mock-poster__overline">Смысл · школа запусков</p>
+                <p class="mock-poster__title">Запуск начинается<br />с <em>людей.</em></p>
+                <span class="mock-poster__bars"><i></i><i></i></span>
+                <p class="mock-poster__note">↓ Ниже — цифры, кейсы, команда. Формы нет.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="bento-card bento-card--wide" data-reveal data-hover>
+            <span class="bento-card__index mono">03</span>
+            <h3 class="bento-card__title">Клубные и подписочные лендинги</h3>
+            <p class="bento-card__text">Страницы для продажи регулярного доступа: закрытые клубы, сообщества, платные Telegram-каналы. Главная задача — показать ценность членства, эксклюзивность контента и преимущества закрытого круга. Никаких дедлайнов и «последних шансов»: здесь продают пребывание в кругу, а не место на потоке.</p>
+            <ul class="landing-list">
+              <li><strong>Лендинг закрытого клуба</strong> — уровни участия, закрытые мастермайнды, библиотека материалов круга</li>
+              <li><strong>Страница платного Telegram-канала</strong> — примеры контента, регулярность постов, то, чего нет в бесплатном поле</li>
+              <li><strong>Лендинг сообщества по подписке</strong> — стоимость месяца, правила входа, атмосфера и события только для своих</li>
+            </ul>
+            <div class="mock mock--club" aria-hidden="true">
+              <div class="mock-club">
+                <div class="mock-club__top">
+                  <span class="mock-club__label mono">Закрытый клуб «Круг»</span>
+                  <span class="mock-club__badge mono">Inner circle</span>
+                </div>
+                <p class="mock-club__num">
+                  <span class="mock-club__no">№ 148</span>
+                  <span class="mock-club__name">Анна Ковалёва</span>
+                </p>
+                <p class="mock-club__features">закрытые мастермайнды · библиотека · чат круга</p>
+                <p class="mock-club__status"><span class="mock-club__dot"></span>продлён до 12 марта</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="bento-card" data-reveal data-reveal-delay="1" data-hover>
+            <span class="bento-card__index mono">04</span>
+            <h3 class="bento-card__title">Продающие лендинги платных программ</h3>
+            <p class="bento-card__text">Лонгриды, где деньги происходят на странице, а не в отделе продаж: от оффера и программы до тарифов, рассрочки и кнопки оплаты. Структура ведёт холодного читателя через кейсы и возражения к покупке — не оставляя дыр, где он «остывает».</p>
+            <ul class="landing-list">
+              <li><strong>Лендинг флагманского курса</strong> — программа, результаты по модулям, кейсы учеников, тарифы и рассрочка</li>
+              <li><strong>Лендинг наставничества или тренинга</strong> — кураторство, количество мест на потоке, личный результат, условия гарантии</li>
+              <li><strong>Лендинг трипвайера и недорогого продукта</strong> — быстрая первая оплата, order bump и апселл в основную программу</li>
+            </ul>
+            <div class="mock mock--funnel" aria-hidden="true">
+              <div class="mock-funnel">
+                <div class="mock-funnel__row">
+                  <span>первый экран — обещание</span>
+                  <b>100%</b>
+                </div>
+                <div class="mock-funnel__row">
+                  <span>кейсы и результаты учеников</span>
+                  <b>68%</b>
+                </div>
+                <div class="mock-funnel__row">
+                  <span>программа и тарифы</span>
+                  <b>41%</b>
+                </div>
+                <div class="mock-funnel__row mock-funnel__row--pay">
+                  <span>кнопка оплаты</span>
+                  <span><b>6,2%</b> <small>оплат</small></span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="bento-card bento-card--strip" data-reveal data-hover>
+            <div class="bento-card__col">
+              <span class="bento-card__index mono">05</span>
+              <h3 class="bento-card__title">Редизайн и сопровождение живых лендингов</h3>
+              <p class="bento-card__text">Не всё нужно собирать с нуля. Берём страницу, которая уже крутится в трафике: ускоряем, переупаковываем, чиним аналитику и интеграции — чтобы бюджет не сгорал в технических дырах.</p>
+              <ul class="landing-list">
+                <li><strong>Аудит-спринт</strong> — скорость, UX и аналитика: отчёт с приоритетными правками за 3 дня</li>
+                <li><strong>Разовая обвязка</strong> — CRM, оплата, письма, Telegram-бот: запуск без дыр в данных</li>
+                <li><strong>Ежемесячный рост</strong> — A/B-тесты первых экранов и форм, правки и обновления без вашего разработчика</li>
+              </ul>
+              <ul class="tag-list mono">
+                <li>аудит</li><li>редизайн</li><li>интеграции</li><li>поддержка</li>
+              </ul>
+            </div>
+            <div class="mock mock--diff" aria-hidden="true">
+              <div class="mock-diff__head">
+                <span class="mock-diff__eyebrow mono">// результат редизайна</span>
+                <span class="mock-diff__badge mono">CR +2,8 п.п.</span>
+              </div>
+              <div class="mock-diff">
+                <div class="mock-diff__col mock-diff__col--before">
+                  <span class="mock-diff__label mono">Было</span>
+                  <span class="mock-diff__row"><span>загрузка</span><b>6,8 с</b></span>
+                  <span class="mock-diff__row"><span>CR</span><b>1,9%</b></span>
+                </div>
+                <span class="mock-diff__arrow">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
+                </span>
+                <div class="mock-diff__col mock-diff__col--after">
+                  <svg class="mock-diff__spark" viewBox="0 0 160 48" preserveAspectRatio="none" focusable="false">
+                    <path class="mock-diff__spark-area" d="M0 41 18 37 34 39 52 30 70 33 88 22 106 25 124 14 142 17 160 6 160 48 0 48Z" />
+                    <path class="mock-diff__spark-line" d="M0 41 18 37 34 39 52 30 70 33 88 22 106 25 124 14 142 17 160 6" />
+                  </svg>
+                  <span class="mock-diff__label mono">Стало</span>
+                  <span class="mock-diff__row"><span>загрузка</span><b>1,4 с</b></span>
+                  <span class="mock-diff__row"><span>CR</span><b>4,7%</b></span>
+                </div>
+              </div>
+              <div class="mock-diff__foot">
+                <span class="mock-diff__chip mono">−5,4 с</span>
+                <span class="mock-diff__chip mock-diff__chip--green mono">+147% к CR</span>
+                <span class="mock-diff__time mono">2 недели</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="container duo">
+        <div class="duo__sticky" data-reveal>
+          <span class="sec-index mono">// 02</span>
+          <h2 class="sec-title">Почему к нам приходят</h2>
+          <p class="sec-lead">Мы знаем слабые места лендингов и где обычно обрываются проекты: слабый оффер, недоделанные интеграции, дедлайн на носу. Поэтому проектируем страницу заранее — под нагрузку launch-дня.</p>
+          <a class="btn btn--ghost" href="#contact">Рассказать о своём запуске</a>
+        </div>
+
+        <div class="duo__list">
+          <span class="duo__track" aria-hidden="true">
+            <span class="duo__track-fill" id="duo-fill"></span>
+          </span>
+
+          <article class="pain-row" data-reveal>
+            <span class="pain-row__num mono">01</span>
+            <div>
+              <h3 class="pain-row__title"><s>Лендинг красивый, но не конвертит</s></h3>
+              <p class="pain-row__text">Начинаем не с дизайна, а со структуры и оффера. Сначала — логика, которая ведёт к заявке, потом — визуал, который её подчёркивает.</p>
+            </div>
+          </article>
+          <article class="pain-row" data-reveal>
+            <span class="pain-row__num mono">02</span>
+            <div>
+              <h3 class="pain-row__title"><s>Дизайнер пропал посреди запуска</s></h3>
+              <p class="pain-row__text">Работаем по договору с фиксированными сроками и этапами. Прогресс прозрачен — Вы всегда знаете, на какой стадии лендинг.</p>
+            </div>
+          </article>
+          <article class="pain-row" data-reveal>
+            <span class="pain-row__num mono">03</span>
+            <div>
+              <h3 class="pain-row__title"><s>Формы, оплата, письма — всё на костылях</s></h3>
+              <p class="pain-row__text">Прописываем всю связку заранее: заявка → CRM → письмо → доступ. Тестируем под нагрузкой заранее, а не в день старта.</p>
+            </div>
+          </article>
+          <article class="pain-row" data-reveal>
+            <span class="pain-row__num mono">04</span>
+            <div>
+              <h3 class="pain-row__title"><s>Всё держится на одном фрилансере</s></h3>
+              <p class="pain-row__text">Два специалиста взаимозаменяемы, документация и все доступы передаются Вам. Проект не может «повиснуть» на одном человеке.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <span class="sec-index mono">// 03</span>
+          <h2 class="sec-title">Кто будет делать Ваш лендинг</h2>
+          <p class="sec-lead">Два специалиста, оба в контексте каждого проекта. Никаких менеджеров-прослоек — Вы пишете напрямую тому, кто верстает Вашу страницу.</p>
+        </header>
+
+        <div class="team-grid">
+
+          <article class="team-card" data-reveal>
+            <figure class="team-card__photo">
+              <picture>
+                <source srcset="img/maksim.webp" type="image/webp" />
+                <img
+                  src="img/maksim.jpg"
+                  alt="Максим — frontend-разработчик VM Labs"
+                  loading="lazy"
+                  decoding="async"
+                  width="1086"
+                  height="1448"
+                />
+              </picture>
+            </figure>
+            <div class="team-card__body">
+              <h3 class="team-card__name">Максим</h3>
+              <p class="team-card__role mono">frontend · дизайн</p>
+              <p class="team-card__text">Визуал, вёрстка, анимации, адаптив. Отвечает за то, чтобы страница одинаково хорошо работала и на iPhone в мобильной сети, и на большом мониторе.</p>
+              <ul class="tag-list mono">
+                <li>дизайн</li><li>вёрстка</li><li>адаптив</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="team-card" data-reveal data-reveal-delay="1">
+            <figure class="team-card__photo">
+              <picture>
+                <source srcset="img/viktor.webp" type="image/webp" />
+                <img
+                  src="img/viktor.jpg"
+                  alt="Виктор — backend-разработчик VM Labs"
+                  loading="lazy"
+                  decoding="async"
+                  width="1440"
+                  height="1920"
+                />
+              </picture>
+            </figure>
+            <div class="team-card__body">
+              <h3 class="team-card__name">Виктор</h3>
+              <p class="team-card__role mono">backend · техническая часть</p>
+              <p class="team-card__text">Серверная часть, интеграции, оплата, письма, CRM и аналитика. Следит за тем, чтобы в день старта всё выдержало нагрузку и ни одна заявка не потерялась.</p>
+              <ul class="tag-list mono">
+                <li>интеграции</li><li>CRM</li><li>оплата</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--process" id="process">
+      <canvas class="process-rain" id="process-rain" aria-hidden="true"></canvas>
+
+      <!--
+        Один sticky-блок на всю секцию: заголовок и стадион с шагами
+        листаются вместе как единая группа и останавливаются вместе
+        перед «Витриной работ». Раньше заголовок и стадион были двумя
+        отдельными sticky-элементами в разных поддеревьях — заголовок
+        жил отдельной плашкой и перекрывал карточки. Теперь sticky
+        висит на .process-pin, а .process-track остаётся высоким
+        родителем-рулеткой (270vh), задающим длину прокрутки для
+        анимации карточек. JS-хук #process-track живёт на месте.
+      -->
+      <div class="process-track" id="process-track">
+        <div class="process-pin">
+          <div class="container">
+            <header class="sec-head" data-reveal>
+              <span class="sec-index mono">// 04</span>
+              <h2 class="sec-title">Процесс без сюрпризов</h2>
+              <p class="sec-lead">Пять этапов, 10–14 дней. После каждого — документ или ссылка, которые можно открыть и проверить. Смету и срок фиксируем в договоре до старта работ.</p>
+            </header>
+          </div>
+
+          <div class="process-stage">
+
+          <div class="process-bar" id="process-bar" aria-hidden="true">
+            <span class="process-bar__track"></span>
+            <span class="process-bar__fill" id="process-fill"></span>
+            <span class="process-bar__dot" data-step-tick="0"></span>
+            <span class="process-bar__dot" data-step-tick="1"></span>
+            <span class="process-bar__dot" data-step-tick="2"></span>
+            <span class="process-bar__dot" data-step-tick="3"></span>
+            <span class="process-bar__dot" data-step-tick="4"></span>
+          </div>
+
+          <ol class="process-cards" id="process-cards">
+            <li class="process-card is-visible">
+              <span class="process-card__num mono">// 01</span>
+              <h3 class="process-card__title">Бриф и смета <span class="process-card__time mono">30 минут на ответ</span></h3>
+              <p class="process-card__text">Отвечаем в течение 30 минут. Бриф — в согласованное с Вами время. Через 24 часа после брифа — структура страницы, смета и срок. Фиксируем в договоре. Цена меняется только при новых задачах — и только с Вашего согласия.</p>
+            </li>
+            <li class="process-card">
+              <span class="process-card__num mono">// 02</span>
+              <h3 class="process-card__title">Прототип до дизайна <span class="process-card__time mono">2–4 дня</span></h3>
+              <p class="process-card__text">Прототип — на 2-й день, тексты — до 4-го. Вы согласуете его до дизайна и вёрстки. Поэтому правки стоят часы, а не дни.</p>
+            </li>
+            <li class="process-card">
+              <span class="process-card__num mono">// 03</span>
+              <h3 class="process-card__title">Не пропадаем на неделю <span class="process-card__time mono">3–5 дней</span></h3>
+              <p class="process-card__text">Дизайн, вёрстка, адаптив под телефоны, скорость загрузки. Каждый день — новая ссылка на демо. Вы смотрите страницу, а не отчёт «работаем».</p>
+            </li>
+            <li class="process-card">
+              <span class="process-card__num mono">// 04</span>
+              <h3 class="process-card__title">Выдержит день старта <span class="process-card__time mono">2–3 дня</span></h3>
+              <p class="process-card__text">Подключаем формы, оплату, письма, пиксели и аналитику. Тестируем крайние сценарии: 1000 заявок за час, обрыв оплаты. Всё до запуска, а не в день старта.</p>
+            </li>
+            <li class="process-card">
+              <span class="process-card__num mono">// 05</span>
+              <h3 class="process-card__title">Не бросаем после запуска <span class="process-card__time mono">30 дней включено</span></h3>
+              <p class="process-card__text">Запускаем в дату из договора. Первый месяц смотрим живую конверсию, правим мелочи вне очереди. Доступы, исходники и документация — у Вас.</p>
+            </li>
+          </ol>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--portfolio" id="portfolio">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <span class="sec-index mono">// 05</span>
+          <h2 class="sec-title">Работы для вдохновения</h2>
+          <p class="sec-lead">Три демо-лендинга под разные форматы проектов и запусков в разных визуальных стилях. Откройте любой прямо здесь и ознакомьтесь.</p>
+        </header>
+
+        <div class="showcase">
+
+          <article class="showcase-card" data-reveal data-hover>
+            <figure class="showcase-card__frame">
+              <iframe class="showcase-card__demo" src="demo-webinar.html?preview=dark" title="Демо-лендинг под вебинар" loading="lazy" scrolling="no" data-demo-frame tabindex="-1" aria-hidden="true"></iframe>
+              <button class="showcase-card__open" type="button" data-demo-open="demo-webinar.html" data-demo-title="Вебинар о запусках" aria-label="Открыть демо-лендинг под вебинар">
+                <span class="showcase-card__live mono">демо, нажмите, чтобы просмотреть</span>
+              </button>
+            </figure>
+            <div class="showcase-card__meta">
+              <h3 class="showcase-card__title"><a href="demo-webinar.html" data-demo-open="demo-webinar.html" data-demo-title="Вебинар о запусках">Вебинар о запусках</a></h3>
+              <p class="showcase-card__sub mono">// тип: лендинг под вебинар · демо-макет</p>
+            </div>
+          </article>
+
+          <article class="showcase-card" data-reveal data-reveal-delay="1" data-hover>
+            <figure class="showcase-card__frame">
+              <iframe class="showcase-card__demo" src="demo-course.html?preview=dark" title="Демо-лендинг под курс" loading="lazy" scrolling="no" data-demo-frame tabindex="-1" aria-hidden="true"></iframe>
+              <button class="showcase-card__open" type="button" data-demo-open="demo-course.html" data-demo-title="Онлайн-курс по лендингам" aria-label="Открыть демо-лендинг под курс">
+                <span class="showcase-card__live mono">демо, нажмите, чтобы просмотреть</span>
+              </button>
+            </figure>
+            <div class="showcase-card__meta">
+              <h3 class="showcase-card__title"><a href="demo-course.html" data-demo-open="demo-course.html" data-demo-title="Онлайн-курс по лендингам">Онлайн-курс по лендингам</a></h3>
+              <p class="showcase-card__sub mono">// тип: продающий лендинг курса · демо-макет</p>
+            </div>
+          </article>
+
+          <article class="showcase-card" data-reveal data-reveal-delay="2" data-hover>
+            <figure class="showcase-card__frame">
+              <iframe class="showcase-card__demo" src="demo-marathon.html?preview=dark" title="Демо-лендинг под марафон" loading="lazy" scrolling="no" data-demo-frame tabindex="-1" aria-hidden="true"></iframe>
+              <button class="showcase-card__open" type="button" data-demo-open="demo-marathon.html" data-demo-title="Марафон «5 дней»" aria-label="Открыть демо-лендинг под марафон">
+                <span class="showcase-card__live mono">демо, нажмите, чтобы просмотреть</span>
+              </button>
+            </figure>
+            <div class="showcase-card__meta">
+              <h3 class="showcase-card__title"><a href="demo-marathon.html" data-demo-open="demo-marathon.html" data-demo-title="Марафон «5 дней»">Марафон «5 дней»</a></h3>
+              <p class="showcase-card__sub mono">// тип: лендинг под марафон · демо-макет</p>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="showcase__note mono" data-reveal>// демо-макеты под разные форматы проектов и стили: показывают подход, а не кейсы клиентов.</p>
+      </div>
+    </section>
+
+    <!--
+      Письмо вместо отзывов.
+      Разметка стилизована под настоящее бумажное письмо: лист бумаги
+      с собственной фоновой текстурой, шапка с датой, serif-типографика
+      для тела, подпись «С уважением» с фотографиями основателей и
+      приписка P.S. перед кнопкой-ответом.
+      Сверху — красная канцелярская кнопка, которая «прибивает» письмо
+      к странице: 3D-шейдинг, металлическая игла, мягкая тень.
+    -->
+    <section class="section section--reviews" id="reviews">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <span class="sec-index mono">// 06</span>
+          <h2 class="sec-title">Письмо вместо отзывов</h2>
+        </header>
+
+        <article class="letter" aria-labelledby="letter-subject">
+          <!--
+            Красная канцелярская кнопка (pushpin). Рисуется как единый
+            SVG: голова-купол, шейка, нижний фланец и металлическая игла.
+            Благодаря градиентам выглядит объёмной; отдельный drop-shadow
+            на контейнере даёт мягкую тень от всей фигуры.
+          -->
+          <svg class="letter__pin" viewBox="0 0 100 152" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="letter-pin-needle" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#3a3a3a" />
+                <stop offset="0.5" stop-color="#e0e0e0" />
+                <stop offset="1" stop-color="#4a4a4a" />
+              </linearGradient>
+              <radialGradient id="letter-pin-head" cx="0.35" cy="0.25" r="0.8">
+                <stop offset="0" stop-color="#ff9a9a" />
+                <stop offset="0.35" stop-color="#f43f3f" />
+                <stop offset="0.75" stop-color="#b91c1c" />
+                <stop offset="1" stop-color="#7f1d1d" />
+              </radialGradient>
+              <linearGradient id="letter-pin-neck" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#7f1d1d" />
+                <stop offset="0.35" stop-color="#dc2626" />
+                <stop offset="0.7" stop-color="#b91c1c" />
+                <stop offset="1" stop-color="#4a0505" />
+              </linearGradient>
+              <linearGradient id="letter-pin-flange" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ef4444" />
+                <stop offset="0.6" stop-color="#b91c1c" />
+                <stop offset="1" stop-color="#7f1d1d" />
+              </linearGradient>
+            </defs>
+
+            <!-- Игла, входящая в бумагу -->
+            <path d="M 50 108 L 46 108 L 48.5 146 L 50 150 L 51.5 146 L 54 108 Z" fill="url(#letter-pin-needle)" />
+
+            <!-- Нижний фланец (широкий диск) -->
+            <ellipse cx="50" cy="110" rx="40" ry="10" fill="#4a0505" />
+            <ellipse cx="50" cy="106" rx="40" ry="11" fill="url(#letter-pin-flange)" />
+            <ellipse cx="50" cy="102" rx="38" ry="9" fill="#dc2626" />
+            <ellipse cx="42" cy="100" rx="18" ry="3" fill="rgba(255,255,255,0.32)" />
+
+            <!-- Шейка кнопки -->
+            <ellipse cx="50" cy="102" rx="16" ry="5" fill="#7f1d1d" />
+            <rect x="34" y="62" width="32" height="40" fill="url(#letter-pin-neck)" />
+
+            <!-- Голова-купол -->
+            <ellipse cx="50" cy="42" rx="32" ry="12" fill="#7f1d1d" />
+            <path d="M 18 42 Q 18 16 50 16 Q 82 16 82 42 L 82 52 Q 82 62 50 62 Q 18 62 18 52 Z" fill="url(#letter-pin-head)" />
+            <ellipse cx="50" cy="38" rx="30" ry="11" fill="url(#letter-pin-head)" />
+            <ellipse cx="38" cy="32" rx="13" ry="4" fill="rgba(255,255,255,0.42)" />
+          </svg>
+
+          <div class="letter__paper">
+            <header class="letter__head">
+              <span class="letter__from">vm labs</span>
+              <time class="letter__date" datetime="2026-10">октябрь 2026</time>
+            </header>
+
+            <h3 class="letter__subject" id="letter-subject">Честно, от первого лица</h3>
+
+            <div class="letter__body">
+              <p class="letter__text">Здравствуйте!</p>
+              <p class="letter__text">Мы запустились недавно, поэтому в блоке отзывов пока пусто, и рисовать мы их не будем.</p>
+              <p class="letter__text">Вместо этого берём первые три проекта на условиях, которых потом не будет: <strong>120 000 ₽ вместо 180 000 ₽</strong> за запуск под ключ — в обмен на публичный кейс с цифрами и два знакомства с продюсерами.</p>
+              <p class="letter__text">После релиза попросим Вас об одном: расскажите, как всё прошло. Без сценария — задача, процесс, результат. Эти строки и станут первыми кейсами здесь, с Вашим именем и названием проекта.</p>
+            </div>
+
+            <div class="letter__sign">
+              <p class="letter__sign-lead">С уважением,</p>
+              <div class="letter__sign-row">
+                <div class="letter__avatars" aria-hidden="true">
+                  <picture class="letter__avatar">
+                    <source srcset="img/avatar-viktor.webp" type="image/webp" />
+                    <img src="img/avatar-viktor.jpg" alt="" loading="lazy" decoding="async" width="84" height="84" />
+                  </picture>
+                  <picture class="letter__avatar">
+                    <source srcset="img/avatar-maksim.webp" type="image/webp" />
+                    <img src="img/avatar-maksim.jpg" alt="" loading="lazy" decoding="async" width="84" height="84" />
+                  </picture>
+                </div>
+                <div class="letter__sign-meta">
+                  <p class="letter__sign-names">Виктор и Максим</p>
+                  <p class="letter__sign-role">основатели студии vmlabs</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="letter__ps">
+              <span class="letter__ps-label">P.S.</span>
+              Слотов три — по одному запуску в месяц, пока не наберём кейсы. Когда закончатся, этот блок исчезнет с сайта, а цена вернётся к 180 000 ₽.
+            </p>
+
+            <a class="btn btn--primary letter__cta" href="#contact">Забрать пилотный слот</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <span class="sec-index mono">// 07</span>
+          <h2 class="sec-title">Форматы работы</h2>
+          <p class="sec-lead">Три способа заказать запуск. Стоимость зависит от объёма: после брифа фиксируется в договоре и не меняется. Вилки ниже — ориентир по типовым проектам.</p>
+        </header>
+
+        <p class="pricing__slots mono" data-reveal>// пилот для первых трёх: <strong>120 000 ₽</strong> вместо 180 000 ₽ — в обмен на публичный кейс с цифрами. Свободных слотов: <strong>3</strong></p>
+
+        <div class="plans">
+          <article class="plan" data-reveal data-hover>
+            <h3 class="plan__name">Лендинг под запуск</h3>
+            <p class="plan__desc">Одна страница, которая доводит до заявки: структура, тексты, дизайн, вёрстка, форма и аналитика.</p>
+            <p class="plan__price">смета: <strong>от 90 000 ₽</strong></p>
+            <ul class="check-list">
+              <li>7–10 дней</li>
+              <li>фикс-цена в договоре</li>
+              <li>адаптив и скорость</li>
+              <li>30 дней правок</li>
+            </ul>
+            <a class="btn btn--ghost btn--block" href="#contact">Получить смету за 24 ч</a>
+          </article>
+
+          <article class="plan plan--featured" data-reveal data-reveal-delay="1" data-hover>
+            <span class="plan__badge mono">берём 3 проекта в месяц</span>
+            <h3 class="plan__name">Запуск под ключ</h3>
+            <p class="plan__desc">Лендинг плюс страница регистрации/продажи, Telegram-бот, приём оплат, письма и тесты под нагрузку.</p>
+            <p class="plan__price">смета: <strong>от 180 000 ₽</strong></p>
+            <ul class="check-list">
+              <li>10–14 дней</li>
+              <li>демо каждый день</li>
+              <li>тесты под 1000 заявок/час</li>
+              <li>30 дней поддержки</li>
+            </ul>
+            <a class="btn btn--primary btn--block" href="#contact">Забронировать слот</a>
+          </article>
+
+          <article class="plan" data-reveal data-reveal-delay="2" data-hover>
+            <h3 class="plan__name">Запуск под контролем</h3>
+            <p class="plan__desc">Система запуска целиком: страницы, бот, оплата, аналитика после старта и A/B первого экрана. Для запусков от 1 млн и крупных сайтов.</p>
+            <p class="plan__price">смета: <strong>от 300 000 ₽</strong></p>
+            <ul class="check-list">
+              <li>14–18 дней</li>
+              <li>2 слота в месяц</li>
+              <li>A/B и аналитика после старта</li>
+              <li>2 недели сопровождения</li>
+            </ul>
+            <a class="btn btn--ghost btn--block" href="#contact">Обсудить запуск</a>
+          </article>
+        </div>
+
+        <ul class="guarantees" data-reveal>
+          <li class="guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z" /><path d="M14 3v4h4" /><path d="M10 13h5M10 17h5" /></svg>
+            <span>Договор и фикс-смета</span>
+          </li>
+          <li class="guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" /><path d="M9.5 12l2 2 3.5-4" /></svg>
+            <span>NDA по умолчанию</span>
+          </li>
+          <li class="guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3" /><circle cx="16" cy="9" r="2.5" /><path d="M4 19c0-3 2.5-5 5-5s5 2 5 5" /><path d="M14.5 14.5c2.5 0 5 1.7 5 4.5" /></svg>
+            <span>На связи напрямую команда</span>
+          </li>
+          <li class="guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0" /><rect x="3" y="13" width="4" height="6" rx="1.5" /><rect x="17" y="13" width="4" height="6" rx="1.5" /><path d="M19 19v1a2 2 0 0 1-2 2h-4" /></svg>
+            <span>30 дней поддержки включено</span>
+          </li>
+        </ul>
+
+        <p class="pricing__slots mono" data-reveal>// нужен абонемент? Две страницы в месяц, правки и аналитика — от 60 000 ₽/мес. В работе одновременно не больше трёх проектов.</p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container container--narrow">
+        <header class="sec-head" data-reveal>
+          <span class="sec-index mono">// 08</span>
+          <h2 class="sec-title">Частые вопросы</h2>
+          <p class="sec-lead">Собрали то, что чаще всего спрашивают эксперты, продюсеры и компании перед запуском сайта. Если своего вопроса не нашли — напишите <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">в Telegram</a>, ответим в течение 30 минут.</p>
+        </header>
+
+        <div class="faq" data-reveal>
+          <div class="faq-group">
+            <h3 class="faq-group__head">
+              <button class="faq-group__q" type="button" aria-expanded="false" aria-controls="faq-g1" id="faq-gb1">
+                <span>Цена и форматы</span>
+                <span class="faq-group__count mono" aria-hidden="true"></span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              </button>
+            </h3>
+            <div class="faq-group__panel" id="faq-g1" role="region" aria-labelledby="faq-gb1">
+              <div class="faq-group__inner">
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p1" id="faq-b1">Сколько стоит запуск и от чего зависит цена?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p1" role="region" aria-labelledby="faq-b1"><p>Лендинг под запуск — от 90 000 ₽, запуск под ключ — от 180 000 ₽, запуск под контролем — от 300 000 ₽, абонемент — от 60 000 ₽ в месяц. Цена зависит от количества страниц, интеграций (бот, оплата, CRM, аналитика) и сроков. После брифа даём фиксированную смету за 24 часа — дальше она не меняется, если не меняется объём.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p2" id="faq-b2">Чем отличаются «Лендинг», «Запуск под ключ» и «Запуск под контролем»?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p2" role="region" aria-labelledby="faq-b2"><p>«Лендинг» — одна страница под заявку: структура, тексты, дизайн, вёрстка, форма, аналитика. 7–10 дней, от 90 000 ₽. «Под ключ» — страницы регистрации и продажи, Telegram-бот, приём оплат, письма, аналитика и тесты под нагрузку. 10–14 дней, от 180 000 ₽. «Под контролем» — то же плюс A/B первого экрана, аналитика после старта и две недели сопровождения; два слота в месяц, 14–18 дней, от 300 000 ₽.</p></div>
+          </div>
+                    <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p19" id="faq-b19">Что входит в стоимость, а что оплачивается отдельно?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p19" role="region" aria-labelledby="faq-b19"><p>В стоимость входят структура, тексты, дизайн, вёрстка, форма, интеграции по пакету, аналитика, тесты и 30 дней правок. Отдельно — рекламный бюджет, домен и хостинг, платёжные комиссии, подрядчики сверх скоупа (например, видеосъёмка) и доработки вне согласованного объёма.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p20" id="faq-b20">Можно ли оплатить частями или в рассрочку?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p20" role="region" aria-labelledby="faq-b20"><p>Обычно 50% предоплата и 50% перед запуском; для крупных проектов делим оплату на этапы. Рассрочку от банка не оформляем, но график платежей фиксируем в договоре.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p21" id="faq-b21">Работаете с юрлицами и по счёту?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p21" role="region" aria-labelledby="faq-b21"><p>Да. Работаем по договору с ИП и ООО, выставляем счёт на безнал и передаём закрывающие документы. Для физлиц тоже можно — по счёту или ссылке на оплату.</p></div>
+          </div>
+<div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p3" id="faq-b3">Почему у вас дороже, чем у фрилансера?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p3" role="region" aria-labelledby="faq-b3"><p>За 15–30 тыс. обычно продают страницу без структуры, техчасти и тестов. В запуск входят тексты, дизайн, вёрстка, бот, оплата, аналитика, тесты под нагрузку и 30 дней правок. Ошибка на старте стоит дороже разницы в цене: теряются заявки и рекламный бюджет. Если нужна только страница — есть формат за 90 000 ₽.</p></div>
+          </div>
+                    <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p22" id="faq-b22">Есть ли скидки?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p22" role="region" aria-labelledby="faq-b22"><p>Скидок нет: цена фиксируется после брифа и не растёт. Есть пилотные условия для первых трёх проектов — 120 000 ₽ вместо 180 000 ₽ в обмен на публичный кейс. Это разовое предложение, а не постоянная акция.</p></div>
+          </div>
+<div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p4" id="faq-b4">А если у нас несколько запусков в год?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p4" role="region" aria-labelledby="faq-b4"><p>Тогда выгоднее абонемент — от 60 000 ₽ в месяц: две страницы в месяц, правки, аналитика и приоритет в очереди. Он рассчитан на экспертов и компании с двумя и более проектами в квартал; разовые проекты тоже берём.</p></div>
+          </div>
+              </div>
+            </div>
+          </div>
+          <div class="faq-group">
+            <h3 class="faq-group__head">
+              <button class="faq-group__q" type="button" aria-expanded="false" aria-controls="faq-g2" id="faq-gb2">
+                <span>Старт, сроки и правки</span>
+                <span class="faq-group__count mono" aria-hidden="true"></span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              </button>
+            </h3>
+            <div class="faq-group__panel" id="faq-g2" role="region" aria-labelledby="faq-gb2">
+              <div class="faq-group__inner">
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p5" id="faq-b5">Что нужно от нас, чтобы начать?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p5" role="region" aria-labelledby="faq-b5"><p>Дата и цель запуска, продукт и аудитория, ссылки на референсы, доступы к домену, хостингу и платёжке. Структуру, тексты, дизайн и интеграции берём на себя. С вашей стороны — 1–2 часа на бриф и согласования.</p></div>
+          </div>
+                    <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p23" id="faq-b23">Как быстро вы стартуете после оплаты?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p23" role="region" aria-labelledby="faq-b23"><p>Стартуем в течение 1–2 рабочих дней после предоплаты и получения материалов. Если слот занят — предложим ближайшую дату; в месяц берём три проекта.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p24" id="faq-b24">Из каких этапов состоит работа и сколько они занимают?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p24" role="region" aria-labelledby="faq-b24"><p>Бриф и смета — 24 часа; прототип и тексты — 2–4 дня; дизайн и вёрстка — 3–5 дней; интеграции и тесты — 2–3 дня; запуск и 30 дней поддержки. Итого 7–14 дней в зависимости от пакета.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p25" id="faq-b25">Что мы будем видеть в процессе?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p25" role="region" aria-labelledby="faq-b25"><p>Прототип до дизайна, демо каждый день после старта вёрстки, доступ к доске с задачами и статусами. Созвоны — по этапам, без ежедневных созвонов ради созвонов.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p26" id="faq-b26">Можно ли сократить сроки?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p26" role="region" aria-labelledby="faq-b26"><p>Иногда да — зависит от готовности материалов и свободного слота. Срочный запуск обсуждаем отдельно: сокращаем согласования, но не тесты под нагрузку. Точный срок скажем после брифа.</p></div>
+          </div>
+<div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p6" id="faq-b6">Успеете к запуску, если старт через две недели?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p6" role="region" aria-labelledby="faq-b6"><p>Стандартный срок — 7–14 дней с момента предоплаты и получения материалов. В месяц берём три проекта. Если дата близко — напишите: посмотрим свободный слот и честно скажем, влезаем или нет.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p7" id="faq-b7">Что если дата запуска сдвинется?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p7" role="region" aria-labelledby="faq-b7"><p>Предупредите заранее — согласуем новый календарь и сохраним слот. Если сдвиг происходит по нашей вине, ответственность за срок прописана в договоре.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p8" id="faq-b8">Сколько правок входит и что считается допработой?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p8" role="region" aria-labelledby="faq-b8"><p>Два круга правок на каждом этапе — структура, дизайн, вёрстка — в рамках согласованного объёма. Новые страницы, сценарии и интеграции сверх скоупа — отдельной сметой. Так сроки и бюджет не расползаются.</p></div>
+          </div>
+              </div>
+            </div>
+          </div>
+          <div class="faq-group">
+            <h3 class="faq-group__head">
+              <button class="faq-group__q" type="button" aria-expanded="false" aria-controls="faq-g3" id="faq-gb3">
+                <span>Техника и риски</span>
+                <span class="faq-group__count mono" aria-hidden="true"></span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              </button>
+            </h3>
+            <div class="faq-group__panel" id="faq-g3" role="region" aria-labelledby="faq-gb3">
+              <div class="faq-group__inner">
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p9" id="faq-b9">Кто отвечает за трафик и рекламу?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p9" role="region" aria-labelledby="faq-b9"><p>Мы — за посадочную систему: страницы, бот, оплату, аналитику и тесты. Трафик и рекламный бюджет — на вашей стороне или у партнёрского агентства; проверенных подрядчиков порекомендуем. Это разделение фиксируем в договоре.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p10" id="faq-b10">Что если в день старта будет наплыв заявок или оплат?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p10" role="region" aria-labelledby="faq-b10"><p>До старта прогоняем крайние сценарии: до 1000 заявок в час, обрыв оплаты, ошибки формы и писем. После релиза 30 дней правим баги и мелочи вне очереди.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p11" id="faq-b11">Что если конверсия или выручка не устроит?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p11" role="region" aria-labelledby="faq-b11"><p>Выручку и конверсию не гарантируем — на них влияют продукт, цена, прогрев и трафик. Гарантируем срок, качество, тесты и 30 дней правок. В формате «под контролем» дополнительно делаем A/B первого экрана и аналитику после старта.</p></div>
+          </div>
+                    <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p12" id="faq-b12">С какими сервисами интегрируетесь?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p12" role="region" aria-labelledby="faq-b12"><p>Платёжные провайдеры (ЮKassa, Tinkoff, Prodamus и др.), Telegram-боты, почтовые сервисы, GetCourse и другие платформы, Яндекс.Метрика и пиксели соцсетей. Нестандартные сценарии обсуждаем отдельной сметой.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p27" id="faq-b27">Кто настраивает аналитику и цели?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p27" role="region" aria-labelledby="faq-b27"><p>Мы: Яндекс.Метрика, цели на заявки и оплаты, UTM-метки, пиксели соцсетей. Передаём доступы и короткую инструкцию, как смотреть цифры. Если у вас своя аналитика — подключаем её.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p28" id="faq-b28">Делаете ли мобильную версию и быструю загрузку?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p28" role="region" aria-labelledby="faq-b28"><p>Да, мобильная версия и скорость входят в каждый пакет. Проверяем на реальных телефонах и в мобильной сети, оптимизируем картинки и шрифты. Цель — открытие страницы до 2,5 секунды.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p29" id="faq-b29">Что если нужен только редизайн существующего лендинга?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p29" role="region" aria-labelledby="faq-b29"><p>Берём: аудит, переупаковка структуры и текстов, новый дизайн или только техническая часть. Начинаем с разбора, что уже работает и где теряются заявки; дальше — смета на нужный объём.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p30" id="faq-b30">Что нужно для подключения оплаты и бота?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p30" role="region" aria-labelledby="faq-b30"><p>Доступы к платёжному провайдеру и домену, реквизиты для приёма оплат, токен бота. Если бота ещё нет — поможем создать и настроить сценарий. Все доступы остаются у вас.</p></div>
+          </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="faq-group">
+            <h3 class="faq-group__head">
+              <button class="faq-group__q" type="button" aria-expanded="false" aria-controls="faq-g4" id="faq-gb4">
+                <span>Доверие и условия</span>
+                <span class="faq-group__count mono" aria-hidden="true"></span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              </button>
+            </h3>
+            <div class="faq-group__panel" id="faq-g4" role="region" aria-labelledby="faq-gb4">
+              <div class="faq-group__inner">
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p13" id="faq-b13">Кто пишет тексты и делает дизайн? У нас есть брендбук.<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p13" role="region" aria-labelledby="faq-b13"><p>Структуру, тексты и дизайн делаем сами. Если есть брендбук или готовый копирайт — встраиваемся в них. Тексты и структуру согласуем до дизайна, чтобы не переделывать готовую страницу.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p14" id="faq-b14">Можно посмотреть кейсы?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p14" role="region" aria-labelledby="faq-b14"><p>Публичных кейсов пока нет — мы новая студия и рисовать отзывы не будем. Сейчас берём три пилотных проекта по 120 000 ₽ вместо 180 000 ₽ в обмен на публичный кейс с цифрами. Пока показываем демо-макеты и разборы лендингов — по ним видно подход.</p></div>
+          </div>
+                    <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p31" id="faq-b31">Почему вы, а не агентство?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p31" role="region" aria-labelledby="faq-b31"><p>В агентстве проект ведут менеджер и джуны, а вы платите за прослойку. У нас двое senior-исполнителей: тот, кто проектирует, и тот, кто делает техчасть. Быстрее, без потери контекста и с прямым контактом.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p32" id="faq-b32">Какие гарантии вы даёте?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p32" role="region" aria-labelledby="faq-b32"><p>Фиксируем цену, объём и срок в договоре, делаем тесты под нагрузку и 30 дней правок после релиза. Выручку и конверсию не гарантируем — это зависит от продукта и трафика. Гарантируем процесс, сроки и качество.</p></div>
+          </div>
+<div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p15" id="faq-b15">Работаете по договору? Кому принадлежат доступы и права?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p15" role="region" aria-labelledby="faq-b15"><p>Да. Договор с фиксированным объёмом, сроками и ценой, NDA по умолчанию. Обычно 50% предоплата, 50% перед запуском; для крупных проектов разбиваем на этапы. После полной оплаты передаём исходники, доступы и документацию; права на макеты и код переходят вам.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p16" id="faq-b16">Вас двое — что если кто-то заболеет?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p16" role="region" aria-labelledby="faq-b16"><p>Каждый проект в контексте у обоих: работаем парой и подменяем друг друга. Документация и доступы хранятся у вас, поэтому проект не «повисает» на одном человеке.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p17" id="faq-b17">Что происходит после запуска?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p17" role="region" aria-labelledby="faq-b17"><p>30 дней поддержки включены: правим баги и мелочи вне очереди, смотрим на живую конверсию. Дальше — абонемент, если планируются новые запуски, или разовая доработка.</p></div>
+          </div>
+                    <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p33" id="faq-b33">Как проходит первый созвон?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p33" role="region" aria-labelledby="faq-b33"><p>20–30 минут в Telegram, Zoom или по телефону: разбираем запуск, аудиторию и дату, предлагаем формат и вилку цены. После созвона присылаем смету за 24 часа. Без презентаций и давления.</p></div>
+          </div>
+          <div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p34" id="faq-b34">Что с юридическими документами: оферта, согласия, cookie?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p34" role="region" aria-labelledby="faq-b34"><p>Подключаем ваши документы к формам и согласиям; если их нет — подскажем, что подготовить. Юридическую проверку текстов лучше доверить вашему юристу. На нашем сайте всё устроено по 152-ФЗ — покажем, как это работает.</p></div>
+          </div>
+<div class="faq-item">
+            <h4><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-p18" id="faq-b18">Кому вы не подходите?<svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></h4>
+            <div class="faq__panel" id="faq-p18" role="region" aria-labelledby="faq-b18"><p>Проектам с бюджетом ниже 90 000 ₽, без понятной задачи и сроков и задаче «просто красивая страница». Не делаем интернет-магазины, мобильные приложения и брендинг с нуля.</p></div>
+          </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container container--cta">
+        <div class="cta-panel" data-reveal>
+          <form class="cta-form" id="lead-form" action="#" method="post" novalidate>
+            <div class="cta-form__hp" aria-hidden="true">
+              <label for="field-website">Не заполняйте это поле</label>
+              <input id="field-website" class="ym-disable-keys" type="text" name="website" tabindex="-1" autocomplete="off" data-honeypot />
+            </div>
+
+            <div class="form-alert" id="form-alert" role="alert" hidden>
+              <svg class="form-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v6" />
+                <circle cx="12" cy="16.6" r="0.6" fill="currentColor" />
+              </svg>
+              <span class="form-alert__text" id="form-alert-text"></span>
+            </div>
+
+            <div class="cta-form__top">
+              <div class="cta-panel__copy">
+                <span class="sec-index mono">// 09</span>
+            <h2 class="sec-title">Обсудим Ваш проект</h2>
+            <p class="sec-lead">Ответим в течение 30 минут в рабочее время (10:00–20:00 МСК): предложим структуру и зафиксируем смету. Пришлите ссылку на текущий лендинг — запишем видео-разбор и покажем, где теряются заявки. Пишет специалист, который будет делать страницу. Без спама и менеджеров.</p>
+            <div class="cta-panel__channels">
+              <span class="cta-panel__note mono">// свяжитесь напрямую:</span>
+              <ul class="contact-icons">
+                <li>
+                  <a class="contact-icon" href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer" aria-label="Telegram — @vmlabs" title="Telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.04 15.52l-.38 4.02c.55 0 .79-.22 1.08-.49l2.59-2.48 5.37 3.95c.98.54 1.68.26 1.94-.9l3.5-16.41c.35-1.45-.53-2.02-1.48-1.66L1.7 9.5c-1.42.55-1.4 1.34-.24 1.7l5.2 1.62L18.71 5.9c.57-.35 1.09-.16.66.19l-10.33 9.43z" /></svg>
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-icon" href="mailto:hello@vmlabs.ru" aria-label="Email — hello@vmlabs.ru" title="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-icon contact-icon--text" href="https://max.ru/vmlabs" target="_blank" rel="noopener noreferrer" aria-label="MAX — @vmlabs" title="MAX"><span aria-hidden="true">max</span></a>
+                </li>
+                <li>
+                  <a class="contact-icon contact-icon--text" href="https://vk.com/vmlabs" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте — vk.com/vmlabs" title="ВКонтакте"><span aria-hidden="true">vk</span></a>
+                </li>
+              </ul>
+            </div>
+              </div>
+
+              <div class="cta-form__cols">
+                <div class="cta-form__col cta-form__col--choices">
+                  <fieldset class="cta-form__field">
+                    <legend class="mono">что нужно сделать (можно несколько)</legend>
+                    <div class="chips" role="group" aria-label="Тип проекта">
+                      <button class="chip mono" type="button" data-chip data-chip-value="webinar" aria-pressed="false">под вебинар</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="course" aria-pressed="false">под курс</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="marathon" aria-pressed="false">под марафон</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="consultation" aria-pressed="false">под консультацию</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="business" aria-pressed="false">сайт для бизнеса</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="service" aria-pressed="false">лендинг под услугу</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="expert" aria-pressed="false">страница эксперта</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="presentation" aria-pressed="false">презентация / визитка</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="turnkey" aria-pressed="false">запуск «под ключ»</button>
+                      <button class="chip mono" type="button" data-chip data-chip-value="other" aria-pressed="false">другой</button>
+                    </div>
+                  </fieldset>
+
+                  <div class="cta-form__field cta-form__platforms">
+                    <span class="mono cta-form__label" id="platform-label">где будете продвигать (можно несколько)</span>
+                    <div class="chips" role="group" aria-labelledby="platform-label">
+                      <button class="chip chip--platform mono" type="button" data-platform="Telegram" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.04 15.52l-.38 4.02c.55 0 .79-.22 1.08-.49l2.59-2.48 5.37 3.95c.98.54 1.68.26 1.94-.9l3.5-16.41c.35-1.45-.53-2.02-1.48-1.66L1.7 9.5c-1.42.55-1.4 1.34-.24 1.7l5.2 1.62L18.71 5.9c.57-.35 1.09-.16.66.19l-10.33 9.43z" /></svg>Telegram</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Instagram" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg>Instagram</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="TikTok" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M14.5 4v9.2a3.6 3.6 0 1 1-3.2-3.58" /><path d="M14.5 4.2c.35 2.3 1.7 3.6 4 3.95" /></svg>TikTok</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="ВКонтакте" aria-pressed="false"><span class="chip__mark" aria-hidden="true">VK</span>ВКонтакте</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Twitter" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4l14 16M19 4L5 20" /></svg>Twitter</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Threads" aria-pressed="false"><span class="chip__mark" aria-hidden="true">TH</span>Threads</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Facebook" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.6l.4-3h-3V9.1c0-.9.3-1.5 1.6-1.5H17V5.1c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.8v7h2.7Z" /></svg>Facebook</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="YouTube" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4" /><path d="M10.5 9.5l4.5 2.5-4.5 2.5z" fill="currentColor" stroke="none" /></svg>YouTube</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Дзен" aria-pressed="false"><span class="chip__mark" aria-hidden="true">Д</span>Дзен</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Одноклассники" aria-pressed="false"><span class="chip__mark" aria-hidden="true">OK</span>Одноклассники</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="MAX" aria-pressed="false"><span class="chip__mark" aria-hidden="true">MAX</span>MAX</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="WhatsApp" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.7a8 8 0 0 1-11.9 7L4 20l1.3-4A8 8 0 1 1 20 11.7Z" /><path d="M8.5 9.1c.5 2.9 2.5 4.9 5.4 5.4l1.2-1.7 1.9 1.4-1.3 1.9c-2.9-.1-7.2-4.4-7.3-7.3l1.9-1.3 1.4 1.9z" fill="currentColor" stroke="none" /></svg>WhatsApp</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="GetCourse" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-4 9 4-9 4-9-4Z" /><path d="M7 11.5V16c2.5 1.6 7.5 1.6 10 0v-4.5" /></svg>GetCourse</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="Поиск / сайт" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6" /><path d="M15.5 15.5L20 20" /></svg>Поиск / сайт</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="E-mail" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>E-mail</button>
+                      <button class="chip chip--platform mono" type="button" data-platform="другое" aria-pressed="false"><svg class="chip__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="12" r="1.4" /><circle cx="12" cy="12" r="1.4" /><circle cx="18" cy="12" r="1.4" /></svg>другое</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cta-form__col cta-form__col--inputs">
+                  <div class="cta-form__field">
+                    <label class="mono" for="field-name">имя</label>
+                    <input id="field-name" class="ym-disable-keys" name="name" type="text" autocomplete="name" placeholder="Как к Вам обращаться" required minlength="2" maxlength="80" />
+                  </div>
+
+                  <div class="cta-form__field">
+                    <span class="mono cta-form__label" id="channel-label">канал связи — обязательно выберите один</span>
+                    <div class="channel-icons" role="group" aria-labelledby="channel-label">
+                      <button class="channel-icon" type="button" data-channel="telegram" aria-pressed="false" aria-label="Telegram" title="Telegram">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.04 15.52l-.38 4.02c.55 0 .79-.22 1.08-.49l2.59-2.48 5.37 3.95c.98.54 1.68.26 1.94-.9l3.5-16.41c.35-1.45-.53-2.02-1.48-1.66L1.7 9.5c-1.42.55-1.4 1.34-.24 1.7l5.2 1.62L18.71 5.9c.57-.35 1.09-.16.66.19l-10.33 9.43z" /></svg>
+                      </button>
+                      <button class="channel-icon" type="button" data-channel="email" aria-pressed="false" aria-label="Email" title="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+                      </button>
+                      <button class="channel-icon channel-icon--text" type="button" data-channel="max" aria-pressed="false" aria-label="MAX" title="MAX"><span aria-hidden="true">max</span></button>
+                      <button class="channel-icon channel-icon--text" type="button" data-channel="vk" aria-pressed="false" aria-label="ВКонтакте" title="ВКонтакте"><span aria-hidden="true">vk</span></button>
+                    </div>
+                  </div>
+
+                  <div class="cta-form__field" id="field-contact-wrap">
+                    <label class="mono" for="field-contact">контакт для ответа</label>
+                    <input id="field-contact" class="ym-disable-keys" name="contact" type="text" autocomplete="off" placeholder="@username" required maxlength="120" inputmode="text" aria-describedby="field-contact-hint" disabled />
+                    <span class="cta-form__hint mono" id="field-contact-hint">// сначала выберите канал связи</span>
+                  </div>
+
+                  <div class="cta-form__field" id="field-verify-wrap" hidden>
+                    <label class="mono" for="field-verify">код из письма</label>
+                    <input id="field-verify" class="ym-disable-keys" name="verify" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="6 цифр" />
+                    <span class="cta-form__hint mono" id="field-verify-hint">// код придёт на указанный e-mail</span>
+                  </div>
+
+                  <div class="cta-form__field" id="field-verify-bot" hidden>
+                    <span class="mono cta-form__label" id="field-verify-bot-label">подтверждение в Telegram</span>
+                    <p class="cta-form__hint" id="field-verify-bot-text"></p>
+                    <div class="verify-code mono" id="field-verify-bot-code"></div>
+                    <span class="cta-form__hint mono" id="field-verify-bot-status">// ждём подтверждения…</span>
+                  </div>
+
+                  <div class="cta-form__field" id="field-other-wrap">
+                    <label class="mono" for="field-other">опишите проект или продукт</label>
+                    <textarea id="field-other" class="ym-disable-keys" name="other" rows="3" maxlength="500" placeholder="Коротко: что за продукт, услуга или бизнес и какой сайт нужен"></textarea>
+                  </div>
+
+                  <div class="cta-form__field">
+                    <label class="mono" for="field-budget">бюджет проекта</label>
+                    <select id="field-budget" class="ym-disable-keys" name="budget">
+                      <option value="">выберите, если знаете</option>
+                      <option value="до 90 000 ₽">до 90 000 ₽</option>
+                      <option value="90 000 – 150 000 ₽">90 000 – 150 000 ₽</option>
+                      <option value="180 000 – 300 000 ₽">180 000 – 300 000 ₽</option>
+                      <option value="от 300 000 ₽">от 300 000 ₽</option>
+                      <option value="пока не определён">пока не определён</option>
+                    </select>
+                  </div>
+
+                  <div class="cta-form__field">
+                    <label class="mono" for="field-launch-date">сроки или дата запуска</label>
+                    <input id="field-launch-date" class="ym-disable-keys" name="launch_date" type="text" autocomplete="off" maxlength="64" placeholder="15 ноября или «до конца месяца»" />
+                  </div>
+
+                  <p class="cta-form__slots mono">// свободных слотов на этот месяц: <strong>3</strong> · в работе одновременно не больше трёх проектов</p>
+                </div>
+              </div>
+
+              <div class="cta-form__tail">
+                <div class="cta-form__field cta-form__field--site">
+                  <label class="mono" for="field-current-landing">ссылка на текущий сайт или лендинг</label>
+                  <input id="field-current-landing" class="ym-disable-keys" name="current_landing" type="text" autocomplete="off" maxlength="500" placeholder="https:// — если уже есть" />
+                </div>
+
+                <div class="cta-form__field cta-form__field--wishes">
+                  <label class="mono" for="field-wishes">Ваши пожелания</label>
+                  <textarea id="field-wishes" class="ym-disable-keys" name="wishes" rows="3" maxlength="1000" placeholder="Референсы, сроки, особые требования — всё, что важно учесть"></textarea>
+                </div>
+              </div>
+
+              <ul class="cta-form__consents">
+                <li class="cta-form__check">
+                  <label class="cta-form__check-box">
+                    <input type="checkbox" id="consent-pd" name="consent_pd" required />
+                  </label>
+                  <div class="cta-form__check-text">
+                <label for="consent-pd">Я даю</label>
+              <a href="#modal-consent" data-modal-open="consent">согласие на обработку персональных данных</a>
+              <label for="consent-pd">и подтверждаю, что ознакомился с</label>
+              <a href="#modal-privacy" data-modal-open="privacy">политикой конфиденциальности</a>.
+                  </div>
+                </li>
+                <li class="cta-form__check">
+                  <label class="cta-form__check-box">
+                    <input type="checkbox" id="consent-offer" name="consent_offer" required />
+                  </label>
+                  <div class="cta-form__check-text">
+            <label for="consent-offer">Принимаю условия</label>
+            <a href="#modal-offer" data-modal-open="offer">публичной оферты</a>.
+                  </div>
+                </li>
+                <li class="cta-form__check">
+                  <label class="cta-form__check-box">
+                    <input type="checkbox" id="consent-ads" name="consent_ads" />
+                  </label>
+                  <div class="cta-form__check-text">
+                    <label for="consent-ads">Согласен получать информационные и рекламные сообщения</label>
+                    <a href="#modal-ads" data-modal-open="ads">условия согласия</a>
+                    (можно отозвать в любой момент).
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cta-form__footer">
+
+            <button class="btn btn--glass btn--block cta-form__submit" type="submit">
+              <span class="btn__label">Отправить и получить разбор</span>
+            </button>
+            <p class="cta-form__note mono">// ответим в течение 30 минут в рабочее время (10:00–20:00 МСК). Без спама.</p>
+            </div>
+          </form>
+
+          <div class="form-success" id="form-success" hidden>
+            <svg viewBox="0 0 52 52" aria-hidden="true">
+              <circle class="form-success__ring" cx="26" cy="26" r="24" pathLength="1" fill="none" />
+              <path class="form-success__check" d="M15 27l8 8 15-16" pathLength="1" fill="none" />
+            </svg>
+            <h3>Заявка отправлена</h3>
+            <p>Ответим в течение <strong>30 минут</strong> в рабочее время — предложим структуру и зафиксируем смету.</p>
+            <div class="form-success__channels">
+              <span class="form-success__contacts mono">Ускорить ответ:</span>
+              <ul class="contact-icons contact-icons--center">
+                <li>
+                  <a class="contact-icon" href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer" aria-label="Telegram — @vmlabs" title="Telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.04 15.52l-.38 4.02c.55 0 .79-.22 1.08-.49l2.59-2.48 5.37 3.95c.98.54 1.68.26 1.94-.9l3.5-16.41c.35-1.45-.53-2.02-1.48-1.66L1.7 9.5c-1.42.55-1.4 1.34-.24 1.7l5.2 1.62L18.71 5.9c.57-.35 1.09-.16.66.19l-10.33 9.43z" /></svg>
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-icon" href="mailto:hello@vmlabs.ru" aria-label="Email — hello@vmlabs.ru" title="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-icon contact-icon--text" href="https://max.ru/vmlabs" target="_blank" rel="noopener noreferrer" aria-label="MAX — @vmlabs" title="MAX"><span aria-hidden="true">max</span></a>
+                </li>
+                <li>
+                  <a class="contact-icon contact-icon--text" href="https://vk.com/vmlabs" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте — vk.com/vmlabs" title="ВКонтакте"><span aria-hidden="true">vk</span></a>
+                </li>
+              </ul>
+            </div>
+            <p class="form-success__next mono">// что дальше: созвон 20–30 минут → смета → договор → старт</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="logo logo--static logo--footer" href="#hero" data-logo aria-label="VM Labs">
+        <span class="logo__icon">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <linearGradient id="vmg-footer" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#b9f8c8" />
+                <stop offset="0.5" stop-color="#5ee98d" />
+                <stop offset="1" stop-color="#1fb85a" />
+              </linearGradient>
+            </defs>
+            <rect class="logo__box-fill" x="6" y="6" width="108" height="108" rx="34" fill="url(#vmg-footer)" />
+            <rect class="logo__box-stroke" x="6" y="6" width="108" height="108" rx="34" pathLength="1" fill="none" stroke="currentColor" stroke-width="2.5" />
+            <path class="logo__chev" d="M46 35 L73 60 L46 85" pathLength="1" fill="none" stroke="#10161d" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="logo__word">vm labs</span>
+      </a>
+
+      <p class="footer__tagline">Студия лендингов и сайтов.<br />Эксперты, продюсеры, бизнес.</p>
+
+      <nav class="footer__nav" aria-label="Навигация в футере">
+        <a href="#products">Что делаем</a>
+        <a href="#process">Процесс</a>
+        <a href="#portfolio">Вдохновение</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#pricing">Форматы</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Контакт</a>
+    <a href="#modal-privacy" data-modal-open="privacy">Политика конфиденциальности</a>
+    <a href="#modal-consent" data-modal-open="consent">Согласие на обработку ПД</a>
+    <a href="#modal-ads" data-modal-open="ads">Согласие на рекламу</a>
+    <a href="#modal-cookie" data-modal-open="cookie">Согласие на cookie</a>
+    <a href="#modal-offer" data-modal-open="offer">Публичная оферта</a>
+      </nav>
+
+      <section class="footer__legal" aria-label="Реквизиты и контакты">
+        <div class="footer__legal-col">
+          <p class="footer__legal-role">Исполнитель</p>
+          <p><strong>ИП Михов Виктор Викторович</strong><br />
+          ИНН 694907152253 · ОГРНИП 326690000034591<br />
+          Адрес: Тверская область, Конаковский район, деревня Тешилово, дом 6</p>
+        </div>
+        <div class="footer__legal-col">
+          <p class="footer__legal-role">Соисполнитель</p>
+          <p><strong>ИП Шипулин Максим Андреевич</strong><br />
+          ИНН 667472994610 · ОГРНИП 326965800032441<br />
+          Адрес: Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</p>
+        </div>
+      </section>
+
+      <p class="footer__copy mono">© <span id="year">2026</span> VM Labs</p>
+    </div>
+  </footer>
+
+  <!--
+    Модалки документов. Текст лежит прямо в разметке, а не подгружается
+    fetch-ом и не вставляется через iframe: только так он одинаково
+    выглядит и работает всегда — без скрипта, на file://, в офлайне и на
+    мобильных (один скролл-контейнер, никаких вложенных документов со
+    своим курсором и своим хедером).
+    Отдельные страницы (privacy.html, offer.html, cookie-consent.html,
+    consent-pd.html, ads-consent.html) остаются для прямых ссылок и
+    поиска, поэтому при правке документа обновляйте ОБА места. Тексты
+    про аналитику и Вебвизор дополнительно сверяются с ANALYTICS.md.
+    Открытие без скрипта — по якорю #modal-… (CSS :target), закрытие —
+    ссылками href="#!".
+  -->
+<div class="modal" id="modal-privacy" role="dialog" aria-modal="true" aria-label="Политика конфиденциальности">
+  <a class="modal__backdrop" href="#!" data-modal-close aria-label="Закрыть окно"></a>
+  <div class="modal__panel">
+    <a class="modal__close" href="#!" data-modal-close aria-label="Закрыть окно">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </a>
+    <article class="legal" data-legal-src="privacy.html">
+      <h1>Политика конфиденциальности</h1>
+      <p class="legal__meta mono">Редакция от 18 октября 2026 года</p>
+
+      <div class="legal__box">
+        <p><strong>Сведения об операторе в реестре РКН:</strong> Оператор включён в реестр операторов, осуществляющих обработку персональных данных. Запись № <strong>замените на номер из реестра</strong> от <strong>замените на дату</strong>. <a href="https://rkn.gov.ru/personal-data/registry/" target="_blank" rel="noopener noreferrer">Проверить в реестре</a>.</p>
+      </div>
+
+      <h2>1. Общие положения</h2>
+      <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных пользователей сайта (далее — «Сайт»), оператором которых является <strong>ИП Михов Виктор Викторович</strong>, ИНН <strong>694907152253</strong>, ОГРНИП <strong>326690000034591</strong>, адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong> (далее — «Оператор»). Обработка персональных данных может быть поручена <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong>, адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong> (далее — «Обработчик»), на основании договора соисполнительства.</p>
+      <p>Политика разработана в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» с учётом всех изменений и дополнений, действующих на дату публикации настоящей редакции (включая поправки 2025–2026 годов).</p>
+      <p>Используя Сайт и отправляя данные через формы, Вы подтверждаете, что ознакомлены с настоящей Политикой и принимаете её условия.</p>
+
+      <h2>2. Какие данные мы обрабатываем</h2>
+      <h3>2.1. Категории субъектов персональных данных:</h3>
+      <ul>
+        <li>посетители Сайта;</li>
+        <li>пользователи, оставляющие заявки и обращения через формы обратной связи;</li>
+        <li>клиенты (физические лица и представители юридических лиц), с которыми заключается договор.</li>
+      </ul>
+
+      <h3>2.2. Данные, которые Вы предоставляете самостоятельно:</h3>
+      <ul>
+        <li>имя или псевдоним (как к Вам обращаться);</li>
+        <li>контактные данные в выбранном канале связи: номер телефона, адрес электронной почты, никнейм (username) или ссылка на профиль в Telegram и ВКонтакте, ссылка в MAX;</li>
+        <li>содержание Вашего сообщения: выбранные типы лендинга, описание продукта и пожелания.</li>
+      </ul>
+
+      <h3>2.3. Данные, которые собираются автоматически:</h3>
+      <ul>
+        <li>IP-адрес;</li>
+        <li>данные cookie;</li>
+        <li>информация о браузере и устройстве (user-agent);</li>
+        <li>дата и время посещения;</li>
+        <li>просмотренные страницы, время на странице, глубина скролла, клики по элементам и переходы по внешним ссылкам — собираются через сервис Яндекс.Метрика; режим записи действий («Вебвизор») включён: записываются визуальное состояние страницы, движения курсора, клики и прокрутка; содержимое полей формы не записывается — поля помечены классом ym-disable-keys, и Метрика заменяет вводимые символы звёздочками;</li>
+        <li>источник перехода на Сайт.</li>
+      </ul>
+
+      <h3>2.4. Биометрические данные:</h3>
+      <p>Оператор <strong>не осуществляет</strong> обработку биометрических персональных данных (фото, видео, отпечатки пальцев, слепки голоса) в рамках работы Сайта.</p>
+
+      <h2>3. Цели обработки</h2>
+      <ul>
+        <li>обработка заявок и обратная связь по Вашему запросу;</li>
+        <li>заключение и исполнение договора на оказание услуг;</li>
+        <li>улучшение работы Сайта, анализ поведения пользователей;</li>
+        <li>отправка информационных и рекламных сообщений — <strong>только при наличии отдельного, явно выраженного согласия</strong>.</li>
+      </ul>
+
+      <h2>4. Правовые основания обработки</h2>
+      <ul>
+        <li>Ваше согласие на обработку персональных данных (ст. 6 ч. 1 п. 1 152-ФЗ);</li>
+        <li>исполнение договора, стороной которого Вы являетесь;</li>
+        <li>требования законодательства РФ.</li>
+      </ul>
+      <p>Оператор гарантирует, что получение согласия осуществляется <strong>без применения методов введения в заблуждение, принуждения или так называемых «тёмных паттернов»</strong> (dark patterns). Согласие не является обязательным условием оказания услуг Оператора, если обработка ПДн не требуется для исполнения конкретного договора с Вами.</p>
+      <p>Текст отдельного согласия доступен по ссылке: <a href="consent-pd.html" target="_blank" rel="noopener noreferrer">Согласие на обработку персональных данных</a>.</p>
+
+      <h2>5. Cookie и аналитика</h2>
+      <p>Сайт использует файлы cookie и сервис Яндекс.Метрика для анализа поведения пользователей и улучшения Сайта. Режим записи действий посетителя («Вебвизор») <strong>включён</strong>: счётчик передаёт статистику просмотров, времени на странице, глубины скролла, кликов и переходов по внешним ссылкам, а также записывает визуальное состояние страницы, движения курсора и прокрутку. Содержимое полей формы не записывается: поля помечены классом ym-disable-keys, и Метрика заменяет вводимые символы звёздочками.</p>
+      <p>Яндекс.Метрика — сервис ООО «ЯНДЕКС» (119021, г. Москва, ул. Льва Толстого, д. 16). Данные обрабатываются на серверах, расположенных на территории Российской Федерации. Политика Яндекса в отношении обработки данных доступна по адресу: <a href="https://yandex.ru/legal/confidential/" target="_blank" rel="noopener noreferrer">https://yandex.ru/legal/confidential/</a>.</p>
+
+      <div class="legal__box">
+        <p><strong>Вы можете отозвать согласие на аналитику</strong>, очистив cookie сайта в настройках браузера или выбрав «Только необходимые» в cookie-баннере при первом посещении. До момента Вашего подтверждения скрипты аналитики физически не загружаются на Ваше устройство.</p>
+      </div>
+
+      <h2>6. Передача данных третьим лицам и трансграничная передача</h2>
+      <p>Оператор не продаёт и не передаёт Ваши персональные данные третьим лицам, за исключением следующих случаев:</p>
+      <ul>
+        <li>сервис веб-аналитики Яндекс.Метрика — в объёме и на условиях, описанных выше;</li>
+        <li>сервисы электронной почты, обеспечивающие отправку и хранение заявок;</li>
+        <li>по законному требованию государственных органов РФ в порядке, установленном законодательством.</li>
+      </ul>
+
+      <h3>6.1. Трансграничная передача</h3>
+      <p>В случае использования зарубежных сервисов применяется порядок, установленный ст. 12 152-ФЗ: до начала трансграничной передачи персональных данных Оператор направляет в Роскомнадзор уведомление о намерении осуществлять такую передачу, а в случае передачи в государства, не обеспечивающие адекватную защиту прав субъектов персональных данных, — получает соответствующее разрешение уполномоченного органа по защите прав субъектов ПДн.</p>
+
+      <h3>6.2. Поручение обработки персональных данных</h3>
+      <p>Оператор вправе поручать обработку персональных данных третьему лицу — <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong> (Обработчик), действующему на основании договора соисполнительства. Обработчик обрабатывает персональные данные исключительно в целях исполнения обязательств по разработке дизайна и вёрстке лендингов, соблюдает конфиденциальность и принимает меры по защите данных в соответствии с 152-ФЗ. Перечень действий с данными: сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, блокирование, удаление, уничтожение.</p>
+
+      <h2>7. Хранение, защита данных и инциденты</h2>
+      <p>Первичный сбор и хранение персональных данных граждан РФ осуществляется на серверах, расположенных на территории Российской Федерации, в соответствии с ч. 5 ст. 18 152-ФЗ.</p>
+      <p>Срок хранения персональных данных:</p>
+      <ul>
+        <li>данные из форм обратной связи — до достижения цели обработки, но не более 3 лет с момента последнего обращения;</li>
+        <li>данные, связанные с исполнением договора — в течение срока, установленного законодательством;</li>
+        <li>данные cookie — в соответствии со сроком жизни конкретных cookie.</li>
+      </ul>
+      <p>Оператор принимает правовые, организационные и технические меры для защиты персональных данных от неправомерного доступа, уничтожения, изменения, блокирования, копирования и распространения.</p>
+
+      <h3>7.1. Действия при инцидентах (утечках) ПДн</h3>
+      <p>В случае выявления факта неправомерной обработки или утечки персональных данных Оператор обязан:</p>
+      <ul>
+        <li>уведомить Роскомнадзор об инциденте в течение <strong>24 часов</strong> с момента его обнаружения;</li>
+        <li>в течение <strong>72 часов</strong> предоставить в Роскомнадзор результаты внутреннего расследования инцидента;</li>
+        <li>при необходимости — уведомить субъектов ПДн о факте утечки и принятых мерах защиты.</li>
+      </ul>
+
+      <h2>8. Ваши права</h2>
+      <p>Вы вправе:</p>
+      <ul>
+        <li>получить полную информацию об обработке Ваших персональных данных;</li>
+        <li>требовать уточнения, блокирования или уничтожения данных, если они неполны, устарели, неточны или незаконно получены;</li>
+        <li>реализовать «право на забвение» — потребовать удаления данных из публичного доступа и прекращения их обработки;</li>
+        <li>отозвать согласие на обработку персональных данных в любой момент;</li>
+        <li>обжаловать действия Оператора в Роскомнадзоре, в суде или через уполномоченного по правам человека.</li>
+      </ul>
+      <p>Для реализации прав направьте обращение на email: <strong>hello@vmlabs.ru</strong> или через единую систему идентификации и аутентификации (ЕСИА / портал Госуслуги). Мы ответим в течение <strong>10 календарных дней</strong> с момента получения обращения.</p>
+
+      <h2>9. Отзыв согласия</h2>
+      <p>Отозвать согласие на обработку персональных данных можно:</p>
+      <ul>
+        <li>путём направления электронного уведомления через портал Госуслуги (ЕСИА);</li>
+        <li>направив письменное уведомление на email <strong>hello@vmlabs.ru</strong> или через Telegram <strong>@vmlabs</strong>.</li>
+      </ul>
+      <p>После получения отзыва Оператор прекратит обработку и уничтожит данные в срок, не превышающий <strong>30 дней</strong>, за исключением случаев, когда обработка должна быть продолжена по закону.</p>
+
+      <h2>10. Изменения Политики</h2>
+      <p>Оператор вправе изменять настоящую Политику. Актуальная редакция всегда доступна по адресу <a href="privacy.html" target="_blank" rel="noopener noreferrer">privacy.html</a>. Дата последней редакции указана в начале документа. Существенные изменения вступают в силу с момента их публикации.</p>
+
+      <h2>11. Контакты</h2>
+      <p>
+        Оператор: <strong>ИП Михов Виктор Викторович</strong><br />
+        ИНН: <strong>694907152253</strong><br />
+        ОГРНИП: <strong>326690000034591</strong><br />
+        Адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong><br />
+        Email для запросов ПДн: <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a><br />
+        Telegram: <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a><br />
+        Обработчик: <strong>ИП Шипулин Максим Андреевич</strong><br />
+        ИНН: <strong>667472994610</strong><br />
+        ОГРНИП: <strong>326965800032441</strong><br />
+        Адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong>
+      </p>
+    </article>
+  </div>
+</div>
+
+<div class="modal" id="modal-consent" role="dialog" aria-modal="true" aria-label="Согласие на обработку персональных данных">
+  <a class="modal__backdrop" href="#!" data-modal-close aria-label="Закрыть окно"></a>
+  <div class="modal__panel">
+    <a class="modal__close" href="#!" data-modal-close aria-label="Закрыть окно">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </a>
+    <article class="legal" data-legal-src="consent-pd.html">
+      <h1>Согласие на обработку персональных данных</h1>
+      <p class="legal__meta mono">Редакция от 18 октября 2026 года</p>
+
+      <p>Настоящим я, субъект персональных данных, действуя свободно, своей волей и в своём интересе, даю согласие <strong>ИП Михов Виктор Викторович</strong>, ИНН <strong>694907152253</strong>, ОГРНИП <strong>326690000034591</strong>, адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong> (далее — «Оператор»), на обработку моих персональных данных.</p>
+      <p>Обработка моих персональных данных может быть поручена <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong>, адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong> (далее — «Обработчик»), на основании договора соисполнительства.</p>
+
+      <div class="legal__box">
+        <p><strong>Важно:</strong> Настоящее согласие является информированным, конкретным и осознанным. Оно получено без применения методов введения в заблуждение (т.н. «тёмных паттернов») или принуждения. Согласие <strong>не является обязательным условием</strong> рассмотрения Вашей заявки или оказания услуги, если обработка ПДн не требуется для исполнения конкретного договора.</p>
+      </div>
+
+      <h2>1. Перечень персональных данных</h2>
+      <p>В форме обратной связи я указываю следующие данные:</p>
+      <ul>
+        <li>имя или псевдоним (как ко мне обращаться);</li>
+        <li>контактные данные в объёме, который я указал(а) для выбранного канала связи: номер телефона, адрес электронной почты, никнейм (username) или ссылка на профиль в Telegram и ВКонтакте, ссылка в MAX;</li>
+        <li>сведения, указанные мной в полях формы: выбранные типы лендинга, описание продукта и пожелания.</li>
+      </ul>
+      <p>Одновременно с отправкой формы автоматически фиксируются технические сведения, необходимые для защиты формы и подтверждения согласия: IP-адрес, сведения о браузере и устройстве (User-Agent), адрес страницы и дата отправки. Порядок их обработки описан в разделе 2.3 Политики конфиденциальности.</p>
+      <p><em>Стороны договорились, что согласие является электронным. В целях идентификации субъекта при реализации им прав (в т.ч. при отзыве согласия), достоверными и достаточными сведениями о субъекте признаются предоставленные им в форме уникальные контактные данные (номер телефона, адрес электронной почты, никнейм (username) или ссылка на профиль в Telegram и ВКонтакте, ссылка в MAX), привязанные к факту отправки формы.</em></p>
+
+      <h2>2. Цели обработки</h2>
+      <ul>
+        <li>обработка моей заявки и обратная связь;</li>
+        <li>заключение и исполнение договора на оказание услуг;</li>
+        <li>улучшение качества обслуживания.</li>
+      </ul>
+
+      <h2>3. Передача персональных данных третьим лицам</h2>
+      <p>Я даю согласие на передачу моих персональных данных сервису веб-аналитики Яндекс.Метрика (ООО «ЯНДЕКС», 119021, г. Москва, ул. Льва Толстого, д. 16) в объёме данных, собираемых автоматически (файлы cookie, IP-адрес, сведения о браузере и устройстве, просмотры страниц, время на странице, глубина скролла, клики и переходы по внешним ссылкам). Режим записи действий («Вебвизор») включён: записываются визуальное состояние страницы, движения курсора, клики и прокрутка; ввод в поля формы не передаётся — поля помечены классом ym-disable-keys и маскируются. Цель передачи: веб-аналитика и улучшение работы сайта.</p>
+      <p>Также я даю согласие на поручение обработки моих персональных данных <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong> (Обработчик), действующему на основании договора соисполнительства, в объёме, необходимом для оказания услуг по разработке дизайна и вёрстке лендингов. Обработчик обязуется соблюдать конфиденциальность и обеспечивать безопасность данных в соответствии с 152-ФЗ.</p>
+      <p>Иная передача моих персональных данных третьим лицам, помимо указанной в настоящем разделе, не осуществляется, за исключением случаев, предусмотренных законодательством РФ.</p>
+
+      <h2>4. Перечень действий с персональными данными</h2>
+      <p>Сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (предоставление, доступ) исключительно в рамках исполнения договора или требований закона, блокирование, удаление, уничтожение — как с использованием средств автоматизации, так и без них.</p>
+
+      <h2>5. Срок действия согласия</h2>
+      <p>Согласие действует со дня его предоставления до достижения целей обработки, но не более 3 лет с момента последнего обращения, либо до момента его отзыва.</p>
+
+      <h2>6. Порядок отзыва согласия</h2>
+      <p>Я уведомлён(а), что согласие может быть отозвано в любой момент путём:</p>
+      <ul>
+        <li>направления электронного обращения через портал Госуслуги (ЕСИА);</li>
+        <li>направления письменного уведомления на email <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a> или через Telegram <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a>.</li>
+      </ul>
+      <p>После получения отзыва Оператор прекратит обработку и уничтожит персональные данные в течение <strong>30 дней</strong>, за исключением случаев, когда обработка должна быть продолжена в соответствии с законодательством РФ (например, для исполнения налоговых обязательств).</p>
+
+      <h2>7. Подтверждение</h2>
+      <p>Я подтверждаю, что ознакомлен(а) с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> Оператора, мне понятны мои права и обязанности, а также последствия отзыва согласия.</p>
+      <p>Проставление отметки в чекбоксе «Я даю согласие на обработку персональных данных» при отправке формы на сайте и последующая отправка формы считаются моим согласием в электронной форме на условиях, изложенных выше.</p>
+    </article>
+  </div>
+</div>
+
+<div class="modal" id="modal-ads" role="dialog" aria-modal="true" aria-label="Согласие на рекламные сообщения">
+  <a class="modal__backdrop" href="#!" data-modal-close aria-label="Закрыть окно"></a>
+  <div class="modal__panel">
+    <a class="modal__close" href="#!" data-modal-close aria-label="Закрыть окно">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </a>
+    <article class="legal" data-legal-src="ads-consent.html">
+      <h1>Согласие на получение информационных и рекламных сообщений</h1>
+      <p class="legal__meta mono">Редакция от 17 октября 2026 года</p>
+
+      <p>Настоящим я, субъект персональных данных, действуя свободно, своей волей и в своём интересе, даю согласие <strong>ИП Михов Виктор Викторович</strong>, ИНН <strong>694907152253</strong>, ОГРНИП <strong>326690000034591</strong>, адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong> (далее — «Оператор»), на получение информационных и рекламных сообщений. Обработка моих персональных данных в объёме, необходимом для технического обеспечения сайта и исполнения договора соисполнительства, может быть поручена <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong>, адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong> (далее — «Обработчик»), на основании договора соисполнительства.</p>
+
+      <div class="legal__box">
+        <p><strong>Важно:</strong> настоящее согласие <strong>не является обязательным</strong> и не влияет на рассмотрение заявки и оказание услуг. Отказ от него не лишает Вас возможности получить ответ по обращению. Согласие оформлено отдельно от согласия на обработку персональных данных и от акцепта публичной оферты.</p>
+      </div>
+
+      <h2>1. Что считается рекламным сообщением</h2>
+      <p>Под информационными и рекламными сообщениями понимаются:</p>
+      <ul>
+        <li>новости и анонсы услуг Оператора;</li>
+        <li>предложения о скидках, акциях и специальных условиях;</li>
+        <li>материалы о запусках, вебинарах, курсах и марафонах;</li>
+        <li>опросы о качестве обслуживания.</li>
+      </ul>
+
+      <h2>2. Перечень персональных данных</h2>
+      <p>Для направления сообщений обрабатываются только данные, которые Вы указали в форме:</p>
+      <ul>
+        <li>имя или псевдоним (как к Вам обращаться);</li>
+        <li>контакт для связи в выбранном канале: номер телефона, адрес электронной почты, никнейм (username) или ссылка на профиль в Telegram и ВКонтакте, ссылка в MAX.</li>
+      </ul>
+
+      <h2>3. Каналы направления сообщений</h2>
+      <p>Сообщения направляются только в тот канал, который Вы указали в форме. Оператор не передаёт контакт третьим лицам для рассылок и не направляет сообщения от имени других организаций.</p>
+
+      <h2>4. Срок действия согласия</h2>
+      <p>Согласие действует со дня его предоставления до момента отзыва. Оператор прекращает направление сообщений не позднее <strong>30 дней</strong> с момента получения отзыва.</p>
+
+      <h2>5. Порядок отзыва согласия</h2>
+      <p>Я уведомлён(а), что согласие может быть отозвано в любой момент путём:</p>
+      <ul>
+        <li>перехода по ссылке «отписаться», если она есть в полученном сообщении;</li>
+        <li>направления письменного уведомления на email <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a> или через Telegram <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a>;</li>
+        <li>направления электронного обращения через портал Госуслуги (ЕСИА).</li>
+      </ul>
+      <p>Отзыв этого согласия не прекращает обработку персональных данных, необходимую для исполнения договора или требований закона.</p>
+
+      <h2>6. Подтверждение</h2>
+      <p>Я подтверждаю, что ознакомлен(а) с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> Оператора и мне понятны последствия отзыва согласия.</p>
+      <p>Проставление отметки в чекбоксе «Согласен получать информационные и рекламные сообщения» при отправке формы на сайте считается моим согласием в электронной форме на условиях, изложенных выше. Отсутствие такой отметки означает, что рекламные сообщения мне направляться не будут.</p>
+    </article>
+  </div>
+</div>
+
+<div class="modal" id="modal-cookie" role="dialog" aria-modal="true" aria-label="Согласие на использование cookie и аналитики">
+  <a class="modal__backdrop" href="#!" data-modal-close aria-label="Закрыть окно"></a>
+  <div class="modal__panel">
+    <a class="modal__close" href="#!" data-modal-close aria-label="Закрыть окно">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </a>
+    <article class="legal" data-legal-src="cookie-consent.html">
+      <h1>Согласие на использование файлов cookie и аналитики</h1>
+      <p class="legal__meta mono">Редакция от 18 октября 2026 года</p>
+
+      <p>Настоящим я, субъект персональных данных, действуя свободно, своей волей и в своём интересе, даю согласие <strong>ИП Михов Виктор Викторович</strong>, ИНН <strong>694907152253</strong>, ОГРНИП <strong>326690000034591</strong>, адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong> (далее — «Оператор»), на использование файлов cookie и сервисов аналитики на сайте Оператора.</p>
+      <p>Обработка данных, собранных с помощью cookie, может быть поручена <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong>, адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong> (далее — «Обработчик»), на основании договора соисполнительства.</p>
+
+      <div class="legal__box">
+        <p><strong>Важно:</strong> согласие на аналитические cookie <strong>не является обязательным</strong>. При отказе загружаются только необходимые для работы сайта файлы, а сервисы аналитики не подключаются. Согласие оформлено отдельно от согласия на обработку персональных данных.</p>
+      </div>
+
+      <h2>1. Какие файлы cookie используются</h2>
+      <ul>
+        <li><strong>Необходимые.</strong> Обеспечивают работу сайта: выбранная тема оформления, настройки доступности, выбранный Вами режим cookie, защита формы от повторной отправки. Без них сайт работать не будет. Правовое основание — исполнение договора и законный интерес; отдельного согласия не требуют.</li>
+        <li><strong>Аналитические.</strong> Помогают понимать, как посетители пользуются сайтом: какие страницы открывают, сколько времени проводят, где возникают затруднения. Подключаются <strong>только после Вашего согласия</strong>.</li>
+      </ul>
+
+      <h2>2. Какие данные обрабатываются</h2>
+      <p>При подключении аналитики обрабатываются: IP-адрес, сведения о браузере и устройстве (User-Agent), адрес открытой страницы, источник перехода, время и продолжительность визита, действия на странице.</p>
+      <p>Данные, которые Вы вводите в форму заявки (имя, контакт, текст обращения), в сервис аналитики не передаются: Вебвизор включён, но поля формы помечены классом ym-disable-keys, поэтому их содержимое маскируется и не записывается.</p>
+      <p>Обработка данных, собранных с помощью cookie, может быть поручена <strong>ИП Шипулин Максим Андреевич</strong> на основании договора соисполнительства для целей вёрстки и анализа работы сайта.</p>
+
+      <h2>3. Сервис аналитики</h2>
+      <p>Используется сервис <strong>Яндекс.Метрика</strong> (ООО «ЯНДЕКС», 119021, г. Москва, ул. Льва Толстого, д. 16). Данные обрабатываются на серверах, расположенных на территории Российской Федерации. Режим записи действий посетителя («Вебвизор») <strong>включён</strong> — записываются визуальное состояние страницы, движения курсора, клики и прокрутка. Содержимое полей формы не записывается: поля помечены классом ym-disable-keys и маскируются. Счётчик также передаёт статистику просмотров, времени на странице, глубины скролла, кликов и переходов по внешним ссылкам.</p>
+      <p>До получения Вашего согласия счётчик аналитики не загружается, файлы аналитических cookie не устанавливаются, данные в сервис не передаются.</p>
+
+      <h2>4. Срок действия согласия и порядок отказа</h2>
+      <p>Согласие действует до его отзыва. Изменить или отозвать выбор можно в любой момент:</p>
+      <ul>
+        <li>очистив данные сайта в настройках браузера — после этого баннер cookie появится снова и Вы сможете выбрать «Только необходимые»;</li>
+        <li>направления письменного уведомления на email <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a> или через Telegram <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a>.</li>
+      </ul>
+      <p>Информация о Вашем выборе сохраняется в браузере и фиксируется на стороне Оператора с указанием даты, IP-адреса и User-Agent — как доказательство того, что аналитика была подключена с Вашего согласия либо не подключалась.</p>
+
+      <h2>5. Подтверждение</h2>
+      <p>Я подтверждаю, что ознакомлен(а) с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> Оператора и мне понятен порядок отказа от аналитических cookie.</p>
+      <p>Нажатие кнопки «Принять все» в баннере cookie считается моим согласием в электронной форме на условиях, изложенных выше. Нажатие «Только необходимые» означает отказ от аналитических cookie.</p>
+    </article>
+  </div>
+</div>
+
+<div class="modal" id="modal-offer" role="dialog" aria-modal="true" aria-label="Публичная оферта">
+  <a class="modal__backdrop" href="#!" data-modal-close aria-label="Закрыть окно"></a>
+  <div class="modal__panel">
+    <a class="modal__close" href="#!" data-modal-close aria-label="Закрыть окно">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </a>
+    <article class="legal" data-legal-src="offer.html">
+      <h1>Публичная оферта</h1>
+      <p class="legal__meta mono">Редакция от 17 октября 2026 года</p>
+
+      <p>Настоящий документ является публичной офертой (далее — «Оферта») в соответствии со ст. 437 Гражданского кодекса РФ и определяет условия оказания услуг <strong>ИП Михов Виктор Викторович</strong>, ИНН <strong>694907152253</strong>, ОГРНИП <strong>326690000034591</strong>, адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong> (далее — «Исполнитель»), любому лицу, которое примет условия настоящей Оферты (далее — «Заказчик»).</p>
+      <p>Для выполнения работ Исполнитель вправе привлекать <strong>ИП Шипулин Максим Андреевич</strong>, ИНН <strong>667472994610</strong>, ОГРНИП <strong>326965800032441</strong>, адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong> (далее — «Соисполнитель»), на основании отдельного договора.</p>
+
+      <div class="legal__box">
+        <p><strong>Акцепт Оферты</strong> — оформление заявки на сайте, переписка в мессенджере или по email, а также подписание отдельного договора на условиях Оферты. С момента акцепта Оферта считается заключённым договором между Исполнителем и Заказчиком.</p>
+      </div>
+
+      <h2>1. Предмет оферты</h2>
+      <p>1.1. Исполнитель оказывает услуги по разработке лендингов, страниц регистрации, продающих страниц, страниц благодарности, а также по технической интеграции (формы, оплата, письма, CRM, аналитика) и поддержке (далее — «Услуги»).</p>
+      <p>1.2. Конкретный объём, состав и стоимость Услуг согласовываются Сторонами в брифе и фиксируются в смете, договоре или счёте.</p>
+      <p>1.3. Услуги оказываются дистанционно. Результат передаётся Заказчику в виде исходных файлов, доступов и опубликованного на хостинге Заказчика проекта.</p>
+
+      <h2>2. Порядок оказания услуг</h2>
+      <p>2.1. Услуги оказываются поэтапно: бриф и смета → прототип и тексты → дизайн и вёрстка → интеграции и тесты → запуск и поддержка.</p>
+      <p>2.2. Сроки каждого этапа согласовываются и фиксируются в смете. Исполнитель вправе привлекать третьих лиц для выполнения отдельных этапов работ, оставаясь ответственным за результат перед Заказчиком.</p>
+      <p>2.3. Заказчик обязуется своевременно предоставлять обратную связь, материалы и доступы, необходимые для выполнения работ. Задержка со стороны Заказчика продлевает согласованные сроки соразмерно.</p>
+
+      <h2>3. Стоимость и порядок оплаты</h2>
+      <p>3.1. Стоимость Услуг определяется на основании брифа и фиксируется в смете. Смета не меняется в процессе работы, если объём задач не меняется по инициативе Заказчика.</p>
+      <p>3.2. Оплата производится в порядке предоплаты: как правило, 50 % на старте и 50 % по факту сдачи. Иные условия могут быть согласованы отдельно.</p>
+      <p>3.3. Датой оплаты считается дата поступления денежных средств на расчётный счёт Исполнителя.</p>
+      <p>3.4. Стоимость Услуг не облагается НДС (Исполнитель применяет специальный налоговый режим).</p>
+
+      <h2>4. Права и обязанности Сторон</h2>
+      <p>4.1. Исполнитель обязуется:</p>
+      <ul>
+        <li>выполнить работы в согласованные сроки и передать результат Заказчику;</li>
+        <li>информировать Заказчика о ходе работ и возникающих рисках;</li>
+        <li>не разглашать конфиденциальную информацию Заказчика (см. раздел 7).</li>
+      </ul>
+      <p>4.2. Заказчик обязуется:</p>
+      <ul>
+        <li>предоставить материалы, обратную связь и доступы, необходимые для выполнения работ;</li>
+        <li>своевременно принимать промежуточные и финальные результаты;</li>
+        <li>не передавать результаты третьим лицам до полной оплаты.</li>
+      </ul>
+
+      <h2>5. Ответственность</h2>
+      <p>5.1. Стороны несут ответственность в соответствии с законодательством РФ.</p>
+      <p>5.2. Исполнитель не несёт ответственности за упущенную выгоду и иные косвенные убытки Заказчика, возникшие в результате использования или невозможности использования результатов работ.</p>
+      <p>5.3. Совокупная ответственность Исполнителя ограничена суммой фактически уплаченного вознаграждения по соответствующему договору.</p>
+
+      <h2>6. Возврат средств</h2>
+      <p>6.1. Возврат средств производится в соответствии с условиями договора и законодательством РФ.</p>
+      <p>6.2. Предоплата за фактически выполненные и принятые Заказчиком этапы работ не возвращается.</p>
+      <p>6.3. Если Заказчик отказывается от работ до начала какого-либо этапа, предоплата за этот этап возвращается в течение 10 рабочих дней.</p>
+
+      <h2>7. Конфиденциальность и NDA</h2>
+      <p>7.1. Стороны обязуются сохранять конфиденциальность в отношении любой информации, полученной в ходе исполнения Оферты: условий сделки, коммерческих показателей, состава аудитории, материалов Заказчика, доступов к его системам (далее — «Конфиденциальная информация»).</p>
+      <p>7.2. Исполнитель подписывает отдельное соглашение о неразглашении (NDA) по первому требованию Заказчика — до начала работ или в любой момент исполнения. NDA действует в течение 3 (трёх) лет с момента прекращения работ, независимо от факта раскрытия Конфиденциальной информации.</p>
+      <p>7.3. Исполнитель не вправе публиковать кейс, называть Заказчика или его проект в портфолио, на сайте или в социальных сетях без предварительного письменного согласия Заказчика.</p>
+      <p>7.4. Все доступы (хостинг, домен, аналитика, интеграции, аккаунты) передаются Заказчику после завершения проекта и полной оплаты. Исполнитель не сохраняет копий доступов после передачи.</p>
+      <p>7.5. Обработка персональных данных Сторон осуществляется в соответствии с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> Исполнителя и 152-ФЗ.</p>
+      <p>7.6. Для выполнения работ по разработке и вёрстке лендингов Исполнитель вправе привлекать <strong>ИП Шипулин Максим Андреевич</strong> (Соисполнитель) на основании отдельного договора. Соисполнитель обязуется соблюдать конфиденциальность в отношении информации, полученной в ходе исполнения Оферты, в объёме, предусмотренном договором.</p>
+
+      <h2>8. Гарантийный период</h2>
+      <p>8.1. После сдачи проекта Исполнитель бесплатно устраняет технические ошибки и баги в течение 30 (тридцати) календарных дней с даты подписания акта или письменного подтверждения сдачи.</p>
+      <p>8.2. Срок реакции на критический баг (проект недоступен, форма не работает, оплата не проходит) — 8 рабочих часов. На некритический баг (визуальный дефект, опечатка) — 1 рабочий день.</p>
+      <p>8.3. Гарантия не покрывает: новую функциональность, изменение структуры страниц, добавление блоков, изменение текстов, переработку дизайна, интеграции с новыми сервисами.</p>
+      <p>8.4. Если в течение гарантийного периода Заказчик заказывает новые работы, гарантия на сданный проект не продлевается автоматически — срок отсчитывается от исходной даты сдачи.</p>
+      <p>8.5. Расширенная поддержка сверх 30 дней оформляется отдельным договором или абонементом.</p>
+
+      <h2>9. Прочие условия</h2>
+      <p>9.1. Исполнитель вправе изменять условия Оферты в одностороннем порядке для новых договоров. Условия уже подписанного договора (объём, сроки, стоимость) остаются фиксированными.</p>
+      <p>9.2. Все споры решаются путём переговоров, а при невозможности — в суде по месту нахождения Исполнителя.</p>
+      <p>9.3. Во всём, что не предусмотрено Офертой, Стороны руководствуются законодательством РФ.</p>
+
+      <h2>10. Контакты</h2>
+      <p>
+        Исполнитель: <strong>ИП Михов Виктор Викторович</strong><br />
+        ИНН: <strong>694907152253</strong><br />
+        ОГРНИП: <strong>326690000034591</strong><br />
+        Адрес: <strong>Тверская область, Конаковский район, деревня Тешилово, дом 6</strong><br />
+        Email: <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a><br />
+        Telegram: <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a><br />
+        Соисполнитель: <strong>ИП Шипулин Максим Андреевич</strong><br />
+        ИНН: <strong>667472994610</strong><br />
+        ОГРНИП: <strong>326965800032441</strong><br />
+        Адрес: <strong>Свердловская область, г. Екатеринбург, с. Горный Щит, ул. Старожилов, д. 119</strong>
+      </p>
+    </article>
+  </div>
+</div>
+
+  <!--
+    Модалка демо-лендинга: полноэкранный просмотр.
+    Своих переключателей отображения у неё нет: тема и версия для
+    слабовидящих берутся с сайта. Если режим включён в шапке сайта,
+    он действует и на демо внутри модалки; отдельно включать его
+    здесь не нужно. В верхней строке остаётся только закрытие.
+  -->
+<div class="modal modal--demo" id="modal-demo" role="dialog" aria-modal="true" aria-labelledby="modal-demo-title">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel">
+      <button class="modal__close" type="button" data-modal-close aria-label="Закрыть окно">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+      <h2 class="modal__demo-title" id="modal-demo-title">Демо-лендинг</h2>
+      <iframe class="modal__demo-frame" id="modal-demo-frame" src="about:blank" title="Демо-лендинг"></iframe>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" data-theme-key="pulse-theme"
+      data-theme-color-dark="#0e0e0e" data-theme-color-light="#f4f1e8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Pulse. — марафон запусков «5 дней» · 7—11 декабря · бесплатно</title>
+<meta name="description" content="Pulse. — бесплатный марафон запусков «5 дней», 7—11 декабря. Пять живых эфиров: ниша, оффер, лендинг, прогрев и открытие продаж. 0 ₽, рабочая тетрадь, запись на 14 дней.">
+<script src="script/demo-theme.js?v=20261025b"></script>
+<style>
+/* ============================================================
+   PULSE. — марафон запусков «5 дней» · поток 12
+   Афиша: типографический плакат слева, перфорация, полутона, зерно.
+   Один файл · без внешних зависимостей · офлайн-готово.
+   ============================================================ */
+
+/* ---------- 1. ПЕРЕМЕННЫЕ / ТЕМЫ ---------- */
+:root{
+  --font-brand:"Unbounded","Manrope","Onest","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"Onest","Manrope","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"JetBrains Mono","IBM Plex Mono","SF Mono",ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+
+  --bg:#0e0e0e;
+  --panel:#161616;
+  --panel-2:#1c1c1c;
+  --text:#f4f1e8;
+  --accent:#ff2e63;
+  --on-accent:#0e0e0e;
+  --dim:#a9a49a;
+  --faint:#5f5b54;
+  --line:rgba(244,241,232,.16);
+  --line-strong:rgba(244,241,232,.34);
+  --glass:rgba(14,14,14,.80);
+  --shade:rgba(0,0,0,.6);
+  --btn-shadow:rgba(255,46,99,.30);
+
+  /* фон страницы */
+  --grid-line:rgba(244,241,232,.045);
+  --glow-1:rgba(255,46,99,.13);
+  --glow-2:rgba(255,46,99,.06);
+  --spot:rgba(255,46,99,.09);
+  --grain-op:.055;
+  --grain-blend:soft-light;
+
+  /* афиша */
+  --poster-hair:rgba(14,14,14,.16);
+  --poster-mark:rgba(14,14,14,.13);
+  --poster-dim:rgba(14,14,14,.74);
+  --poster-tint:rgba(0,0,0,.07);
+  --bleed:clamp(190px,18vw,300px);
+
+  --pad:clamp(16px,4vw,40px);
+  --shell:1240px;
+  --head-h:68px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+[data-theme="light"]{
+  --bg:#f4f1e8;
+  --panel:#ffffff;
+  --panel-2:#efeade;
+  --text:#0e0e0e;
+  --accent:#d0004b;
+  --on-accent:#ffffff;
+  --dim:#4d4a43;
+  --faint:#8b8779;
+  --line:rgba(14,14,14,.16);
+  --line-strong:rgba(14,14,14,.36);
+  --glass:rgba(244,241,232,.86);
+  --shade:rgba(14,14,14,.3);
+  --btn-shadow:rgba(14,14,14,.22);
+
+  --grid-line:rgba(14,14,14,.055);
+  --glow-1:rgba(208,0,75,.10);
+  --glow-2:rgba(208,0,75,.05);
+  --spot:rgba(208,0,75,.07);
+  --grain-op:.05;
+  --grain-blend:multiply;
+
+  --poster-hair:rgba(255,255,255,.28);
+  --poster-mark:rgba(255,255,255,.18);
+  --poster-dim:rgba(255,255,255,.9);
+  --poster-tint:rgba(255,255,255,.10);
+}
+
+[data-contrast="more"]{--dim:var(--text);--line:var(--line-strong);--faint:var(--dim);--grid-line:transparent;--glow-1:transparent;--glow-2:transparent;--spot:transparent;--grain-op:0}
+[data-contrast="more"][data-theme="dark"]{--bg:#000;--panel:#0c0c0c;--text:#fff}
+[data-contrast="more"][data-theme="light"]{--bg:#fff;--panel:#fff;--text:#000}
+
+/* ---------- 2. БАЗА ---------- */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--head-h) + 24px);
+  overflow-x:clip;
+}
+body{
+  margin:0;
+  color:var(--text);
+  font-family:var(--font-display);
+  font-size:clamp(.94rem,.35vw + .88rem,1rem);
+  line-height:1.6;
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(72rem 44rem at 106% -10%, var(--glow-1), transparent 62%),
+    radial-gradient(58rem 38rem at -14% 106%, var(--glow-2), transparent 64%),
+    radial-gradient(40rem 30rem at 50% 42%, var(--glow-2), transparent 70%),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size:auto,auto,auto,84px 84px,84px 84px;
+  background-attachment:fixed,fixed,fixed,fixed,fixed;
+  background-repeat:no-repeat,no-repeat,no-repeat,repeat,repeat;
+  transition:background-color .4s var(--ease),color .4s var(--ease);
+}
+body.is-locked{overflow:hidden}
+img,svg{display:block;max-width:100%}
+button,input,textarea,select{font:inherit;color:inherit;border-radius:0;-webkit-appearance:none;appearance:none}
+a{color:inherit}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure,blockquote{margin:0}
+ul,ol{list-style:none;padding:0}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.poster :focus-visible{outline-color:var(--on-accent)}
+
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.svg-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- 3. ФОНОВЫЕ СЛОИ ---------- */
+.spot{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(26rem 26rem at var(--mx,50%) var(--my,20%), var(--spot), transparent 68%);
+  opacity:0;transition:opacity .6s var(--ease);
+}
+.spot.is-on{opacity:1}
+.grain{position:fixed;inset:0;width:100%;height:100%;z-index:300;pointer-events:none;opacity:var(--grain-op);mix-blend-mode:var(--grain-blend)}
+.page{position:relative;z-index:1}
+
+/* ---------- 4. КАРКАС / ТИПОГРАФИКА ---------- */
+.shell{width:100%;max-width:var(--shell);margin-inline:auto;padding-inline:var(--pad)}
+.section{padding-block:clamp(56px,8.5vw,120px);position:relative;isolation:isolate;overflow:clip}
+
+.tex{position:absolute;z-index:-1;pointer-events:none;color:var(--text);overflow:hidden}
+.tex rect{width:100%;height:100%}
+.tex--dots{color:var(--accent);opacity:.13;-webkit-mask-image:radial-gradient(70% 70% at 70% 30%,#000,transparent 78%);mask-image:radial-gradient(70% 70% at 70% 30%,#000,transparent 78%)}
+.tex--hatch{color:var(--text);opacity:.06;-webkit-mask-image:linear-gradient(to bottom,#000,transparent 85%);mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+.tex--grid{color:var(--text);opacity:.09;-webkit-mask-image:linear-gradient(to left,#000,transparent 80%);mask-image:linear-gradient(to left,#000,transparent 80%)}
+.tex--stripes{color:var(--accent);opacity:.10;-webkit-mask-image:linear-gradient(to right,#000,transparent 90%);mask-image:linear-gradient(to right,#000,transparent 90%)}
+.tex--wave{color:var(--accent);opacity:.16;-webkit-mask-image:linear-gradient(to top,#000,transparent 92%);mask-image:linear-gradient(to top,#000,transparent 92%)}
+
+.ghost{
+  position:absolute;z-index:-1;pointer-events:none;user-select:none;
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(3.4rem,14vw,12rem);line-height:.78;letter-spacing:-.06em;
+  color:var(--text);opacity:.05;white-space:nowrap;
+}
+
+.kicker{
+  font-family:var(--font-mono);font-size:clamp(.54rem,.9vw,.62rem);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  display:flex;align-items:center;gap:10px;font-feature-settings:"tnum" 1;
+  margin-bottom:clamp(14px,2vw,20px);position:relative;
+}
+.kicker::before{content:"";width:clamp(16px,3vw,34px);height:1px;background:var(--accent);flex:0 0 auto}
+@media (max-width:520px){.kicker{letter-spacing:.08em}}
+
+.h2{font-family:var(--font-brand);font-weight:700;text-transform:uppercase;font-size:clamp(1.6rem,4vw,3.1rem);line-height:.95;letter-spacing:-.045em;text-wrap:balance;position:relative}
+.section__sub{margin-top:14px;max-width:54ch;color:var(--dim);font-size:.92rem;line-height:1.62;text-wrap:pretty;position:relative}
+.section__head{max-width:72ch;position:relative}
+
+.ticks{position:relative}
+.ticks::before,.ticks::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--accent);pointer-events:none;z-index:2}
+.ticks::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.ticks::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+.demo-note{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:inline-flex;align-items:center;gap:8px}
+.demo-note::before{content:"";width:5px;height:5px;background:var(--accent);flex:0 0 auto}
+@media (max-width:520px){.demo-note{letter-spacing:.07em}}
+
+/* ---------- 5. КНОПКИ ---------- */
+.btn{
+  --btn-bg:var(--accent);--btn-fg:var(--on-accent);
+  display:inline-flex;align-items:center;justify-content:center;gap:.7em;
+  min-height:48px;padding:1em 1.6em;
+  background:var(--btn-bg);color:var(--btn-fg);border:1px solid var(--btn-bg);
+  font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  text-decoration:none;cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease),background-color .3s,color .3s,border-color .3s;
+}
+.btn::after{content:"";position:absolute;inset:0;background:var(--btn-fg);transform:translateY(101%);transition:transform .32s var(--ease);z-index:0}
+.btn > *{position:relative;z-index:1}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--btn-shadow);color:var(--btn-bg)}
+.btn:hover::after{transform:translateY(0)}
+.btn:active{transform:translate(0,0);box-shadow:2px 2px 0 var(--btn-shadow)}
+.btn--sm{min-height:44px;padding:.75em 1.05em;font-size:.58rem;letter-spacing:.1em}
+.btn--lg{min-height:58px;padding:1.15em 2.1em;font-size:.72rem;letter-spacing:.14em}
+.btn--ghost{background:transparent;border-color:currentColor;color:inherit;box-shadow:none}
+.btn--ghost::after{background:var(--text)}
+.btn--ghost:hover{background:var(--text);border-color:var(--text);color:var(--bg);box-shadow:none;transform:translateY(-2px)}
+.poster .btn{--btn-bg:var(--on-accent);--btn-fg:var(--accent)}
+.poster .btn--ghost{background:transparent;border-color:var(--on-accent);color:var(--on-accent)}
+.poster .btn--ghost::after{background:var(--on-accent)}
+.poster .btn--ghost:hover{color:var(--accent);border-color:var(--on-accent)}
+@media (max-width:520px){.btn{letter-spacing:.08em}.btn--lg{letter-spacing:.1em}}
+
+/* ---------- 6. SKIP / ПРОГРЕСС / КУРСОР ---------- */
+.skip{
+  position:fixed;top:8px;left:8px;z-index:999;transform:translateY(-180%);
+  background:var(--accent);color:var(--on-accent);padding:.85em 1.2em;text-decoration:none;
+  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:transform .25s var(--ease);
+}
+.skip:focus{transform:translateY(0)}
+
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:400;display:flex;gap:3px;pointer-events:none}
+.progress__seg{flex:1 1 0;background:var(--line);overflow:hidden}
+.progress__seg i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+
+/* курсор: mix-blend-mode difference — виден на любом фоне, включая accent-афишу */
+.cursor{position:fixed;top:0;left:0;z-index:950;pointer-events:none;opacity:0;transition:opacity .3s;mix-blend-mode:difference}
+.cursor.is-on{opacity:1}
+.cursor__ring{
+  position:absolute;top:0;left:0;width:30px;height:30px;margin:-15px 0 0 -15px;
+  border:1px solid #fff;will-change:transform;
+  transition:width .22s var(--ease),height .22s var(--ease),margin .22s var(--ease),background-color .22s;
+}
+.cursor__dot{position:absolute;top:0;left:0;width:4px;height:4px;margin:-2px 0 0 -2px;background:#fff;will-change:transform}
+.cursor__label{
+  position:absolute;top:0;left:0;transform:translate(-50%,-50%);
+  font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;white-space:nowrap;opacity:0;transition:opacity .2s;
+}
+.cursor.is-hover .cursor__ring{width:56px;height:56px;margin:-28px 0 0 -28px;background:rgba(255,255,255,.16)}
+.cursor.has-label .cursor__ring{width:74px;height:74px;margin:-37px 0 0 -37px;background:rgba(255,255,255,.14)}
+.cursor.has-label .cursor__dot{opacity:0}
+.cursor.has-label .cursor__label{opacity:1}
+html.has-cursor,html.has-cursor body,html.has-cursor a,html.has-cursor button,
+html.has-cursor summary,html.has-cursor input,html.has-cursor textarea,html.has-cursor label{cursor:none}
+
+/* ---------- 7. ШАПКА ---------- */
+.topline{
+  position:sticky;top:0;z-index:100;background:var(--glass);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
+  border-bottom:1px solid var(--line);
+  transition:background-color .4s var(--ease),border-color .4s var(--ease);
+}
+.topline__in{display:flex;align-items:center;gap:clamp(12px,2.4vw,30px);min-height:var(--head-h)}
+.logo{display:inline-flex;align-items:center;gap:9px;text-decoration:none;flex:0 0 auto}
+.logo__ico{color:var(--accent);width:22px;height:22px;flex:0 0 auto}
+.logo__text{font-family:var(--font-brand);font-weight:700;text-transform:uppercase;font-size:1.02rem;letter-spacing:-.03em;line-height:1}
+.logo__text em{font-style:normal;color:var(--accent)}
+.logo:hover .logo__ico{animation:beat .7s var(--ease)}
+@keyframes beat{0%,100%{transform:scale(1)}40%{transform:scale(1.24)}}
+
+.topline__nav{display:flex;align-items:center;gap:clamp(10px,1.6vw,22px);margin-left:auto}
+.topline__nav a{
+  position:relative;display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;padding:9px 0;
+  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);transition:color .25s;
+}
+.topline__nav a sup{font-size:.46rem;letter-spacing:.06em;color:var(--faint);transition:color .25s}
+.topline__nav a::after{content:"";position:absolute;left:0;bottom:5px;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s var(--ease)}
+.topline__nav a:hover,.topline__nav a.is-active{color:var(--text)}
+.topline__nav a:hover sup,.topline__nav a.is-active sup{color:var(--accent)}
+.topline__nav a:hover::after,.topline__nav a.is-active::after{transform:scaleX(1)}
+
+.topline__tag{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.topline__tag b{color:var(--accent);font-weight:500}
+.topline__act{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+
+.theme-toggle{
+  width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;
+  background:transparent;border:1px solid var(--line);color:var(--text);cursor:pointer;
+  transition:border-color .25s,color .25s,transform .25s;
+}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.theme-toggle svg{width:17px;height:17px;grid-area:1/1;transition:opacity .3s,transform .4s var(--ease)}
+.i-sun{opacity:0;transform:rotate(-70deg) scale(.6)}
+.i-moon{opacity:1;transform:rotate(0) scale(1)}
+[data-theme="light"] .i-sun{opacity:1;transform:rotate(0) scale(1)}
+[data-theme="light"] .i-moon{opacity:0;transform:rotate(70deg) scale(.6)}
+
+@media (max-width:1160px){.topline__tag{display:none}}
+@media (max-width:900px){.topline__nav{display:none}.topline__act{margin-left:auto}}
+@media (max-width:400px){.topline__in{gap:8px}.btn--sm{padding:.7em .8em;font-size:.54rem}}
+
+/* ---------- 8. АФИША (HERO) ---------- */
+.poster{
+  position:relative;overflow:clip;isolation:isolate;
+  background:var(--accent);color:var(--on-accent);
+  padding-block:clamp(28px,4.2vw,52px) clamp(52px,6.4vw,92px);
+  margin-bottom:12px;
+}
+.poster__bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.poster__halftone{position:absolute;inset:0;background-image:radial-gradient(var(--poster-hair) 1.3px, transparent 1.4px);background-size:13px 13px}
+.poster__rays{position:absolute;inset:-20% -10%;background-image:repeating-linear-gradient(115deg,var(--poster-hair) 0 2px,transparent 2px 30px);opacity:.5}
+.poster__five{
+  position:absolute;right:-.04em;bottom:-.28em;
+  font-family:var(--font-brand);font-weight:700;font-size:min(54vw,560px);
+  line-height:.62;letter-spacing:-.07em;color:var(--poster-mark);
+}
+/* перфорация билетного корешка */
+.poster::after{
+  content:"";position:absolute;left:0;right:0;bottom:-12px;height:24px;z-index:7;
+  background-image:radial-gradient(circle at 12px 12px, var(--bg) 11px, transparent 12px);
+  background-size:24px 24px;background-repeat:repeat-x;
+}
+.poster::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--poster-hair);z-index:6}
+
+/* приводные метки по углам афиши */
+.poster__marks i{position:absolute;width:15px;height:15px;border:1px solid var(--poster-hair);z-index:4;pointer-events:none}
+.poster__marks i:nth-child(1){top:12px;left:12px;border-right:0;border-bottom:0}
+.poster__marks i:nth-child(2){top:12px;right:12px;border-left:0;border-bottom:0}
+.poster__marks i:nth-child(3){bottom:12px;left:12px;border-right:0;border-top:0}
+.poster__marks i:nth-child(4){bottom:12px;right:12px;border-left:0;border-top:0}
+
+.poster__top,.poster__in{position:relative;z-index:5}
+
+/* --- левая колонка-афиша --- */
+.poster__bleed{
+  position:relative;z-index:5;
+  display:grid;gap:14px;
+  grid-template-columns:auto minmax(0,1fr);
+  grid-template-areas:"plate label" "plate meta";
+  width:100%;max-width:var(--shell);margin:clamp(16px,2.4vw,26px) auto;
+  padding:0 var(--pad) clamp(16px,2.4vw,24px);
+  border-bottom:1px solid var(--poster-hair);
+}
+.bleed__label{
+  grid-area:label;align-self:end;
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(.95rem,2.6vw,1.35rem);line-height:1.02;letter-spacing:-.035em;text-wrap:balance;
+}
+.bleed__meta{grid-area:meta;display:flex;flex-direction:column;gap:9px;min-width:0}
+.bleed__cap{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.11em;text-transform:uppercase;color:var(--poster-dim);line-height:1.7}
+.bleed__bars{
+  display:block;height:22px;width:100%;max-width:180px;opacity:.8;
+  background-image:
+    repeating-linear-gradient(90deg,var(--on-accent) 0 2px,transparent 2px 5px),
+    repeating-linear-gradient(90deg,var(--on-accent) 0 1px,transparent 1px 11px);
+}
+
+/* плакатная пластина вместо фигуры */
+.bleed__plate{
+  grid-area:plate;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:space-between;gap:10px;
+  width:132px;height:178px;padding:12px;
+  border:1px solid var(--poster-hair);background:var(--poster-tint);
+}
+.bleed__plate::before{content:"";position:absolute;top:10px;right:10px;width:8px;height:8px;background:var(--on-accent);transform:rotate(45deg);z-index:1}
+.bleed__plate::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:52%;z-index:0;
+  background-image:radial-gradient(var(--poster-hair) 1.5px,transparent 1.6px);background-size:10px 10px;
+  -webkit-mask-image:linear-gradient(to top,#000,transparent);mask-image:linear-gradient(to top,#000,transparent);
+}
+.bleed__plate > *{position:relative;z-index:1}
+.plate__kicker{font-family:var(--font-mono);font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:var(--poster-dim);line-height:1.6}
+.plate__big b{
+  display:block;font-family:var(--font-brand);font-weight:700;
+  font-size:clamp(2.5rem,4.4vw,4.4rem);line-height:.78;letter-spacing:-.06em;
+  color:var(--on-accent);font-variant-numeric:tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;
+}
+.plate__big i{
+  font-style:normal;display:block;margin-top:5px;
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(.72rem,1.1vw,1rem);letter-spacing:.06em;color:var(--on-accent);opacity:.8;
+}
+.plate__wave{width:100%;height:34px;color:var(--on-accent);overflow:visible}
+.plate__wave path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:square;stroke-dasharray:400;animation:waveFlow 3.6s var(--ease) infinite}
+.plate__wave path + path{opacity:.32;stroke-width:1;animation-delay:.45s}
+@keyframes waveFlow{0%{stroke-dashoffset:400}52%{stroke-dashoffset:0}100%{stroke-dashoffset:-400}}
+.plate__dates{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--poster-dim);line-height:1.7}
+
+/* До 1180px сетка ещё одноколоночная, но афишу-подложку уже вынимаем
+   из потока в левую колонку. Иначе билетный блок стоит над заголовком
+   и сдвигает H1 с лидом за нижнюю кромку первого экрана: на 871px
+   последняя строка «ЗАПУСК» и лид обрезались. До 860px оставляем
+   поток — там левая колонка съела бы слишком много ширины у текста. */
+@media (min-width:860px){
+  .poster__bleed{
+    position:absolute;top:0;bottom:0;
+    left:max(0px, calc((100% - var(--shell)) / 2));
+    width:var(--bleed);max-width:none;margin:0;
+    grid-template-columns:1fr;grid-template-rows:auto 1fr auto;
+    grid-template-areas:"label" "plate" "meta";
+    gap:18px;padding:clamp(24px,2.8vw,36px) clamp(16px,1.5vw,22px);
+    border-bottom:0;border-right:1px solid var(--poster-hair);
+  }
+  .bleed__plate{width:auto;height:auto;min-height:300px;flex:1 1 auto}
+  .poster__top,.poster__in{padding-left:calc(var(--bleed) + var(--pad))}
+}
+
+.poster__status{
+  display:flex;flex-wrap:wrap;align-items:stretch;
+  border:1px solid var(--poster-hair);background:var(--poster-tint);
+  margin-bottom:clamp(20px,3vw,34px);
+}
+.poster__status li{
+  display:flex;align-items:center;gap:8px;padding:11px clamp(12px,1.8vw,20px);
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
+  border-right:1px solid var(--poster-hair);font-feature-settings:"tnum" 1;
+}
+.poster__status li:last-child{border-right:0}
+@media (max-width:760px){
+  .poster__status li{border-right:0;border-bottom:1px solid var(--poster-hair);flex:1 1 100%}
+  .poster__status li:last-child{border-bottom:0}
+}
+/* На 860–1099px афиша уже стоит слева, но сетка ещё одноколоночная:
+   поджимаем отступ под статус-строкой, чтобы в модалке 871×588
+   последняя строка лида не обрезалась на несколько пикселей. */
+@media (min-width:860px) and (max-width:1099px){
+  .poster__status{margin-bottom:18px}
+}
+.dot{width:7px;height:7px;background:var(--on-accent);flex:0 0 auto;animation:blink 1.6s steps(1,end) infinite}
+@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.16}}
+
+.poster__grid{display:grid;gap:clamp(26px,3.4vw,44px);align-items:start}
+@media (min-width:1180px){.poster__grid{grid-template-columns:minmax(0,1fr) minmax(290px,380px)}}
+
+.poster__title{
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(2.3rem,9.4vw,6.6rem);line-height:.88;letter-spacing:-.055em;
+  text-wrap:balance;max-width:15ch;margin-bottom:clamp(16px,2.2vw,26px);
+}
+.poster__title .mark{display:inline-block;background:var(--on-accent);color:var(--accent);padding:0 .07em .05em}
+/* При отрицательном трекинге последний символ строки выходит за её
+   advance: на переносе «которые» завершало строку, и её граница
+   срезала правую стойку «Е». Небольшой прозрачный padding у слова
+   возвращает глифу место; на переносе он не виден, а трекинг
+   заголовка остаётся прежним. */
+.poster__title-tail{padding-right:.14em}
+@media (max-width:520px){.poster__title{font-size:clamp(2.1rem,11vw,4rem);letter-spacing:-.05em}}
+
+.poster__lead{font-size:clamp(1rem,1.5vw,1.16rem);line-height:1.5;color:var(--poster-dim);max-width:56ch;text-wrap:pretty}
+
+.poster__facts{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--poster-hair);border-left:1px solid var(--poster-hair);
+  margin-top:clamp(18px,2.4vw,26px);max-width:660px;
+}
+@media (min-width:640px){.poster__facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.poster__facts li{
+  border-right:1px solid var(--poster-hair);border-bottom:1px solid var(--poster-hair);
+  padding:11px clamp(10px,1.4vw,15px);display:flex;flex-direction:column;gap:5px;
+  transition:background-color .3s var(--ease);
+}
+.poster__facts li:hover{background:var(--poster-tint)}
+.poster__facts b{
+  font-family:var(--font-brand);font-weight:700;font-size:clamp(.86rem,1.6vw,1.05rem);
+  letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+}
+.poster__facts span{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--poster-dim);line-height:1.6}
+
+.poster__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(18px,2.4vw,26px)}
+
+/* правая колонка */
+.poster__side{display:flex;flex-direction:column;gap:clamp(14px,1.8vw,20px)}
+.stamp{
+  width:clamp(108px,14vw,150px);aspect-ratio:1/1;flex:0 0 auto;
+  border:2px solid var(--on-accent);display:grid;place-content:center;text-align:center;gap:3px;
+  transform:rotate(-9deg);position:relative;padding:12px;
+}
+.stamp::before{content:"";position:absolute;inset:6px;border:1px dashed var(--on-accent);opacity:.5}
+.stamp b{font-family:var(--font-brand);font-weight:700;font-size:clamp(1.4rem,3vw,2.1rem);line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.stamp span{font-family:var(--font-mono);font-size:.48rem;letter-spacing:.13em;text-transform:uppercase;color:var(--poster-dim)}
+@media (min-width:1020px){.stamp{align-self:flex-end}}
+
+.side__box{border:1px solid var(--poster-hair);background:var(--poster-tint);padding:clamp(15px,2vw,20px)}
+.timer__label{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;color:var(--poster-dim);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.timer__label::before{content:"";width:6px;height:6px;background:currentColor;animation:blink 1.6s steps(1,end) infinite}
+
+.barcode{display:flex;align-items:flex-end;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid var(--poster-hair)}
+.barcode__bars{
+  height:32px;flex:1 1 auto;opacity:.85;
+  background-image:
+    repeating-linear-gradient(90deg,var(--on-accent) 0 2px,transparent 2px 5px),
+    repeating-linear-gradient(90deg,var(--on-accent) 0 1px,transparent 1px 11px);
+}
+.barcode__txt{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.09em;text-transform:uppercase;color:var(--poster-dim);line-height:1.7;white-space:nowrap}
+
+.poster__scroll{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-family:var(--font-mono);font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--poster-dim);transition:color .25s;min-height:44px;
+}
+.poster__scroll:hover{color:var(--on-accent)}
+.poster__scroll i{position:relative;width:1px;height:28px;background:currentColor;overflow:hidden;flex:0 0 auto}
+.poster__scroll i::after{content:"";position:absolute;left:0;top:-100%;width:1px;height:100%;background:var(--on-accent);animation:scrollDot 1.9s var(--ease) infinite}
+@keyframes scrollDot{0%{top:-100%}60%,100%{top:100%}}
+
+/* большой «говорящий» заголовок */
+.poster__statement{margin-top:clamp(26px,3.4vw,44px);border-top:2px solid var(--on-accent);padding-top:clamp(16px,2vw,24px)}
+.poster__statement p{
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.15rem,3.5vw,2.7rem);line-height:.98;letter-spacing:-.048em;text-wrap:balance;max-width:24ch;
+}
+.poster__statement em{font-style:normal;background:var(--on-accent);color:var(--accent);padding:0 .06em .05em}
+.poster__statement span{
+  display:block;margin-top:14px;font-family:var(--font-mono);font-size:.58rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--poster-dim);line-height:1.9;
+}
+
+/* спецификация потока — плотная строка-таблица */
+.spec{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--poster-hair);border-left:1px solid var(--poster-hair);
+  margin-top:clamp(20px,2.6vw,30px);
+}
+@media (min-width:640px){.spec{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1020px){.spec{grid-template-columns:repeat(6,1fr)}}
+.spec__i{
+  border-right:1px solid var(--poster-hair);border-bottom:1px solid var(--poster-hair);
+  padding:12px clamp(10px,1.3vw,16px);display:flex;flex-direction:column;gap:6px;
+  transition:background-color .3s var(--ease);
+}
+.spec__i:hover{background:var(--poster-tint)}
+.spec__i b{
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(.88rem,1.5vw,1.12rem);letter-spacing:-.03em;line-height:1.05;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+}
+.spec__i span{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.11em;text-transform:uppercase;color:var(--poster-dim);line-height:1.6}
+.spec__i--inv{background:var(--on-accent);color:var(--accent)}
+.spec__i--inv:hover{background:var(--on-accent)}
+.spec__i--inv span{color:var(--accent);opacity:.8}
+
+/* лента дней в афише */
+.poster__days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-left:1px solid var(--poster-hair);margin-top:clamp(22px,3vw,32px)}
+@media (min-width:900px){.poster__days{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.pday{
+  display:block;text-decoration:none;color:inherit;position:relative;overflow:hidden;
+  padding:13px clamp(10px,1.3vw,16px) 15px;
+  border-right:1px solid var(--poster-hair);border-bottom:1px solid var(--poster-hair);
+  transition:color .28s var(--ease);
+}
+.pday::after{content:"";position:absolute;inset:0;background:var(--on-accent);transform:translateY(101%);transition:transform .34s var(--ease);z-index:0}
+.pday > *{position:relative;z-index:1}
+.pday:hover,.pday:focus-visible{color:var(--accent)}
+.pday:hover::after,.pday:focus-visible::after{transform:translateY(0)}
+.pday b{display:flex;align-items:baseline;gap:7px;font-family:var(--font-brand);font-weight:700;font-size:.8rem;letter-spacing:-.02em;margin-bottom:6px}
+.pday b em{font-style:normal;font-family:var(--font-mono);font-size:.48rem;letter-spacing:.1em;color:var(--poster-dim);transition:color .28s}
+.pday:hover b em{color:var(--accent);opacity:.8}
+.pday span{display:block;font-family:var(--font-mono);font-size:.52rem;letter-spacing:.09em;text-transform:uppercase;color:var(--poster-dim);line-height:1.5;transition:color .28s}
+.pday:hover span{color:var(--accent);opacity:.85}
+@media (max-width:899px){.pday:last-child{grid-column:span 2}}
+
+/* низ афиши: чипы аудитории + служебная строка */
+.poster__foot{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 22px;
+  margin-top:clamp(16px,2.2vw,24px);
+}
+.poster__chips{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+.poster__chips .lead{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--poster-dim);margin-right:2px}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;min-height:36px;
+  border:1px solid var(--poster-hair);padding:8px 13px;text-decoration:none;
+  font-family:var(--font-mono);font-size:.55rem;letter-spacing:.11em;text-transform:uppercase;
+  transition:background-color .25s,color .25s,transform .25s var(--ease);
+}
+.chip::before{content:"";width:5px;height:5px;background:currentColor;opacity:.55;transform:rotate(45deg)}
+.chip:hover{background:var(--on-accent);color:var(--accent);transform:translateY(-2px)}
+.poster__foot p{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--poster-dim)}
+
+/* ---------- 9. ТАЙМЕР ---------- */
+.countdown__units{display:flex;align-items:flex-start;gap:clamp(7px,1.2vw,14px)}
+.countdown__i{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:clamp(44px,6.6vw,70px)}
+.countdown__i b{
+  font-family:var(--font-brand);font-weight:700;font-size:clamp(1.3rem,3.2vw,2.2rem);
+  line-height:1;letter-spacing:-.035em;font-variant-numeric:tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;
+}
+.countdown__i i{font-style:normal;font-family:var(--font-mono);font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--poster-dim)}
+.countdown__sep{font-family:var(--font-brand);font-size:clamp(.95rem,2.2vw,1.5rem);opacity:.45;line-height:1.35}
+.countdown__done{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.join .countdown__i i{color:var(--dim)}
+
+/* ---------- 10. INTRO ---------- */
+.intro::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(34rem 24rem at 92% 8%, var(--glow-1), transparent 70%);pointer-events:none}
+.intro__grid{display:grid;gap:clamp(20px,3vw,44px);position:relative}
+@media (min-width:940px){.intro__grid{grid-template-columns:1.05fr .95fr;align-items:start}}
+.intro__lead{font-family:var(--font-display);font-weight:700;font-size:clamp(1.25rem,2.6vw,1.9rem);line-height:1.2;letter-spacing:-.025em;max-width:26ch;text-wrap:balance}
+.intro__text{color:var(--dim);font-size:.95rem;line-height:1.65;max-width:54ch;text-wrap:pretty}
+.intro__text + .intro__text{margin-top:14px}
+.intro__text b{color:var(--text);font-weight:700}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:clamp(30px,5vw,54px);position:relative;background:var(--glass)}
+@media (min-width:940px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:clamp(16px,2.6vw,26px);display:flex;flex-direction:column;gap:10px;
+  position:relative;overflow:hidden;transition:background-color .3s var(--ease);
+}
+.stat::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--line) 1px,transparent 1.2px);background-size:9px 9px;opacity:0;transition:opacity .35s}
+.stat:hover{background:var(--panel)}
+.stat:hover::before{opacity:.7}
+.stat > *{position:relative}
+.stat b{font-family:var(--font-brand);font-weight:700;font-size:clamp(1.85rem,5.2vw,3.3rem);line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1}
+.stat span{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);line-height:1.7}
+.stat--accent b{color:var(--accent)}
+.stat--accent::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ease)}
+.stat--accent:hover::after{transform:scaleX(1)}
+
+/* ---------- 11. МАРКИЗА ---------- */
+.marquee{overflow:hidden;position:relative}
+.marquee__track{display:flex;width:max-content;will-change:transform}
+.marquee__row{display:flex;align-items:center;flex:0 0 auto}
+.marquee__row span{
+  font-family:var(--font-brand);font-weight:700;text-transform:uppercase;
+  font-size:clamp(.92rem,2.3vw,1.55rem);letter-spacing:-.03em;line-height:1;
+  padding:16px clamp(12px,1.6vw,22px);white-space:nowrap;
+}
+.marquee__row i{width:7px;height:7px;flex:0 0 auto;background:currentColor;opacity:.5;transform:rotate(45deg)}
+.marquee--accent{background:var(--accent);color:var(--on-accent);border-block:1px solid var(--accent)}
+.marquee--accent .marquee__track{animation:mqLeft 32s linear infinite}
+.marquee--soft{background:var(--panel);color:var(--dim);border-bottom:1px solid var(--line)}
+.marquee--soft .marquee__track{animation:mqRight 46s linear infinite}
+.marquee--soft .marquee__row span{font-family:var(--font-mono);font-weight:500;font-size:.66rem;letter-spacing:.14em;padding-block:13px}
+.marquee:hover .marquee__track{animation-play-state:paused}
+@keyframes mqLeft{to{transform:translateX(-50%)}}
+@keyframes mqRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ---------- 12. ПРОГРАММА ---------- */
+.program::before{
+  content:"";position:absolute;z-index:-1;left:0;top:0;bottom:0;width:38%;
+  background-image:repeating-linear-gradient(135deg,var(--line) 0 1px,transparent 1px 18px);
+  -webkit-mask-image:linear-gradient(to right,#000,transparent);mask-image:linear-gradient(to right,#000,transparent);
+  pointer-events:none;
+}
+.program::after{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(30rem 22rem at 8% 96%, var(--glow-1), transparent 70%);pointer-events:none}
+.days{
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;position:relative;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  scrollbar-width:thin;scrollbar-color:var(--accent) transparent;-webkit-overflow-scrolling:touch;
+  background:var(--glass);
+}
+.days::-webkit-scrollbar{height:3px}
+.days::-webkit-scrollbar-thumb{background:var(--accent)}
+.days::-webkit-scrollbar-track{background:var(--line)}
+.day{
+  flex:0 0 80%;scroll-snap-align:start;position:relative;
+  padding:clamp(20px,3.4vw,30px) clamp(16px,2.4vw,24px) clamp(26px,3.4vw,36px);
+  border-right:1px dashed var(--line);transition:background-color .35s var(--ease);
+}
+.day:last-child{border-right:0}
+.day::before{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ease)}
+.day::after{content:"";position:absolute;right:-5px;top:-5px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--line)}
+.day:last-child::after{display:none}
+.day:hover,.day:focus-within{background:var(--panel)}
+.day:hover::before,.day:focus-within::before{transform:scaleX(1)}
+.day__top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.day__n{font-family:var(--font-brand);font-weight:700;font-size:clamp(2rem,5.4vw,3.1rem);line-height:.85;letter-spacing:-.04em;font-variant-numeric:tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;transition:color .3s}
+.day:hover .day__n{color:var(--accent)}
+.day__date{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);white-space:nowrap;font-feature-settings:"tnum" 1;border:1px solid currentColor;padding:4px 7px}
+.day__title{font-family:var(--font-display);font-weight:700;font-size:1.02rem;line-height:1.22;letter-spacing:-.015em;margin:clamp(18px,2.6vw,26px) 0 10px;text-wrap:balance}
+.day__text{color:var(--dim);font-size:.86rem;line-height:1.6;text-wrap:pretty}
+.day__tag{
+  display:inline-block;margin-top:18px;padding:6px 10px;border:1px solid var(--line);
+  font-family:var(--font-mono);font-size:.52rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);
+  transition:border-color .3s,color .3s;
+}
+.day:hover .day__tag{border-color:var(--accent);color:var(--accent)}
+@media (min-width:760px){
+  .days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}
+  .day{flex:none;border-bottom:1px dashed var(--line)}
+  .day:nth-child(2n){border-right:0}
+  .day:nth-child(2n)::after{display:none}
+}
+@media (min-width:1080px){
+  .days{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .day{border-right:1px dashed var(--line);border-bottom:0}
+  .day:last-child{border-right:0}
+  .day:nth-child(2n)::after{display:block}
+  .day:last-child::after{display:none}
+  .day__text{font-size:.83rem}
+}
+.hint{margin-top:14px;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);position:relative}
+@media (min-width:760px){.hint{display:none}}
+
+/* ---------- 13. ЧТО ВНУТРИ ---------- */
+.inside{background:var(--panel);border-block:1px solid var(--line)}
+.inside__grid{display:grid;gap:clamp(30px,5vw,64px);position:relative}
+@media (min-width:940px){.inside__grid{grid-template-columns:1.1fr .9fr;align-items:start}}
+.inside__list{margin-top:clamp(20px,3vw,32px);border-top:1px solid var(--line);position:relative}
+.inside__list li{
+  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding:17px 6px;border-bottom:1px solid var(--line);
+  transition:padding-left .3s var(--ease),background-color .3s;
+}
+.inside__list li:hover{padding-left:16px;background:var(--bg)}
+.inside__k{font-weight:700;font-size:1rem;letter-spacing:-.012em}
+.inside__v{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);white-space:nowrap;text-align:right}
+
+.inside__quote{position:relative;background:var(--accent);color:var(--on-accent);padding:clamp(26px,3.8vw,44px);overflow:clip}
+.inside__quote::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--poster-hair) 1.3px,transparent 1.4px);background-size:13px 13px}
+.inside__mark{position:relative;display:block;font-family:var(--font-brand);font-weight:700;font-size:3.2rem;line-height:.6;opacity:.5;margin-bottom:18px}
+.inside__quote p{position:relative;font-family:var(--font-display);font-weight:700;font-size:clamp(1.3rem,2.8vw,1.9rem);line-height:1.16;letter-spacing:-.03em;text-wrap:balance}
+.inside__quote footer{position:relative;margin-top:24px;padding-top:16px;border-top:1px solid var(--poster-hair);font-family:var(--font-mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--poster-dim)}
+
+/* ---------- 14. АУДИТОРИЯ ---------- */
+.audience::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(32rem 24rem at 4% 88%, var(--glow-1), transparent 70%);pointer-events:none}
+.audience__list{margin-top:clamp(26px,4vw,44px);border-top:1px solid var(--line);position:relative}
+.audience__item{
+  position:relative;overflow:clip;
+  display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,2.4vw,30px);align-items:start;
+  padding:clamp(22px,3.2vw,34px) clamp(6px,1.4vw,18px);
+  border-bottom:1px solid var(--line);
+  transition:background-color .35s var(--ease),padding-left .35s var(--ease);
+}
+.audience__item:hover{background:var(--panel);padding-left:clamp(14px,2vw,28px)}
+.audience__ghost{
+  position:absolute;right:-.04em;top:-.28em;z-index:0;
+  font-family:var(--font-brand);font-weight:700;font-size:clamp(4.5rem,13vw,10rem);
+  line-height:.8;letter-spacing:-.06em;color:var(--text);opacity:.055;pointer-events:none;
+  transition:opacity .4s,transform .5s var(--ease);
+}
+.audience__item:hover .audience__ghost{opacity:.1;transform:translateX(-8px)}
+.audience__n{position:relative;z-index:1;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.13em;color:var(--accent);border:1px solid currentColor;padding:5px 8px;font-feature-settings:"tnum" 1}
+.audience__body{position:relative;z-index:1}
+.audience__body h3{font-family:var(--font-display);font-weight:700;font-size:clamp(1.05rem,2vw,1.3rem);letter-spacing:-.02em;margin-bottom:8px}
+.audience__body p{color:var(--dim);font-size:.9rem;line-height:1.6;text-wrap:pretty;max-width:62ch}
+.audience__note{margin-top:clamp(22px,3vw,34px);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);line-height:1.9;max-width:74ch;position:relative}
+.audience__note b{color:var(--accent);font-weight:500}
+
+/* ---------- 15. FAQ ---------- */
+.faq{background:linear-gradient(180deg,transparent,var(--panel-2) 40%,transparent)}
+.faq__grid{display:grid;gap:clamp(28px,4.4vw,60px);position:relative}
+@media (min-width:940px){.faq__grid{grid-template-columns:.85fr 1.15fr;align-items:start}}
+.faq__list{border-top:1px solid var(--line);position:relative}
+.faq__item{border-bottom:1px solid var(--line);transition:background-color .3s}
+.faq__item[open]{background:var(--panel)}
+.faq__item summary{
+  display:flex;align-items:center;gap:16px;padding:20px 8px;cursor:pointer;min-height:48px;
+  font-family:var(--font-display);font-weight:700;font-size:1rem;letter-spacing:-.015em;list-style:none;
+  transition:color .25s,padding-left .3s var(--ease);
+}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__item summary:hover{color:var(--accent);padding-left:16px}
+.faq__num{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;color:var(--accent);flex:0 0 auto}
+.faq__q{flex:1 1 auto}
+.faq__icon{position:relative;flex:0 0 24px;width:24px;height:24px;border:1px solid var(--line-strong)}
+.faq__icon::before,.faq__icon::after{content:"";position:absolute;background:var(--accent);transition:transform .3s var(--ease)}
+.faq__icon::before{left:5px;right:5px;top:50%;height:1.5px;transform:translateY(-50%)}
+.faq__icon::after{top:5px;bottom:5px;left:50%;width:1.5px;transform:translateX(-50%)}
+.faq__item[open] .faq__icon::after{transform:translateX(-50%) scaleY(0)}
+.faq__body{padding:0 8px 24px 46px;color:var(--dim);font-size:.92rem;line-height:1.65;text-wrap:pretty;animation:fadeIn .32s var(--ease)}
+.faq__body p + p{margin-top:10px}
+.faq__body b{color:var(--text)}
+@media (max-width:560px){.faq__body{padding-left:8px}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.faq__aside{margin-top:26px;padding:20px;border:1px solid var(--line);background:var(--panel);position:relative}
+.faq__aside p{color:var(--dim);font-size:.86rem;line-height:1.6}
+.faq__aside a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+
+/* ---------- 16. ФИНАЛЬНЫЙ CTA ---------- */
+.join{position:relative;overflow:clip;isolation:isolate;padding-block:clamp(56px,9vw,124px);border-top:1px solid var(--line)}
+.join::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:repeating-linear-gradient(135deg,var(--line) 0 1px,transparent 1px 16px)}
+.join::after{content:"";position:absolute;left:0;top:0;width:100%;height:3px;z-index:1;background:repeating-linear-gradient(90deg,var(--accent) 0 26px,transparent 26px 40px)}
+.join__in{position:relative;display:grid;gap:clamp(24px,3.4vw,44px)}
+@media (min-width:940px){.join__in{grid-template-columns:1.15fr .85fr;align-items:end}}
+.join__title{font-family:var(--font-brand);font-weight:700;text-transform:uppercase;font-size:clamp(2rem,7.2vw,4.7rem);line-height:.9;letter-spacing:-.05em;text-wrap:balance}
+.join__title em{font-style:normal;color:var(--accent)}
+.join__text{color:var(--dim);font-size:.98rem;line-height:1.62;max-width:48ch;margin-top:20px;text-wrap:pretty}
+.join__box{border:1px solid var(--line-strong);background:var(--panel);padding:clamp(20px,3vw,30px)}
+.join__box .timer__label{color:var(--dim)}
+.join__box .timer__label::before{background:var(--accent)}
+.join__act{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:clamp(22px,3vw,30px)}
+.join__meta{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);line-height:1.9}
+
+/* ---------- 17. ДОК-БАР ---------- */
+.dockbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;background:var(--glass);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);transform:translateY(115%);transition:transform .4s var(--ease);
+}
+.dockbar.is-shown{transform:translateY(0)}
+.dockbar__in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px var(--pad);min-height:60px}
+.dockbar__txt{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);line-height:1.6}
+.dockbar__txt b{display:block;color:var(--text);font-weight:500;font-size:.66rem;letter-spacing:.1em}
+@media (min-width:900px){.dockbar{display:none}}
+
+/* ---------- 18. ПОДВАЛ ---------- */
+.footer{border-top:1px solid var(--line);padding-top:clamp(40px,6vw,72px);background:var(--panel);position:relative;isolation:isolate;overflow:clip}
+.footer__in{display:grid;gap:clamp(24px,3.4vw,40px);position:relative}
+@media (min-width:860px){.footer__in{grid-template-columns:1.2fr .9fr .9fr;align-items:start}}
+.footer__col h4{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:16px}
+.footer__nav,.footer__contacts{display:flex;flex-direction:column;gap:10px}
+.footer__nav a,.footer__contacts a{
+  text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:-.01em;
+  display:inline-flex;align-items:center;gap:8px;width:-moz-fit-content;width:fit-content;
+  transition:color .25s,transform .25s var(--ease);
+}
+.footer__nav a::before,.footer__contacts a::before{content:"";width:0;height:1px;background:var(--accent);transition:width .3s var(--ease)}
+.footer__nav a:hover,.footer__contacts a:hover{color:var(--accent);transform:translateX(4px)}
+.footer__nav a:hover::before,.footer__contacts a:hover::before{width:14px}
+.footer__word{overflow:hidden;margin-top:clamp(30px,5vw,60px);border-top:1px solid var(--line);padding-top:clamp(16px,2.4vw,26px);position:relative}
+.footer__word span{display:block;font-family:var(--font-brand);font-weight:700;text-transform:uppercase;font-size:clamp(2.9rem,16.5vw,12.5rem);line-height:.78;letter-spacing:-.06em;white-space:nowrap}
+.footer__word em{font-style:normal;color:var(--accent)}
+.footer__bar{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:clamp(20px,3vw,34px);padding-block:20px 26px;position:relative}
+.footer__copy,.footer__made{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.footer__made{color:var(--dim)}
+.footer__made b{color:var(--accent);font-weight:500}
+
+/* ---------- 19. МОДАЛКА ---------- */
+.checkout{position:fixed;inset:0;z-index:900;display:grid;place-items:center;padding:clamp(12px,3vw,28px)}
+.checkout__backdrop{
+  position:absolute;inset:0;background:rgba(5,5,5,.76);
+  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  opacity:0;transition:opacity .26s var(--ease);
+}
+[data-theme="light"] .checkout__backdrop{background:rgba(24,20,14,.58)}
+.checkout.is-open .checkout__backdrop{opacity:1}
+.checkout__panel{
+  position:relative;width:min(580px,100%);max-height:min(90vh,780px);overflow-y:auto;
+  background:var(--panel);border:1px solid var(--line-strong);box-shadow:0 34px 90px var(--shade);
+  opacity:0;transform:translateY(18px) scale(.985);
+  transition:opacity .28s var(--ease),transform .28s var(--ease);scrollbar-width:thin;
+}
+.checkout.is-open .checkout__panel{opacity:1;transform:none}
+/* Панель получает фокус программно при открытии (это диалог, а не
+   кнопка). Рамка фокуса вокруг всей панели выглядит как белая обводка
+   модалки — убираем её; видимый focus-visible остаётся у кнопок и
+   полей внутри. */
+.checkout__panel:focus,
+.checkout__panel:focus-visible,
+html[data-a11y="on"] .checkout__panel:focus-visible{outline:none}
+.checkout__panel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:repeating-linear-gradient(90deg,var(--accent) 0 18px,transparent 18px 26px)}
+.checkout__close{
+  /* Крестик остаётся в углу панели. Панель — скролл-контейнер, поэтому
+     при открытии фокус ставится на саму панель, а не на кнопку внизу:
+     иначе браузер прокручивал панель и absolute-крестик обрезался
+     верхней кромкой (в модалке оставался белый обрезок). */
+  position:absolute;top:14px;right:14px;z-index:3;
+  width:44px;height:44px;margin:0;display:grid;place-items:center;
+  background:var(--panel);border:1px solid var(--line);color:var(--text);cursor:pointer;
+  transition:border-color .25s,color .25s,transform .3s var(--ease);
+}
+.checkout__close:hover{border-color:var(--accent);color:var(--accent);transform:rotate(90deg)}
+.checkout__close svg{width:15px;height:15px}
+.checkout__step{padding:clamp(26px,4vw,42px)}
+.checkout__kicker{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.checkout__title{font-family:var(--font-brand);font-weight:700;text-transform:uppercase;font-size:clamp(1.35rem,3.6vw,2rem);line-height:.98;letter-spacing:-.04em;text-wrap:balance;padding-right:44px}
+.checkout__desc{color:var(--dim);font-size:.88rem;line-height:1.6;margin-top:14px}
+.checkout__sum{margin:clamp(20px,3vw,28px) 0;border-top:1px solid var(--line)}
+.checkout__sum div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 2px;border-bottom:1px solid var(--line)}
+.checkout__sum dt{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
+.checkout__sum dd{font-weight:700;font-size:.92rem;letter-spacing:-.01em;text-align:right}
+.checkout__sum dd.is-free{color:var(--accent)}
+
+.field{margin-bottom:16px}
+.field__label{display:block;margin-bottom:8px;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.field__input{
+  width:100%;min-height:50px;padding:13px 15px;background:var(--bg);
+  border:1px solid var(--line-strong);color:var(--text);font-family:var(--font-display);font-size:.95rem;
+  transition:border-color .25s,box-shadow .25s;
+}
+.field__input::placeholder{color:var(--faint)}
+.field__input:hover{border-color:var(--dim)}
+.field__input:focus{outline:none;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.field__input:invalid:not(:placeholder-shown){border-color:var(--accent)}
+
+.check{display:flex;gap:12px;align-items:flex-start;margin:20px 0 22px;cursor:pointer;min-height:44px}
+.check input{position:absolute;opacity:0;width:1px;height:1px}
+.check__box{flex:0 0 22px;width:22px;height:22px;margin-top:1px;border:1px solid var(--line-strong);background:var(--bg);display:grid;place-items:center;transition:background-color .2s,border-color .2s}
+.check__box svg{width:13px;height:13px;color:var(--on-accent);opacity:0;transform:scale(.5);transition:opacity .2s,transform .2s var(--ease)}
+.check input:checked + .check__box{background:var(--accent);border-color:var(--accent)}
+.check input:checked + .check__box svg{opacity:1;transform:scale(1)}
+.check input:focus-visible + .check__box{outline:2px solid var(--accent);outline-offset:3px}
+.check__text{font-size:.82rem;line-height:1.55;color:var(--dim)}
+.checkout__submit{width:100%}
+.checkout__note{margin-top:16px;text-align:center;justify-content:center}
+
+.done__icon{width:64px;height:64px;border:1px solid var(--accent);display:grid;place-items:center;margin-bottom:22px}
+.done__icon svg{width:32px;height:32px;color:var(--accent)}
+.done__icon path{stroke-dasharray:60;stroke-dashoffset:60;animation:draw .7s .15s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done__text{color:var(--dim);font-size:.92rem;line-height:1.65;margin-top:16px;text-wrap:pretty}
+.done__foot{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+
+/* ---------- 20. REVEAL ---------- */
+html.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .78s var(--ease),transform .78s var(--ease);transition-delay:var(--rd,0ms)}
+html.js .reveal.is-in{opacity:1;transform:none}
+html.js .reveal--mask{clip-path:inset(0 0 100% 0);transform:none;transition:clip-path .9s var(--ease),opacity .6s}
+html.js .reveal--mask.is-in{clip-path:inset(0 0 0 0)}
+/* Заголовок-афиша набран с очень плотным line-height (.88), поэтому
+   верх «Й» и выносные элементы выходят за коробку элемента. Маска
+   обрезала их по border-box — в обычном режиме у «5 ДНЕЙ» срезалась
+   верхушка «Й». На широких экранах колонка уже длинной строки
+   «КОТОРЫЕ», и клип срезал правую стойку последней «Е». Расширяем
+   область клипа по вертикали и горизонтали: анимация раскрытия
+   сохраняется, но буквы видны целиком. В версии для слабовидящих и
+   при reduced-motion клип и так отключён. */
+html.js .poster__title.reveal--mask.is-in{clip-path:inset(-.35em -.75em -.08em -.75em)}
+
+/* ---------- 21. REDUCED MOTION ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  html.js .reveal,html.js .reveal--mask{opacity:1 !important;transform:none !important;clip-path:none !important}
+  .marquee{overflow-x:auto}
+  .marquee__track{animation:none !important;width:auto}
+  .dot,.timer__label::before{animation:none}
+  .plate__wave path{stroke-dashoffset:0;animation:none}
+  .spot{display:none}
+}
+
+/* ---------- 22. ПЕЧАТЬ ---------- */
+@media print{
+  .topline,.cursor,.progress,.dockbar,.checkout,.marquee,.grain,.spot,.tex,.ghost{display:none !important}
+  body{background:#fff;color:#000}
+}
+</style>
+<link rel="stylesheet" href="css/demo-a11y.css?v=20261025c">
+</head>
+<body>
+
+<a class="skip" href="#main">К содержимому</a>
+
+<!-- фоновые слои -->
+<div class="spot" id="spot" aria-hidden="true"></div>
+<svg class="grain" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <filter id="pulseGrain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#pulseGrain)"/>
+</svg>
+
+<!-- паттерны фактур -->
+<svg class="svg-defs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="texDots" width="11" height="11" patternUnits="userSpaceOnUse">
+      <circle cx="2.2" cy="2.2" r="1.8" fill="currentColor"/>
+    </pattern>
+    <pattern id="texHatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="3" height="14" fill="currentColor"/>
+    </pattern>
+    <pattern id="texGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0v28" fill="none" stroke="currentColor" stroke-width="1"/>
+    </pattern>
+    <pattern id="texStripes" width="9" height="9" patternUnits="userSpaceOnUse">
+      <rect width="1.2" height="9" fill="currentColor"/>
+    </pattern>
+    <pattern id="texWave" width="72" height="26" patternUnits="userSpaceOnUse">
+      <path d="M0 13h14l7-10 9 20 7-10h35" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+</svg>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <span class="cursor__ring" id="cursorRing"></span>
+  <span class="cursor__dot" id="cursorDot"></span>
+  <span class="cursor__label" id="cursorLabel"></span>
+</div>
+
+<div class="progress" id="progress" aria-hidden="true">
+  <span class="progress__seg"><i></i></span>
+  <span class="progress__seg"><i></i></span>
+  <span class="progress__seg"><i></i></span>
+  <span class="progress__seg"><i></i></span>
+  <span class="progress__seg"><i></i></span>
+</div>
+
+<div class="page">
+
+<!-- ================= ШАПКА ================= -->
+<header class="topline">
+  <div class="shell topline__in">
+    <a class="logo" href="#main" aria-label="Pulse — марафон запусков, к началу страницы">
+      <svg class="logo__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+        <path d="M1 12h4.6l2.6-7.4 4.4 14.8L15.6 12H23"/>
+      </svg>
+      <span class="logo__text">Pulse<em>.</em></span>
+    </a>
+
+    <nav class="topline__nav" aria-label="Разделы страницы">
+      <a href="#program"><sup>01</sup>Программа</a>
+      <a href="#inside"><sup>02</sup>Формат</a>
+      <a href="#audience"><sup>//</sup>Кому</a>
+      <a href="#faq"><sup>03</sup>Вопросы</a>
+      <a href="#join"><sup>04</sup>Участие</a>
+    </nav>
+
+    <span class="topline__tag">поток 12 · 7—11 декабря · <b>0 ₽</b></span>
+
+    <div class="topline__act">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Включить светлую тему" title="Тема оформления" data-cursor-label="тема">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3M4.7 4.7l2.1 2.1M17.2 17.2l2.1 2.1M19.3 4.7l-2.1 2.1M6.8 17.2l-2.1 2.1"/>
+        </svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+          <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/>
+        </svg>
+      </button>
+      <button class="btn btn--sm" type="button" data-checkout-open data-cursor-label="0 ₽">
+        <span>Участвовать</span>
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= АФИША ================= -->
+  <section class="poster" aria-labelledby="posterTitle">
+    <div class="poster__bg" aria-hidden="true">
+      <span class="poster__halftone"></span>
+      <span class="poster__rays"></span>
+      <span class="poster__five">5</span>
+    </div>
+
+    <div class="poster__marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+    <div class="shell poster__top">
+      <ul class="poster__status">
+        <li><span class="dot" aria-hidden="true"></span> набор открыт · поток 12</li>
+        <li>7—11 декабря 2026</li>
+        <li>0 ₽ · 2 400+ участников</li>
+        <li class="demo-note" style="color:inherit">демо-макет · регистрация не работает</li>
+      </ul>
+    </div>
+
+    <!-- левая колонка-афиша: типографический плакат -->
+    <aside class="poster__bleed" aria-hidden="true">
+      <span class="bleed__label">Марафон<br>запусков<br>«5 дней»</span>
+
+      <div class="bleed__plate ticks">
+        <span class="plate__kicker">афиша потока 12 · онлайн</span>
+        <span class="plate__big"><b>5</b><i>дней подряд</i></span>
+        <svg class="plate__wave" viewBox="0 0 200 44" preserveAspectRatio="none" focusable="false">
+          <path d="M0 22h26l9-13 13 26 9-13h30l7-9 11 18 7-9h88"/>
+          <path d="M0 22h26l9-13 13 26 9-13h30l7-9 11 18 7-9h88"/>
+        </svg>
+        <span class="plate__dates">07—11.12<br>19:00 мск</span>
+      </div>
+
+      <div class="bleed__meta">
+        <span class="bleed__cap">запись на 14 дней<br>чат участников до 11.12</span>
+        <span class="bleed__bars"></span>
+      </div>
+    </aside>
+
+    <div class="shell poster__in">
+      <div class="poster__grid">
+        <!-- левая колонка -->
+        <div class="poster__main">
+          <h1 class="poster__title reveal reveal--mask" id="posterTitle">
+            5 дней,<br><span class="poster__title-tail">которые</span> меняют<br><span class="mark">запуск</span>
+          </h1>
+
+          <p class="poster__lead reveal">Марафон для экспертов и продюсеров: собираем оффер, прогреваем аудиторию и открываем продажи за одну неделю. Без «мотивации» — только рабочие механики.</p>
+
+          <ul class="poster__facts reveal" data-stagger>
+            <li><b>60—90</b><span>минут<br>живой эфир</span></li>
+            <li><b>30</b><span>страниц<br>рабочая тетрадь</span></li>
+            <li><b>14</b><span>дней<br>доступ к записям</span></li>
+            <li><b>чат</b><span>потока<br>до 11 декабря</span></li>
+          </ul>
+
+          <div class="poster__cta reveal">
+            <button class="btn btn--lg" type="button" data-checkout-open data-cursor-label="место">
+              <span>Участвовать бесплатно</span>
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+            </button>
+            <a class="btn btn--ghost" href="#program"><span>Смотреть 5 дней</span></a>
+          </div>
+        </div>
+
+        <!-- правая колонка -->
+        <div class="poster__side reveal">
+          <div class="stamp" role="img" aria-label="Участие бесплатное, ноль рублей, поток 12">
+            <b>0 ₽</b>
+            <span>бесплатно</span>
+            <span>поток 12</span>
+          </div>
+
+          <div class="side__box ticks">
+            <span class="timer__label">до старта потока 12</span>
+            <div class="countdown" data-countdown>
+              <div class="countdown__units" aria-hidden="true">
+                <span class="countdown__i"><b data-cd="d">00</b><i data-cd-l="d">дней</i></span>
+                <span class="countdown__sep">:</span>
+                <span class="countdown__i"><b data-cd="h">00</b><i data-cd-l="h">часов</i></span>
+                <span class="countdown__sep">:</span>
+                <span class="countdown__i"><b data-cd="m">00</b><i data-cd-l="m">минут</i></span>
+                <span class="countdown__sep">:</span>
+                <span class="countdown__i"><b data-cd="s">00</b><i data-cd-l="s">секунд</i></span>
+              </div>
+              <p class="countdown__done" hidden>поток стартовал</p>
+              <span class="vh">Старт 7 декабря 2026 в 19:00 по Москве.</span>
+            </div>
+
+            <div class="barcode" aria-hidden="true">
+              <span class="barcode__bars"></span>
+              <span class="barcode__txt">PULSE·12<br>07—11.12<br>FREE</span>
+            </div>
+          </div>
+
+          <a class="poster__scroll" href="#program">
+            <i aria-hidden="true"></i>
+            <span>листайте · программа</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- большой «говорящий» заголовок -->
+      <div class="poster__statement reveal">
+        <p>Запуск собирается за <em>пять вечеров</em> — а не откладывается полгода</p>
+        <span>ниша → оффер → лендинг → прогрев → открытие продаж · каждый шаг в тот же день</span>
+      </div>
+
+      <!-- спецификация потока -->
+      <ul class="spec reveal" data-stagger>
+        <li class="spec__i"><b>онлайн</b><span>формат участия</span></li>
+        <li class="spec__i"><b>19:00 мск</b><span>эфир каждый день</span></li>
+        <li class="spec__i"><b>5</b><span>дней программы</span></li>
+        <li class="spec__i spec__i--inv"><b>0 ₽</b><span>участие · бесплатно</span></li>
+        <li class="spec__i"><b>14 дней</b><span>доступ к записям</span></li>
+        <li class="spec__i"><b>поток 12</b><span>набор открыт</span></li>
+      </ul>
+
+      <!-- лента пяти дней -->
+      <nav class="poster__days reveal" aria-label="Коротко о пяти днях марафона">
+        <a class="pday" href="#program"><b>01 <em>7.12</em></b><span>Ниша и аудитория</span></a>
+        <a class="pday" href="#program"><b>02 <em>8.12</em></b><span>Оффер, который цепляет</span></a>
+        <a class="pday" href="#program"><b>03 <em>9.12</em></b><span>Лендинг под запуск</span></a>
+        <a class="pday" href="#program"><b>04 <em>10.12</em></b><span>Прогрев и касания</span></a>
+        <a class="pday" href="#program"><b>05 <em>11.12</em></b><span>Открытие продаж</span></a>
+      </nav>
+
+      <!-- низ афиши -->
+      <div class="poster__foot reveal">
+        <div class="poster__chips">
+          <span class="lead">кому подойдёт:</span>
+          <a class="chip" href="#audience">экспертам</a>
+          <a class="chip" href="#audience">продюсерам</a>
+          <a class="chip" href="#audience">командам</a>
+        </div>
+        <p>2 400+ участников в потоках · запись на 14 дней</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= МАРКИЗА 1 ================= -->
+  <div class="marquee marquee--accent" aria-hidden="true">
+    <div class="marquee__track">
+      <div class="marquee__row">
+        <span>5 дней</span><i></i><span>2 400+ участников</span><i></i><span>0 ₽ участие</span><i></i><span>7—11 декабря</span><i></i><span>набор открыт</span><i></i>
+      </div>
+      <div class="marquee__row">
+        <span>5 дней</span><i></i><span>2 400+ участников</span><i></i><span>0 ₽ участие</span><i></i><span>7—11 декабря</span><i></i><span>набор открыт</span><i></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= INTRO + СТАТИСТИКА ================= -->
+  <section class="section intro" aria-labelledby="introTitle">
+    <svg class="tex tex--dots" style="inset:0 0 0 46%;width:54%;height:100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texDots)"/></svg>
+    <span class="ghost" style="left:-1vw;bottom:2%">запуск</span>
+
+    <div class="shell">
+      <p class="kicker reveal">00 / суть</p>
+      <div class="intro__grid">
+        <h2 class="intro__lead reveal" id="introTitle">Пять вечеров — пять решений: ниша, оффер, лендинг, прогрев и открытие продаж.</h2>
+        <div class="reveal">
+          <p class="intro__text">Каждый день — живой эфир и задание, которое сразу идёт в запуск. Не «посмотрел и отложил», а <b>сделал вечером — применил утром</b>.</p>
+          <p class="intro__text">Участие бесплатное: <b>0 ₽</b> за все пять эфиров, рабочую тетрадь и доступ к чату потока до 11 декабря.</p>
+        </div>
+      </div>
+
+      <ul class="stats reveal" data-stagger>
+        <li class="stat"><b>5</b><span>дней<br>живых эфиров</span></li>
+        <li class="stat"><b>2 400+</b><span>участников<br>в потоках</span></li>
+        <li class="stat stat--accent"><b>0 ₽</b><span>стоимость<br>участия</span></li>
+        <li class="stat"><b>7—11</b><span>декабря<br>19:00 мск</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= ПРОГРАММА ================= -->
+  <section class="section program" id="program" aria-labelledby="programTitle">
+    <svg class="tex tex--hatch" style="inset:0 0 auto 0;width:100%;height:42%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texHatch)"/></svg>
+    <span class="ghost" style="right:-1vw;top:4%">5 дней</span>
+
+    <div class="shell">
+      <div class="section__head reveal">
+        <p class="kicker">01 / программа</p>
+        <h2 class="h2" id="programTitle">Пять дней — пять решений</h2>
+        <p class="section__sub">Каждый вечер в 19:00 мск — эфир на 60—90 минут, разбор и задание. Записи остаются с вами на 14 дней.</p>
+      </div>
+    </div>
+
+    <div class="days reveal" tabindex="0" role="list" aria-label="Программа марафона по дням, прокручивается по горизонтали">
+      <article class="day" role="listitem">
+        <div class="day__top"><span class="day__n">01</span><span class="day__date">7 декабря · 19:00</span></div>
+        <h3 class="day__title">Разбор ниши и аудитории</h3>
+        <p class="day__text">Находим боль, которую нельзя не решить, и формулируем её словами аудитории.</p>
+        <span class="day__tag">эфир + задание</span>
+      </article>
+
+      <article class="day" role="listitem">
+        <div class="day__top"><span class="day__n">02</span><span class="day__date">8 декабря · 19:00</span></div>
+        <h3 class="day__title">Оффер, который цепляет</h3>
+        <p class="day__text">Формула оффера и чек-лист проверки: обещание, доказательство, ограничение.</p>
+        <span class="day__tag">формула + чек-лист</span>
+      </article>
+
+      <article class="day" role="listitem">
+        <div class="day__top"><span class="day__n">03</span><span class="day__date">9 декабря · 19:00</span></div>
+        <h3 class="day__title">Лендинг под запуск</h3>
+        <p class="day__text">Структура страницы за 60 минут: от первого экрана до кнопки оплаты.</p>
+        <span class="day__tag">шаблон страницы</span>
+      </article>
+
+      <article class="day" role="listitem">
+        <div class="day__top"><span class="day__n">04</span><span class="day__date">10 декабря · 19:00</span></div>
+        <h3 class="day__title">Прогрев и касания</h3>
+        <p class="day__text">Пять механик под разные темпераменты аудитории — без 20 сторис в день.</p>
+        <span class="day__tag">5 механик</span>
+      </article>
+
+      <article class="day" role="listitem">
+        <div class="day__top"><span class="day__n">05</span><span class="day__date">11 декабря · 19:00</span></div>
+        <h3 class="day__title">Открытие продаж</h3>
+        <p class="day__text">Живой разбор трёх запусков в прямом эфире: что сработало и почему.</p>
+        <span class="day__tag">разбор в эфире</span>
+      </article>
+    </div>
+
+    <div class="shell">
+      <p class="hint">← листайте ленту дней</p>
+      <div class="reveal" style="margin-top:26px">
+        <button class="btn" type="button" data-checkout-open data-cursor-label="0 ₽"><span>Занять место в потоке 12</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= МАРКИЗА 2 ================= -->
+  <div class="marquee marquee--soft" aria-hidden="true">
+    <div class="marquee__track">
+      <div class="marquee__row">
+        <span>пять живых эфиров</span><i></i><span>бесплатно</span><i></i><span>рабочая тетрадь</span><i></i><span>чат участников</span><i></i><span>запись 14 дней</span><i></i>
+      </div>
+      <div class="marquee__row">
+        <span>пять живых эфиров</span><i></i><span>бесплатно</span><i></i><span>рабочая тетрадь</span><i></i><span>чат участников</span><i></i><span>запись 14 дней</span><i></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ЧТО ВНУТРИ ================= -->
+  <section class="section inside" id="inside" aria-labelledby="insideTitle">
+    <svg class="tex tex--stripes" style="inset:0 0 0 auto;width:42%;height:100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texStripes)"/></svg>
+    <span class="ghost" style="left:2vw;top:8%">формат</span>
+
+    <div class="shell inside__grid">
+      <div>
+        <p class="kicker reveal">02 / формат</p>
+        <h2 class="h2 reveal" id="insideTitle">Что внутри</h2>
+        <ul class="inside__list reveal" data-stagger>
+          <li><span class="inside__k">Живые эфиры каждый день</span><span class="inside__v">60—90 минут</span></li>
+          <li><span class="inside__k">Рабочая тетрадь участника</span><span class="inside__v">30 страниц</span></li>
+          <li><span class="inside__k">Чат с другими экспертами</span><span class="inside__v">до 11 декабря</span></li>
+          <li><span class="inside__k">Шаблоны лендинга и писем</span><span class="inside__v">Notion + Figma</span></li>
+          <li><span class="inside__k">Запись каждого эфира</span><span class="inside__v">на 14 дней</span></li>
+        </ul>
+      </div>
+
+      <aside class="inside__quote reveal" aria-label="Цитата команды марафона">
+        <span class="inside__mark" aria-hidden="true">«</span>
+        <blockquote>
+          <p>Пять дней — достаточно, чтобы перестать откладывать запуск и собрать его в систему.</p>
+        </blockquote>
+        <footer>команда марафона · демо</footer>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= КОМУ ПОДОЙДЁТ ================= -->
+  <section class="section audience" id="audience" aria-labelledby="audienceTitle">
+    <svg class="tex tex--grid" style="inset:0 auto 0 0;width:52%;height:100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texGrid)"/></svg>
+    <span class="ghost" style="right:0;bottom:4%">кому</span>
+
+    <div class="shell">
+      <p class="kicker reveal">// кому</p>
+      <h2 class="h2 reveal" id="audienceTitle">Кому подойдёт</h2>
+
+      <div class="audience__list reveal" data-stagger>
+        <article class="audience__item">
+          <span class="audience__ghost" aria-hidden="true">01</span>
+          <span class="audience__n">01</span>
+          <div class="audience__body">
+            <h3>Экспертам</h3>
+            <p>Продукт есть, запуска нет: нужно собрать оффер, страницу и прогрев за неделю.</p>
+          </div>
+        </article>
+
+        <article class="audience__item">
+          <span class="audience__ghost" aria-hidden="true">02</span>
+          <span class="audience__n">02</span>
+          <div class="audience__body">
+            <h3>Продюсерам</h3>
+            <p>Нужен понятный план на неделю, а не очередная порция мотивации.</p>
+          </div>
+        </article>
+
+        <article class="audience__item">
+          <span class="audience__ghost" aria-hidden="true">03</span>
+          <span class="audience__n">03</span>
+          <div class="audience__body">
+            <h3>Командам</h3>
+            <p>Собираем запуск вместе: эксперт, маркетолог и человек, который всё это ведёт.</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="audience__note reveal"><b>// не подойдёт</b>, если нужен готовый трафик и продажи «под ключ» — это не про марафон. Здесь вы сами собираете запуск за пять вечеров.</p>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section faq" id="faq" aria-labelledby="faqTitle">
+    <svg class="tex tex--dots" style="inset:0 0 0 auto;width:46%;height:100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texDots)"/></svg>
+    <span class="ghost" style="left:1vw;top:6%">вопросы</span>
+
+    <div class="shell faq__grid">
+      <div class="section__head reveal">
+        <p class="kicker">03 / вопросы</p>
+        <h2 class="h2" id="faqTitle">Коротко о главном</h2>
+        <p class="section__sub">Четыре вопроса, которые чаще всего задают перед стартом потока.</p>
+        <div class="faq__aside ticks">
+          <p>Остались вопросы? Напишите на <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a> или в <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a>. В демо-макете письма и сообщения никуда не уходят.</p>
+        </div>
+      </div>
+
+      <div class="faq__list reveal">
+        <details class="faq__item" open>
+          <summary><span class="faq__num">01</span><span class="faq__q">Правда бесплатно?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__body">
+            <p>Да, участие бесплатное — <b>0 ₽</b> за все пять эфиров, рабочую тетрадь и чат потока. На последнем эфире будет предложение платного продукта, но без обязательств. В демо оплата не подключена.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary><span class="faq__num">02</span><span class="faq__q">Сколько времени нужно в день?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__body">
+            <p>Час-полтора на эфир и около получаса на задание. Эфиры остаются в записи на <b>14 дней</b>, так что пропущенный вечер можно закрыть на следующий день.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary><span class="faq__num">03</span><span class="faq__q">Кому подойдёт?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__body">
+            <p>Экспертам и продюсерам, которые готовят запуск в ближайшие месяцы и хотят собрать оффер, страницу и прогревочную серию без хаоса.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary><span class="faq__num">04</span><span class="faq__q">Что нужно для старта?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__body">
+            <p>Телефон или ноутбук, 5 вечеров и описание продукта. В демо регистрация не работает — кнопка открывает демонстрационное оформление.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
+  <section class="join" id="join" aria-labelledby="joinTitle">
+    <svg class="tex tex--wave" style="inset:auto 0 0 0;width:100%;height:56%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texWave)"/></svg>
+    <span class="ghost" style="right:-1vw;top:8%">старт</span>
+
+    <div class="shell join__in">
+      <div class="reveal">
+        <p class="kicker">04 / участие</p>
+        <h2 class="join__title" id="joinTitle">Начните запуск<br>в <em>понедельник</em></h2>
+        <p class="join__text">Старт 7 декабря. Участие бесплатное. В демо кнопка открывает оформление заказа — без настоящей регистрации.</p>
+        <div class="join__act">
+          <button class="btn btn--lg" type="button" data-checkout-open data-cursor-label="поток 12">
+            <span>Присоединиться</span>
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+          </button>
+          <p class="join__meta">7—11 декабря · 19:00 мск<br>0 ₽ · запись на 14 дней</p>
+        </div>
+      </div>
+
+      <div class="join__box ticks reveal">
+        <span class="timer__label">до старта осталось</span>
+        <div class="countdown" data-countdown>
+          <div class="countdown__units" aria-hidden="true">
+            <span class="countdown__i"><b data-cd="d">00</b><i data-cd-l="d">дней</i></span>
+            <span class="countdown__sep">:</span>
+            <span class="countdown__i"><b data-cd="h">00</b><i data-cd-l="h">часов</i></span>
+            <span class="countdown__sep">:</span>
+            <span class="countdown__i"><b data-cd="m">00</b><i data-cd-l="m">минут</i></span>
+            <span class="countdown__sep">:</span>
+            <span class="countdown__i"><b data-cd="s">00</b><i data-cd-l="s">секунд</i></span>
+          </div>
+          <p class="countdown__done" hidden>поток стартовал</p>
+          <span class="vh">Старт 7 декабря 2026 в 19:00 по Москве.</span>
+        </div>
+        <p class="demo-note" style="margin-top:20px">демо-касса · данные никуда не отправляются</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= ПОДВАЛ ================= -->
+<footer class="footer">
+  <svg class="tex tex--grid" style="inset:0 0 auto 0;width:100%;height:60%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#texGrid)"/></svg>
+
+  <div class="shell">
+    <div class="footer__in">
+      <div class="footer__col">
+        <h4>Pulse.</h4>
+        <p style="color:var(--dim);font-size:.9rem;line-height:1.65;max-width:34ch">Марафон запусков «5 дней». Поток 12: 7—11 декабря 2026, 19:00 мск. Участие бесплатное.</p>
+        <p class="demo-note" style="margin-top:18px">демо-макет · регистрация не работает</p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Разделы</h4>
+        <nav class="footer__nav" aria-label="Навигация в подвале">
+          <a href="#program">Программа</a>
+          <a href="#inside">Формат</a>
+          <a href="#audience">Кому подойдёт</a>
+          <a href="#faq">Вопросы</a>
+          <a href="#join">Участие</a>
+        </nav>
+      </div>
+
+      <div class="footer__col">
+        <h4>Связь</h4>
+        <div class="footer__contacts">
+          <a href="mailto:hello@vmlabs.ru">hello@vmlabs.ru</a>
+          <a href="https://t.me/vmlabs" target="_blank" rel="noopener noreferrer">@vmlabs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__word" aria-hidden="true"><span>Pulse<em>.</em></span></div>
+
+    <div class="footer__bar">
+      <p class="footer__copy">© 2026 pulse. · демо-макет</p>
+      <p class="footer__made">сделано <b>VM Labs</b></p>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /.page -->
+
+<!-- ================= ДОК-БАР ================= -->
+<div class="dockbar" id="dockbar">
+  <div class="dockbar__in">
+    <span class="dockbar__txt"><b>0 ₽ · старт 7 декабря</b>поток 12 · набор открыт</span>
+    <button class="btn btn--sm" type="button" data-checkout-open><span>Участвовать</span></button>
+  </div>
+</div>
+
+<!-- ================= МОДАЛКА CHECKOUT ================= -->
+<div class="checkout" id="checkout" hidden>
+  <div class="checkout__backdrop" data-checkout-close></div>
+
+  <div class="checkout__panel" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" aria-describedby="checkoutDesc" tabindex="-1" data-autofocus>
+    <button class="checkout__close" type="button" data-checkout-close aria-label="Закрыть окно регистрации">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+
+    <div class="checkout__step" id="stepForm">
+      <p class="checkout__kicker">демо-касса · шаг 1 из 2</p>
+      <h2 class="checkout__title" id="checkoutTitle">Участие в марафоне</h2>
+      <p class="checkout__desc" id="checkoutDesc">Поток 12, 7—11 декабря. Пять живых эфиров в 19:00 мск, рабочая тетрадь и чат участников.</p>
+
+      <dl class="checkout__sum">
+        <div><dt>поток</dt><dd>12 · 7—11 декабря</dd></div>
+        <div><dt>эфиры</dt><dd>5 дней · 19:00 мск</dd></div>
+        <div><dt>запись</dt><dd>14 дней</dd></div>
+        <div><dt>стоимость</dt><dd class="is-free">бесплатно · 0 ₽</dd></div>
+      </dl>
+
+      <form id="regForm" novalidate>
+        <div class="field">
+          <label class="field__label" for="fName">имя</label>
+          <input class="field__input" id="fName" name="name" type="text" placeholder="Как к вам обращаться" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="fContact">telegram или e-mail</label>
+          <input class="field__input" id="fContact" name="contact" type="text" placeholder="@nickname или mail@example.com" autocomplete="email" required>
+        </div>
+
+        <label class="check" for="fAgree">
+          <input id="fAgree" name="agree" type="checkbox" required>
+          <span class="check__box" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M2.5 8.5l3.6 3.6L13.5 4.5"/></svg>
+          </span>
+          <span class="check__text">Согласен с условиями и обработкой данных — это демо</span>
+        </label>
+
+        <button class="btn btn--lg checkout__submit" type="submit" data-cursor-label="занять">
+          <span>Занять место</span>
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+        </button>
+
+        <p class="demo-note checkout__note">Это демо: регистрация не подключена, данные никуда не отправляются.</p>
+      </form>
+    </div>
+
+    <div class="checkout__step" id="stepDone" hidden>
+      <p class="checkout__kicker">заявка отправлена · шаг 2 из 2</p>
+      <div class="done__icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M5 17l7 7L27 8"/></svg>
+      </div>
+      <h2 class="checkout__title" id="doneTitle" tabindex="-1">Готово — это демо</h2>
+      <p class="done__text">В рабочем проекте здесь было бы подтверждение регистрации и ссылка на эфир. В макете данные никуда не уходят: имя и контакт остались только в этой форме.</p>
+      <div class="done__foot">
+        <span class="demo-note">pulse. · демо-касса</span>
+        <button class="btn" type="button" data-checkout-close><span>Вернуться на страницу</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var doc = document;
+  var root = doc.documentElement;
+  root.classList.add('js');
+
+  var mqReduce   = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mqContrast = window.matchMedia('(prefers-contrast: more)');
+  var mqMouse    = window.matchMedia('(pointer: fine)');
+
+  function onMq(mq, fn){
+    if(!mq) return;
+    if(typeof mq.addEventListener === 'function') mq.addEventListener('change', fn);
+    else if(typeof mq.addListener === 'function') mq.addListener(fn);
+  }
+
+  /* ============ 1. ТЕМА ============ */
+  /* Тема и режим для слабовидящих — в script/demo-theme.js: один файл
+     на три демо, чтобы витрина и модалка управляли ими одинаково. */
+
+  function applyContrast(){
+    if(mqContrast.matches) root.setAttribute('data-contrast','more');
+    else root.removeAttribute('data-contrast');
+  }
+  applyContrast();
+  onMq(mqContrast, applyContrast);
+
+  /* ============ 2. REVEAL ============ */
+  var revealEls = Array.prototype.slice.call(doc.querySelectorAll('.reveal'));
+
+  Array.prototype.forEach.call(doc.querySelectorAll('[data-stagger]'), function(group){
+    var kids = group.children;
+    for(var i=0;i<kids.length;i++){
+      kids[i].style.setProperty('--rd', (i * 65) + 'ms');
+    }
+  });
+
+  if('IntersectionObserver' in window && !mqReduce.matches){
+    var revealIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-in');
+          /* .reveal--mask обрезан по собственной коробке
+             (clip-path: inset(0 0 100% 0)), поэтому наблюдатель видит
+             нулевую площадь и никогда не навесит is-in на сам заголовок.
+             Наблюдаем его родителя, а класс ставим маске. */
+          var masks = entry.target.querySelectorAll('.reveal--mask');
+          for(var mi = 0; mi < masks.length; mi++) masks[mi].classList.add('is-in');
+          revealIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+    revealEls.forEach(function(el){
+      if(el.classList.contains('reveal--mask') && el.parentElement){
+        revealIO.observe(el.parentElement);
+      } else {
+        revealIO.observe(el);
+      }
+    });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-in'); });
+  }
+
+  /* ============ 3. ПРОГРЕСС (5 СЕГМЕНТОВ) + ДОК-БАР ============ */
+  var segs = Array.prototype.slice.call(doc.querySelectorAll('.progress__seg i'));
+  var dockbar = doc.getElementById('dockbar');
+  var poster = doc.querySelector('.poster');
+  var footerEl = doc.querySelector('.footer');
+  var ticking = false;
+
+  function onFrame(){
+    ticking = false;
+    var scrollTop = window.pageYOffset || root.scrollTop;
+    var docH = root.scrollHeight - window.innerHeight;
+    var p = docH > 0 ? Math.min(1, Math.max(0, scrollTop / docH)) : 0;
+
+    for(var i=0;i<segs.length;i++){
+      var local = Math.min(1, Math.max(0, (p * segs.length) - i));
+      segs[i].style.transform = 'scaleX(' + local + ')';
+    }
+
+    if(dockbar){
+      var trigger = poster ? poster.offsetHeight * 0.72 : 420;
+      var footerTop = footerEl ? footerEl.getBoundingClientRect().top : window.innerHeight;
+      var nearFooter = footerTop < window.innerHeight - 40;
+      if(scrollTop > trigger && !nearFooter && !doc.body.classList.contains('is-locked')){
+        dockbar.classList.add('is-shown');
+      } else {
+        dockbar.classList.remove('is-shown');
+      }
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking = true; window.requestAnimationFrame(onFrame); } }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll);
+  onFrame();
+
+  /* ============ 4. КУРСОР + ПРОЖЕКТОР ============ */
+  var cursor = doc.getElementById('cursor');
+  var spot = doc.getElementById('spot');
+
+  if(mqMouse.matches && !mqReduce.matches){
+    var ring = doc.getElementById('cursorRing');
+    var dotEl = doc.getElementById('cursorDot');
+    var labelEl = doc.getElementById('cursorLabel');
+    var tx = -100, ty = -100, cx = -100, cy = -100, started = false;
+
+    doc.addEventListener('mousemove', function(e){
+      tx = e.clientX; ty = e.clientY;
+      if(!started){ started = true; cx = tx; cy = ty; cursor.classList.add('is-on'); root.classList.add('has-cursor'); }
+      dotEl.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0)';
+      labelEl.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0) translate(-50%,-50%)';
+      if(spot){
+        spot.classList.add('is-on');
+        spot.style.setProperty('--mx', tx + 'px');
+        spot.style.setProperty('--my', ty + 'px');
+      }
+    }, { passive:true });
+
+    doc.addEventListener('mouseleave', function(){
+      cursor.classList.remove('is-on');
+      started = false;
+      if(spot) spot.classList.remove('is-on');
+    });
+
+    (function loop(){
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      ring.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      window.requestAnimationFrame(loop);
+    })();
+
+    var hoverSel = 'a,button,summary,label,input,textarea';
+    doc.addEventListener('mouseover', function(e){
+      var t = e.target.closest ? e.target.closest(hoverSel) : null;
+      if(!t) return;
+      cursor.classList.add('is-hover');
+      var lab = t.getAttribute('data-cursor-label');
+      if(!lab){ var p = t.closest('[data-cursor-label]'); if(p) lab = p.getAttribute('data-cursor-label'); }
+      if(lab && labelEl){ labelEl.textContent = lab; cursor.classList.add('has-label'); }
+    });
+    doc.addEventListener('mouseout', function(e){
+      var t = e.target.closest ? e.target.closest(hoverSel) : null;
+      if(!t) return;
+      cursor.classList.remove('is-hover');
+      cursor.classList.remove('has-label');
+      if(labelEl) labelEl.textContent = '';
+    });
+  }
+
+  /* ============ 5. АКТИВНЫЙ ПУНКТ МЕНЮ ============ */
+  var navLinks = Array.prototype.slice.call(doc.querySelectorAll('.topline__nav a'));
+  if('IntersectionObserver' in window && navLinks.length){
+    var sections = navLinks.map(function(a){ return doc.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    var navIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        navLinks.forEach(function(a){
+          a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(s){ navIO.observe(s); });
+  }
+
+  /* ============ 6. FAQ: ОДИН ОТКРЫТЫЙ ============ */
+  var faqItems = Array.prototype.slice.call(doc.querySelectorAll('.faq__item'));
+  faqItems.forEach(function(item){
+    item.addEventListener('toggle', function(){
+      if(item.open) faqItems.forEach(function(other){ if(other !== item) other.open = false; });
+    });
+  });
+
+  /* ============ 7. ТАЙМЕР ============ */
+  var START = new Date('2026-12-07T19:00:00+03:00').getTime();
+  var clocks = Array.prototype.slice.call(doc.querySelectorAll('[data-countdown]'));
+  var FORMS = {
+    d:['день','дня','дней'],
+    h:['час','часа','часов'],
+    m:['минута','минуты','минут'],
+    s:['секунда','секунды','секунд']
+  };
+  function plural(n, f){
+    var n10 = n % 10, n100 = n % 100;
+    if(n10 === 1 && n100 !== 11) return f[0];
+    if(n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return f[1];
+    return f[2];
+  }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  function tickClock(){
+    var diff = START - Date.now();
+    var started = diff <= 0;
+    var d=0,h=0,m=0,s=0;
+    if(!started){
+      d = Math.floor(diff / 86400000);
+      h = Math.floor(diff / 3600000) % 24;
+      m = Math.floor(diff / 60000) % 60;
+      s = Math.floor(diff / 1000) % 60;
+    }
+    clocks.forEach(function(box){
+      var units = box.querySelector('.countdown__units');
+      var doneEl = box.querySelector('.countdown__done');
+      if(started){
+        if(units) units.hidden = true;
+        if(doneEl) doneEl.hidden = false;
+        return;
+      }
+      var vals = { d:d, h:h, m:m, s:s };
+      ['d','h','m','s'].forEach(function(key){
+        var numEl = box.querySelector('[data-cd="' + key + '"]');
+        var labEl = box.querySelector('[data-cd-l="' + key + '"]');
+        if(numEl) numEl.textContent = key === 'd' ? String(vals[key]) : pad(vals[key]);
+        if(labEl) labEl.textContent = plural(vals[key], FORMS[key]);
+      });
+    });
+  }
+  if(clocks.length){ tickClock(); window.setInterval(tickClock, 1000); }
+
+  /* ============ 8. МОДАЛКА ============ */
+  var modal = doc.getElementById('checkout');
+  var stepForm = doc.getElementById('stepForm');
+  var stepDone = doc.getElementById('stepDone');
+  var form = doc.getElementById('regForm');
+  var doneTitle = doc.getElementById('doneTitle');
+  var lastFocus = null;
+
+  var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+  function focusables(){
+    if(!modal) return [];
+    return Array.prototype.filter.call(modal.querySelectorAll(FOCUSABLE), function(el){
+      return el.offsetWidth > 0 || el.offsetHeight > 0 || el === doc.activeElement;
+    });
+  }
+
+  function openModal(){
+    if(!modal) return;
+    lastFocus = doc.activeElement;
+    stepForm.hidden = false;
+    stepDone.hidden = true;
+    modal.hidden = false;
+    doc.body.classList.add('is-locked');
+    if(dockbar) dockbar.classList.remove('is-shown');
+    window.requestAnimationFrame(function(){ modal.classList.add('is-open'); });
+    var target = modal.querySelector('[data-autofocus]') || focusables()[0];
+    window.setTimeout(function(){ if(target) target.focus(); }, 60);
+  }
+
+  function closeModal(){
+    if(!modal || modal.hidden) return;
+    modal.classList.remove('is-open');
+    doc.body.classList.remove('is-locked');
+    var finish = function(){
+      modal.hidden = true;
+      if(form) form.reset();
+      stepForm.hidden = false;
+      stepDone.hidden = true;
+      onFrame();
+    };
+    if(mqReduce.matches) finish(); else window.setTimeout(finish, 260);
+    if(lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  Array.prototype.forEach.call(doc.querySelectorAll('[data-checkout-open]'), function(btn){
+    btn.addEventListener('click', openModal);
+  });
+  Array.prototype.forEach.call(doc.querySelectorAll('[data-checkout-close]'), function(el){
+    el.addEventListener('click', function(e){
+      if(el.tagName !== 'BUTTON' && e.target !== el) return;
+      closeModal();
+    });
+  });
+
+  doc.addEventListener('keydown', function(e){
+    if(!modal || modal.hidden) return;
+    if(e.key === 'Escape' || e.key === 'Esc'){ e.preventDefault(); closeModal(); return; }
+    if(e.key === 'Tab'){
+      var list = focusables();
+      if(!list.length) return;
+      var first = list[0], last = list[list.length - 1];
+      var dialog = modal.querySelector('.checkout__panel');
+      if(e.shiftKey && (doc.activeElement === first || doc.activeElement === dialog || !modal.contains(doc.activeElement))){
+        e.preventDefault(); last.focus();
+      } else if(!e.shiftKey && doc.activeElement === last){
+        e.preventDefault(); first.focus();
+      }
+    }
+  });
+
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(typeof form.reportValidity === 'function' && !form.checkValidity()){ form.reportValidity(); return; }
+      stepForm.hidden = true;
+      stepDone.hidden = false;
+      var panel = modal.querySelector('.checkout__panel');
+      if(panel) panel.scrollTop = 0;
+      if(doneTitle) window.setTimeout(function(){ doneTitle.focus(); }, 80);
+    });
+  }
+
+  /* ============ 9. ЯКОРЯ ПРИ REDUCED MOTION ============ */
+  Array.prototype.forEach.call(doc.querySelectorAll('a[href^="#"]'), function(a){
+    a.addEventListener('click', function(){
+      var id = a.getAttribute('href');
+      if(id && id.length > 1 && mqReduce.matches){
+        var target = doc.querySelector(id);
+        if(target) window.scrollTo(0, target.getBoundingClientRect().top + window.pageYOffset - 86);
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
